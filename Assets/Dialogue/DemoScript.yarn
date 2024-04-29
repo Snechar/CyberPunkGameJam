@@ -1,0 +1,46 @@
+﻿title: Begin
+---
+<<reset>>
+<<loadBG "Alley/AlleyBG">>
+<<fadeIn 1>>
+A sketchy character slides up beside you.
+
+<<loadLeft "Bar/Characters/OldSoldier">>
+???: Oy, choom. Got a few creds to spare?
+
+You do but that's never a good thing to let folks know...
+-> Sure mate, good luck.
+   <<jump Caution>>
+-> Ey, sorry I don't.
+   <<jump Conflict>>
+===
+
+title: Caution
+---
+As you start to answer you notice the faint outline of a hilt under their jacket. Maybe you shouldn't make yourself a mark.
+
+MC: Sorry I don't.
+You motion at the bar behind you.
+MC: Big tab at H4-DE I can't quite cover and those two scary lads at the entries won't take kindly if they see me handing out charity.
+
+At the mention of H4-DE and the bouncers the character is a bit spooked and slinks off into the night.
+<<set $close_call = false>>
+<<jump H4DE>>
+===
+
+title: Conflict
+---
+A look of disappointment crosses their face.
+
+???: I was really hoping you would make this easy. I take no joy in this but we've all got to make a living.
+
+A shift in positioning and you notice a hilt protruding from beneath their jacket.
+
+You motion towards the bar behind you.
+
+MC: You sure you want me to call the bouncers out to solve this for good? Or do you want to let me go.
+
+Crestfallen the character slinks off into the night.
+<<set $close_call = true>>
+<<jump H4DE>>
+===
