@@ -1,0 +1,20 @@
+title: H4DE
+---
+<<reset>>
+<<loadBG "Bar/BarBG1">>
+You're in H4-DE. It's a dive bar on the edge of Delta City. Not the best place but maybe the best people.
+
+<<if $close_call>>
+You think back to the guy outside. Well, maybe not all the best people.
+<<else>>
+Thinking back to your recent encounter maybe they've also got the best bouncers. But you're sure that's unrelated.
+<<endif>>
+
+Now to find your client.
+
+<<wait 2>>
+<<loadRight "Bar/Characters/Spy">>
+Ah, here we go...
+
+<<fadeOut 1>>
+===
