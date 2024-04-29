@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f51879db368c997488b203adff79b25b, type: 3}
+  m_Name: SO_Tomato
+  m_EditorClassIdentifier: 
+  timeToGrowCycles: 4
+  currentCycle: 0
+  sprites:
+  - {fileID: 9312315, guid: b18d96ee5c41849489a5d61d350358c0, type: 3}
+  - {fileID: 1748535565, guid: b18d96ee5c41849489a5d61d350358c0, type: 3}
+  - {fileID: 2055369906, guid: b18d96ee5c41849489a5d61d350358c0, type: 3}
+  - {fileID: 1174571981, guid: b18d96ee5c41849489a5d61d350358c0, type: 3}
+  currentSprite: {fileID: 1174571981, guid: b18d96ee5c41849489a5d61d350358c0, type: 3}
