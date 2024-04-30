@@ -2,6 +2,7 @@ title: H4DE
 ---
 <<reset>>
 <<loadBG "Bar/BarBG1">>
+<<crossfadeBGTo "Remember Yesterday" 2>>
 You're in H4-DE. It's a dive bar on the edge of Delta City. Not the best place but maybe the best people.
 
 <<if $close_call>>

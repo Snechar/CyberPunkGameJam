@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Yarn.Unity;
 
 public class BarManager : MonoBehaviour {
     public DialogueRunner dlgRunner;
+    public AudioManager audioManager;
     public Image bgImg;
     public Image leftChar;
     public Image rightChar;
@@ -15,6 +14,9 @@ public class BarManager : MonoBehaviour {
         if (dlgRunner == null) {
             this.dlgRunner = FindObjectOfType<DialogueRunner>();
         }
+        if (audioManager == null) {
+            this.audioManager = FindAnyObjectByType<AudioManager>();
+        }
         dlgRunner.AddCommandHandler("reset", Reset);
         dlgRunner.AddCommandHandler<string>("loadBG", LoadBG);
         dlgRunner.AddCommandHandler<string>("loadLeft", LoadCharacterLeft);
@@ -23,8 +25,14 @@ public class BarManager : MonoBehaviour {
         dlgRunner.AddCommandHandler("unloadRight", UnloadRight);
         dlgRunner.AddCommandHandler<float>("fadeIn", FadeIn);
         dlgRunner.AddCommandHandler<float>("fadeOut", FadeOut);
+        dlgRunner.AddCommandHandler<string>("playBG", audioManager.Play);
+        dlgRunner.AddCommandHandler<float, float>("volumeBG", audioManager.SetBGVolume);
+        dlgRunner.AddCommandHandler<string, float>("crossfadeBGTo", audioManager.CrossfadeTo);
     }
 
+    // hides left and right characters
+    // unsets background
+    // does not impact the audio
     private void Reset() {
         UnloadLeft();
         UnloadRight();
