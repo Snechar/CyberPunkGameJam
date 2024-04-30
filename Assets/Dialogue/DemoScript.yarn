@@ -2,6 +2,10 @@
 ---
 <<reset>>
 <<loadBG "Alley/AlleyBG">>
+// start volume levels at 0 so we can fade in and don't accidentally surprise ourselves with sound
+<<volumeBG 0>>
+<<playBG "Dead Rain">>
+<<volumeBG .5 3>>
 <<fadeIn 1>>
 A sketchy character slides up beside you.
 

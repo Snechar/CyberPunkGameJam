@@ -10,13 +10,26 @@
 
 ## YarnSpinner in our Jam
 
-**Functions**
+### Functions: General
+- `wait <time_sec>` -- waits a specific amount of time
+
+### Functions: Visuals
 - `reset` -- this unloads the left+right characters and sets the Background to the "no-signal" screen
 - `loadBG <path>` -- takes a path to a background image and sets it; we'll discuss how to add background images in a bit
 - `loadLeft <path>`, `loadRight <path>` -- loads a left or right image into the character slot
 - `unloadLeft`, `unloadRight` -- makes the left or right character slot empty
 - `fadeIn <time_sec>`, `fadeOut <timeSec>` -- fades a scene in or out in a set amount of time
-- `wait <time_sec>` -- waits a specific amount of time
+
+### Functions: Audio
+- `playBG "<track_name>"` -- start playing the specified track at the current volume. valid `track_name` values right now are:
+  - Dead Rain
+  - Remember Yesterday
+  - The Color Purple
+- `volumeBG <level> <time_sec>` -- fade from the current volume to the specified level (range: 0 to 1) over the `time_sec` seconds. A time is optional and change will be instant if omitted. Examples:
+  - `volumeBG .5` -- instantly sets the volume to half
+  - `volumeBG .75 5` -- fades the volume from the current value to .75 over 5 seconds
+- `crossfadeBGTo <track_name> <time_sec>` -- fades the current track out and a new track in over `time_sec`. The new track will be playing at the same level as the previous track.
+
 
 Indicating you would like to call a function in the script is done by `<<function_name args>>`. If
 there are no args you can omit them and just `<<function_name>>`. Multiple args are space separated.
