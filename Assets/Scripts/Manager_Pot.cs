@@ -9,7 +9,7 @@ public class PotManager : MonoBehaviour
     [SerializeField]
     private bool readyToHarvest = false;
     [SerializeField]
-    private SpriteRenderer SpriteRenderer;
+    private SpriteRenderer[] SpriteRenderer = new SpriteRenderer[0];
 
     private void Start()
     {
@@ -20,7 +20,7 @@ public class PotManager : MonoBehaviour
         return readyToHarvest;
     }
 
-    public void PlantSeed(Seed seed)
+    public void PlantSeed(Plantable seed)
     {   
         
         
@@ -35,8 +35,26 @@ public class PotManager : MonoBehaviour
 
     private void UpdateSprite()
     {
-        SpriteRenderer.sprite = plant.GetCurrentCycleSprite();
+        foreach (var sprite in SpriteRenderer)
+        {
+            sprite.sprite = plant.GetCurrentCycleSprite();
+        }
+
     }
+
+    public SO_Produce Harvest()
+    {
+        Debug.Log("Harvest Has Been Attempted");
+        foreach (var sprite in SpriteRenderer)
+        {
+            sprite.sprite = null;
+        }
+        var throwAway = plant;
+        plant = null;
+        readyToHarvest = false;
+        return throwAway.GetProduce();
+    } 
+
 
 
     public void UpdateVeggieCycle()
@@ -44,7 +62,9 @@ public class PotManager : MonoBehaviour
         if (plant == null) return;
         if (plant.UpdateCycle())
         {
+            Debug.Log("Plant Has Fully Grown");
             readyToHarvest = true;
+            UpdateSprite();
         }
         UpdateSprite();
     }
