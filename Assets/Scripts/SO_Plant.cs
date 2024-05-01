@@ -11,6 +11,8 @@ public class SO_Plant : ScriptableObject
     private int currentCycle = 0;
     [SerializeField]
     private Sprite[] sprites = new Sprite[3];
+    [SerializeField]
+    private SO_Produce produce;
     public Sprite currentSprite = null;
 
     //implement end product : ex tomato
@@ -19,6 +21,8 @@ public class SO_Plant : ScriptableObject
     {
         return currentCycle;
     }
+    public SO_Produce GetProduce() { return produce; }
+
     public Sprite GetCurrentCycleSprite() {
         SetupSprite();
         return currentSprite; }

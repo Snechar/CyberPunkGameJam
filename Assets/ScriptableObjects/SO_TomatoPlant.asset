@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f51879db368c997488b203adff79b25b, type: 3}
-  m_Name: SO_Tomato
+  m_Name: SO_TomatoPlant
   m_EditorClassIdentifier: 
   timeToGrowCycles: 4
   currentCycle: 0

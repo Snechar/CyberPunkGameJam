@@ -7,13 +7,17 @@ public class PotManager : MonoBehaviour
     [SerializeField]
     private SO_Plant plant;
     [SerializeField]
-    private bool readyToHarvest;
+    private bool readyToHarvest = false;
     [SerializeField]
     private SpriteRenderer SpriteRenderer;
 
     private void Start()
     {
 
+    }
+    public bool GetHarvestStatus()
+    {
+        return readyToHarvest;
     }
 
     public void PlantSeed(Seed seed)
@@ -37,6 +41,7 @@ public class PotManager : MonoBehaviour
 
     public void UpdateVeggieCycle()
     {
+        if (plant == null) return;
         if (plant.UpdateCycle())
         {
             readyToHarvest = true;
