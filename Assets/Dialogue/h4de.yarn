@@ -1,9 +1,10 @@
 title: H4DE
 ---
 <<reset>>
-<<loadBG "Bar/BarBG1">>
 <<crossfadeBGTo "Remember Yesterday" 2>>
-You're in H4-DE. It's a dive bar on the edge of Delta City. Not the best place but maybe the best people.
+<<loadBG "Bar/BarBG1">>
+<<fadeIn 0>>
+You're in H4-DEs. It's a dive bar on the edge of Delta City. Not the best place but maybe the best people.
 
 <<if $close_call>>
 You think back to the guy outside. Well, maybe not all the best people.
@@ -17,5 +18,7 @@ Now to find your client.
 <<loadRight "Bar/Characters/Spy">>
 Ah, here we go...
 
+<<volumeBG 0 1>>
 <<fadeOut 1>>
+<<switchScene "tycoon">>
 ===

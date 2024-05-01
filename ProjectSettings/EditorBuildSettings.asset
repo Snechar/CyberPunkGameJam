@@ -6,6 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Driver.unity
+    guid: 15bf3a40048d8de45a39d62c8e63d9fe
+  - enabled: 1
+    path: Assets/Scenes/Bar.unity
+    guid: bb9360df725582e47aecfdafcdadc5a2
+  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/Tycoon.unity
+    guid: c2329084e82c46c40be5939b25f3679a
   m_configObjects: {}
