@@ -29,14 +29,20 @@ public class MouseManager : MonoBehaviour
             {
                 if (hit.collider.gameObject.tag == "Pot")
                 {
-                    hit.collider.gameObject.GetComponent<PotManager>().PlantSeed(storedSteed);
-                    RemoveSeed();
-                }
-                if (hit.collider.gameObject.tag == "Seed")
-                {
-                    Debug.Log("Hit a seed");
-                    storedSteed = hit.collider.gameObject.GetComponent<Seed>();
-                    Renderer.sprite = storedSteed.Sprite;
+                    PotManager potManager = hit.collider.gameObject.GetComponent<PotManager>();
+                    if (potManager.GetHarvestStatus())
+                    {
+                        RemoveSeed();
+
+                    }
+                    else
+                    {
+                        if (storedSteed != null)
+                        {
+                            potManager.PlantSeed(storedSteed);
+                            RemoveSeed();
+                        }
+                    }
                 }
 
             }
