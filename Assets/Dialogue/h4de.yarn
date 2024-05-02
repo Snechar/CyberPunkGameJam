@@ -1,9 +1,22 @@
-title: H4DE
+title: H4DEs
 ---
 <<reset>>
-<<crossfadeBGTo "Remember Yesterday" 2>>
 <<loadBG "Bar/BarBG1">>
-<<fadeIn 0>>
+<<loadLeft "Bar/Characters/Eddy">>
+<<playBG "Dead Rain">>
+<<volumeBG .1 4>>
+<<fadeIn 1>>
+
+<<if $isFirstStart>>
+    <<jump FirstStart>>
+<<else>>
+    <<jump Arrival>>
+<<endif>>
+===
+
+
+title: Other
+---
 You're in H4-DEs. It's a dive bar on the edge of Delta City. Not the best place but maybe the best people.
 
 <<if $close_call>>
@@ -21,4 +34,41 @@ Ah, here we go...
 <<volumeBG 0 1>>
 <<fadeOut 1>>
 <<switchScene "tycoon">>
+===
+
+title: FirstStart
+---
+Eddy: Hey there, welcome to H4-DEs...
+Eddy: Oh, Carrier, glad you're back! looking for new clients?
+-> Sure, if it's not too much trouble.
+   Eddy laughs
+   Eddy: Never trouble. How about you start off with a couple of tomatoes for me and we'll have a Bloody Mary next time you're in.
+-> Not right now, trying to lay low.
+   Eddy: I get it. What about a milkrun for me?
+   You pause. You really are trying to avoid heat but Eddy has always been kind and H4-DEs is your base at the moment.
+   Carrier: You know I couldn't turn you down even if I wanted to. What do you need?
+   Eddy: A couple of tomatoes? Been a while since we had a real Bloody Mary around here.
+Carrier: Sure thing.
+Eddy: Nova. Oh by they way, got some new seeds for you. Grow a bit.
+<<addRequest eddy "2tom" 1000>>
+<<set $isFirstStart = false>>
+<<jump H4DEs>>
+===
+
+title: Arrival
+---
+Eddy: What's cooking Carrier.
+<<if hasDelivery()>>
+-> Look for your clients.
+   <<jump MakeDelivery>>
+<<endif>>
+-> Head to the grow house.
+    Carrier: I'm out.
+    Eddy: Nova.
+===
+
+title: MakeDelivery
+---
+<<unloadLeft>>
+TODO: Make a delivery
 ===

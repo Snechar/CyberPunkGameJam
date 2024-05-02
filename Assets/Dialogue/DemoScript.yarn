@@ -46,5 +46,5 @@ MC: You sure you want me to call the bouncers out to solve this for good? Or do 
 
 Crestfallen the character slinks off into the night.
 <<set $close_call = true>>
-<<jump H4DE>>
+<<jump H4DEs>>
 ===

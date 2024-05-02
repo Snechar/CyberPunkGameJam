@@ -1,4 +1,5 @@
  using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -38,8 +39,42 @@ public class BarManager : MonoBehaviour {
         dlgRunner.AddCommandHandler<string, float>("crossfadeBGTo", audioManager.CrossfadeTo);
         dlgRunner.AddCommandHandler<string>("switchScene", SwitchScene);
 
+        // adds a pending request for a user
+        dlgRunner.AddCommandHandler<string, string, int>("addRequest", NewRequest);
+        // checks if a user's current request can be filled
+        dlgRunner.AddFunction<string, bool>("canFill", CanFillRequest);
+        dlgRunner.AddFunction<bool>("hasDelivery", HasAnyDelivery);
+
         //dlgRunner.AddCommandHandler("test", Test);
     }
+
+    bool justEnabled = false;
+    private void OnEnable() {
+        justEnabled = true;
+    }
+
+    private void Update() {
+        if (justEnabled) {
+            dlgRunner.StartDialogue("H4DEs");
+            justEnabled = false;
+        }
+    }
+
+    // adds a new request to your work queue
+    private void NewRequest(string forClient, string orderDesc, int cyclesAllowed) {
+        Debug.Log($"Adding a new request for {forClient} of {orderDesc}. Must be filled in {cyclesAllowed}");
+    }
+
+    // returns true if you have inventory to fill a specific client's request
+    private bool CanFillRequest(string forClient) {
+        return false;
+    }
+
+    // returns true if you have anything in inventory that can meet a pending delivery request
+    private bool HasAnyDelivery() {
+        return false;
+    }
+
 
     // hides left and right characters
     // unsets background

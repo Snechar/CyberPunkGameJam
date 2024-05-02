@@ -15,7 +15,7 @@ public class AudioManager : MonoBehaviour {
     }
 
     private AudioClip? getClip(string name) {
-        Tracks? trackID = AudioManager.TracksFromString(name);
+        JamTrack? trackID = AudioManager.JamTrackFromString(name);
         if (trackID == null) {
             Debug.Log($"Failed to load track name {name}");
             return null;
@@ -29,6 +29,11 @@ public class AudioManager : MonoBehaviour {
             audioSource.clip = clip;
             audioSource.Play();
         }
+    }
+
+    public void Play(JamTrack track) {
+        audioSource.clip = clips[(int)track];
+        audioSource.Play();
     }
 
     public void Pause() {
@@ -63,14 +68,14 @@ public class AudioManager : MonoBehaviour {
         audioSource.volume = target;
     }
 
-    public static Tracks? TracksFromString(string str) {
+    public static JamTrack? JamTrackFromString(string str) {
         switch (str.ToLower()) {
             case "dead rain":
-                return Tracks.DEAD_RAIN;
+                return JamTrack.DEAD_RAIN;
             case "remember yesterday":
-                return Tracks.REMEMBER_YESTERDAY;
+                return JamTrack.REMEMBER_YESTERDAY;
             case "the color purple":
-                return Tracks.THE_COLOR_PURPLE;
+                return JamTrack.THE_COLOR_PURPLE;
         }
         Debug.Log($"Failed to find track named {str}");
         return null;
@@ -106,7 +111,8 @@ public class AudioManager : MonoBehaviour {
 
 }
 
-public enum Tracks {
+// IDs here must match the order of the clips in AudioManager.clips
+public enum JamTrack {
     DEAD_RAIN = 0,
     REMEMBER_YESTERDAY = 1,
     THE_COLOR_PURPLE = 2,
