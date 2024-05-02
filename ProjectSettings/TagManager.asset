@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Pot
   - Seed
+  - FishTank
   layers:
   - Default
   - TransparentFX

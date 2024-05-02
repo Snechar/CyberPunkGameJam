@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 9312315, guid: b18d96ee5c41849489a5d61d350358c0, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -81,7 +81,7 @@ SpriteRenderer:
   m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
 --- !u!1 &6145979948724244263
@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 8955232177992357247}
   m_Layer: 0
   m_Name: Pot
-  m_TagString: Untagged
+  m_TagString: Pot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -185,7 +185,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plant: {fileID: 0}
   readyToHarvest: 0
-  SpriteRenderer: {fileID: 3423277669309765521}
+  SpriteRenderer:
+  - {fileID: 3423277669309765521}
 --- !u!58 &8955232177992357247
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Seed : MonoBehaviour
+public class Plantable : MonoBehaviour
 {
     [SerializeField]
     private SO_Plant plant;
@@ -15,7 +15,7 @@ public class Seed : MonoBehaviour
         return plant;
     }
 
-    public Seed GetThisSeed()
+    public Plantable GetThisSeed()
     {
         return this ;
     }
