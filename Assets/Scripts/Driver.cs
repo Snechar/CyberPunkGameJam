@@ -26,6 +26,7 @@ public class Driver : MonoBehaviour {
     private GameObject introRoot;
 
     private InMemoryVariableStorage variableStore;
+    private RequestManager requestManager;
 
     private JamScenes curScene;
     private JamScenes nextScene;
@@ -37,6 +38,7 @@ public class Driver : MonoBehaviour {
     private void Awake() {
         Driver.instance = this;
         variableStore = GetComponent<InMemoryVariableStorage>();
+        requestManager = GetComponent<RequestManager>();
         SceneManager.sceneLoaded += SceneLoaded;
 
         SwitchScenes(JamScenes.INTRO);
@@ -73,6 +75,10 @@ public class Driver : MonoBehaviour {
 
     public AudioManager GetAudioManager() {
         return audioManager;
+    }
+
+    public RequestManager GetRequestManager() {
+        return requestManager;
     }
 
     public InMemoryVariableStorage GetVariableStore() {

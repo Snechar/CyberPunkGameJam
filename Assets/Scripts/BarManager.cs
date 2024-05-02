@@ -10,6 +10,7 @@ public class BarManager : MonoBehaviour {
 
     public DialogueRunner dlgRunner;
     public AudioManager audioManager;
+    public RequestManager requestManager;
     public Image bgImg;
     public Image leftChar;
     public Image rightChar;
@@ -24,6 +25,9 @@ public class BarManager : MonoBehaviour {
         }
         if (audioManager == null) {
             audioManager = driver.GetAudioManager();
+        }
+        if (requestManager == null) {
+            requestManager = driver.GetRequestManager();
         }
 
         dlgRunner.AddCommandHandler("reset", Reset);
@@ -40,10 +44,16 @@ public class BarManager : MonoBehaviour {
         dlgRunner.AddCommandHandler<string>("switchScene", SwitchScene);
 
         // adds a pending request for a user
-        dlgRunner.AddCommandHandler<string, string, int>("addRequest", NewRequest);
+        dlgRunner.AddCommandHandler<string, string, int>("addRequest", requestManager.AddRequest);
         // checks if a user's current request can be filled
-        dlgRunner.AddFunction<string, bool>("canFill", CanFillRequest);
-        dlgRunner.AddFunction<bool>("hasDelivery", HasAnyDelivery);
+        dlgRunner.AddFunction<string, bool>("canFill", requestManager.CanFill);
+        // checks if there are any existing deliveries that can be filled
+        dlgRunner.AddFunction<bool>("hasDelivery", requestManager.HasAnyDelivery);
+        // fills a delivery for a specific client
+        dlgRunner.AddCommandHandler<string>("fillRequest", requestManager.FillRequest);
+        // how many deliveries have been completed for a client
+        dlgRunner.AddFunction<string, int>("completedRquests", requestManager.CountCompletedRequests);
+
 
         //dlgRunner.AddCommandHandler("test", Test);
     }
@@ -59,22 +69,6 @@ public class BarManager : MonoBehaviour {
             justEnabled = false;
         }
     }
-
-    // adds a new request to your work queue
-    private void NewRequest(string forClient, string orderDesc, int cyclesAllowed) {
-        Debug.Log($"Adding a new request for {forClient} of {orderDesc}. Must be filled in {cyclesAllowed}");
-    }
-
-    // returns true if you have inventory to fill a specific client's request
-    private bool CanFillRequest(string forClient) {
-        return false;
-    }
-
-    // returns true if you have anything in inventory that can meet a pending delivery request
-    private bool HasAnyDelivery() {
-        return false;
-    }
-
 
     // hides left and right characters
     // unsets background

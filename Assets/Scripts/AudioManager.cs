@@ -24,16 +24,22 @@ public class AudioManager : MonoBehaviour {
     }
 
     public void Play(string name) {
-        var clip = getClip(name);
-        if (clip != null) {
-            audioSource.clip = clip;
-            audioSource.Play();
-        }
+        Play(getClip(name));
     }
 
     public void Play(JamTrack track) {
-        audioSource.clip = clips[(int)track];
-        audioSource.Play();
+        Play(clips[(int)track]);
+    }
+
+    private void Play(AudioClip clip) {
+        if (clip != null) {
+            if (audioSource.clip != clip) {
+                audioSource.clip = clip;
+            }
+            if (!audioSource.isPlaying) {
+                audioSource.Play();
+            }
+        }
     }
 
     public void Pause() {

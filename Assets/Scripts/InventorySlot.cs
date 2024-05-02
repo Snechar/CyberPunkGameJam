@@ -15,4 +15,8 @@ public class InventorySlot
         this.produce = produce;
         this.numberOfProduce = numberOfProduce;
     }
+
+    override public String ToString() {
+        return produce.getName() + " x {numberOfProduce}";
+    }
 }
