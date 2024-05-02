@@ -462,6 +462,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InventorySlots: []
+  sO_Produces:
+  - {fileID: 11400000, guid: 11fbf502451c5084db25d5c853ceae4a, type: 2}
+  - {fileID: 11400000, guid: 69ef551d1200ce84abfeda1120852d9f, type: 2}
 --- !u!4 &387060801
 Transform:
   m_ObjectHideFlags: 0

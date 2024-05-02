@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 404fe9cbab3926e4e8f32e9f94141249, type: 3}
   m_Name: SO_SalmonProduce
   m_EditorClassIdentifier: 
-  ID: 5
+  ID: 2
   produceType: 1
+  produceName: 4
   Sprite: {fileID: -327002643, guid: 4e09568a831858e46a15174e18fcb7e5, type: 3}
   Price: 50
