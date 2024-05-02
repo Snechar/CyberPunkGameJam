@@ -28,7 +28,10 @@ Eddy: Oh, Carrier, glad you're back! looking for new clients?
    Eddy: A couple of tomatoes? Been a while since we had a real Bloody Mary around here.
 Carrier: Sure thing.
 Eddy: Nova. Oh by they way, got some new seeds for you. Grow a bit.
-<<addRequest eddy "2tom" 1000>>
+
+<<addRequest eddy "2:tom" 1000>>
+<<dumpRequestBook>>
+
 <<set $isFirstStart = false>>
 <<jump H4DEs>>
 ===
@@ -36,7 +39,7 @@ Eddy: Nova. Oh by they way, got some new seeds for you. Grow a bit.
 title: Arrival
 ---
 Eddy: What's cooking Carrier.
-<<if hasDelivery()>>
+<< if hasDelivery() >>
 -> Look for your clients.
    <<jump MakeDelivery>>
 -> Head to the grow house.

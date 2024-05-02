@@ -8,7 +8,7 @@ using Yarn.Unity;
 public class Driver : MonoBehaviour {
     private static Driver instance;
     public const string BAR_NAME = "Bar";
-    public const string TYCOON_NAME = "Tycoon";
+    public const string TYCOON_NAME = "SampleScene";
     public const string INTRO_NAME = "Intro";
 
     public AudioManager audioManager;

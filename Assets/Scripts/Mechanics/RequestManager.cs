@@ -12,20 +12,22 @@ public class RequestManager : MonoBehaviour {
         completedRequests = new Dictionary<string, int>();
     }
 
-    void DumpRequestBook() {
+    public void DumpRequestBook() {
         var str = "Requests {\n";
         foreach (var entry in requestBook) {
-            str += "    " + entry.Key + " {";
+            str += "    " + entry.Key + " {\n";
             foreach (var e in entry.Value.order) {
                 str += "        " + e.Key + " x " + e.Value + "\n";
             }
+            str += "    }\n";
         }
         Debug.Log(str + "}");
     }
 
     // Adds a request to the queue, returns false if the request was not possible to understand
     public void AddRequest(string client, string request, int days) {
-        var newRequest = new Request();
+        var curCycle = 0; // TODO: get global cycle number
+        var newRequest = new Request(curCycle + days);
         var elements = request.Split(';');
         if (elements.Length < 1) {
             Debug.Log($"Failed to process request {request}");
@@ -37,15 +39,16 @@ public class RequestManager : MonoBehaviour {
                 Debug.Log($"Failed to process request {request}");
                 return;
             }
-            
+
             int count = int.Parse(parts[0]);
-            SO_Produce produce = SO_Produce.FromString(parts[1]);
+            ProduceName? produce = SO_Produce.NameFromString(parts[1]);
             if (produce == null) {
                 Debug.Log($"Failed to process request {request}");
                 return;
+            } else {
+                newRequest.AddItem((ProduceName)produce, count);
             }
-            
-            newRequest.AddItem(produce, count);
+
         }
         requestBook.Add(client.ToLower(), newRequest);
         DumpRequestBook();
@@ -60,7 +63,9 @@ public class RequestManager : MonoBehaviour {
     }
 
     public bool HasAnyDelivery() {
+        Debug.Log("HasAnyDelivery()");
         foreach (var req in requestBook.Values) {
+            Debug.Log("Examining request: " + req);
             if (req.CanFill(InventoryManagerSingleton.Instance)) {
                 return true;
             }
@@ -78,36 +83,50 @@ public class RequestManager : MonoBehaviour {
         }
     }
 
-    public int CountRquestsFilled(string client) {
+    public int CountCompletedRequests(string client) {
         client = client.ToLower();
         if (completedRequests.ContainsKey(client)) {
             return completedRequests[client];
         }
-        return 0; 
+        return 0;
     }
 }
 
 class Request {
-    public Dictionary<SO_Produce, int> order;
-    public void AddItem(SO_Produce produce, int count) {
+    public Dictionary<ProduceName, int> order;
+    public int neededByCycle;
+
+    public Request(int tgtCycle) {
+        order = new Dictionary<ProduceName, int>();
+        neededByCycle = tgtCycle;
+    }
+
+    public void AddItem(ProduceName produce, int count) {
         order.Add(produce, count);
     }
 
     public bool CanFill(InventoryManagerSingleton inv) {
+        if (inv == null) {
+            Debug.Log("Can't fill any requests without inventory");
+            return false;
+        }
         foreach (var e in order) {
-            var produceType = e.Key;
+            var produceName = e.Key;
             var needed = e.Value;
-            // if (inv.Count(produceType) < needed) {
-                // return false;
-            // }
+            if (inv.CountItem(produceName) < needed) {
+                return false;
+            }
         }
 
         return true;
     }
 
     public void Fill(InventoryManagerSingleton inv) {
+        if (inv == null) {
+            Debug.LogError("Attempting to fill a request with no inventory.");
+        }
         foreach (var e in order) {
-            // inv.Remove(e.Key, e.Value);
+            inv.RemoveItem(e.Key, e.Value);
         }
     }
 }

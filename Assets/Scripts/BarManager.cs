@@ -54,6 +54,8 @@ public class BarManager : MonoBehaviour {
         // how many deliveries have been completed for a client
         dlgRunner.AddFunction<string, int>("completedRquests", requestManager.CountCompletedRequests);
 
+        dlgRunner.AddCommandHandler("dumpRequestBook", requestManager.DumpRequestBook);
+
 
         //dlgRunner.AddCommandHandler("test", Test);
     }
