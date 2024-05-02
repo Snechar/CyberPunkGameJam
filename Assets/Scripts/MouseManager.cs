@@ -7,7 +7,7 @@ public class MouseManager : MonoBehaviour
 {
     private Sprite Sprite;
     private SpriteRenderer Renderer;
-    private Seed storedSteed;
+    private Plantable storedSteed;
 
     public UnityEvent m_MyEvent = new UnityEvent();
     void Start()
@@ -29,14 +29,46 @@ public class MouseManager : MonoBehaviour
             {
                 if (hit.collider.gameObject.tag == "Pot")
                 {
-                    hit.collider.gameObject.GetComponent<PotManager>().PlantSeed(storedSteed);
-                    RemoveSeed();
+                    PotManager potManager = hit.collider.gameObject.GetComponent<PotManager>();
+                    if (potManager.GetHarvestStatus())
+                    {
+                        RemoveMouseItem();
+                        SO_Produce produce = potManager.Harvest();
+                        InventoryManagerSingleton.Instance.AddItem(produce);
+                    }
+                    else
+                    {
+                        if (storedSteed != null)
+                        {
+                            if (storedSteed.GetPlant().ProduceType == ProduceType.Plant)
+                            {
+                                potManager.PlantSeed(storedSteed);
+                                RemoveMouseItem();
+                            }
+
+                        }
+                    }
                 }
-                if (hit.collider.gameObject.tag == "Seed")
+                else if (hit.collider.gameObject.tag == "FishTank")
                 {
-                    Debug.Log("Hit a seed");
-                    storedSteed = hit.collider.gameObject.GetComponent<Seed>();
-                    Renderer.sprite = storedSteed.Sprite;
+                    PotManager potManager = hit.collider.gameObject.GetComponent<PotManager>();
+                    if (potManager.GetHarvestStatus())
+                    {
+                        RemoveMouseItem();
+                        SO_Produce produce = potManager.Harvest();
+                        InventoryManagerSingleton.Instance.AddItem(produce);
+                    }
+                    else
+                    {
+                        if (storedSteed != null)
+                        {
+                            if (storedSteed.GetPlant().ProduceType == ProduceType.Fish)
+                            {
+                                potManager.PlantSeed(storedSteed);
+                                RemoveMouseItem();
+                            }
+                        }
+                    }
                 }
 
             }
@@ -44,17 +76,18 @@ public class MouseManager : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(1))
         {
-            RemoveSeed();
+            RemoveMouseItem();
         }
     }
 
-    public void StoreSeed(Seed seed)
+    public void StoreSeed(Plantable seed)
     {
         storedSteed = seed;
         Renderer.sprite = seed.Sprite;
     }
 
-    private void RemoveSeed()
+
+    private void RemoveMouseItem()
     {
         storedSteed = null;
         Renderer.sprite = null;
