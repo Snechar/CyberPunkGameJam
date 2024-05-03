@@ -6,6 +6,7 @@ using UnityEngine;
 public class RequestManager : MonoBehaviour {
     Dictionary<string, Request> requestBook;
     Dictionary<string, int> completedRequests;
+    private string lastFilled;
 
     public RequestManager() {
         requestBook = new Dictionary<string, Request>();
@@ -78,6 +79,7 @@ public class RequestManager : MonoBehaviour {
         if (requestBook.ContainsKey(client)) {
             var rq = requestBook[client];
             rq.Fill(InventoryManagerSingleton.Instance);
+            lastFilled = client;
         } else {
             Debug.Log("No pending request for client");
         }
@@ -89,6 +91,16 @@ public class RequestManager : MonoBehaviour {
             return completedRequests[client];
         }
         return 0;
+    }
+
+    public bool WorkAvailable(string client) {
+        client = client.ToLower();
+        if (requestBook.ContainsKey(client)) {
+            return false;
+        }
+        // can't get work immediately after filling a request
+        // return !client.Equals(lastFilled);
+        return true; // currently only have one client <_<
     }
 }
 
