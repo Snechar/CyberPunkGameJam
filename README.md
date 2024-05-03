@@ -15,6 +15,32 @@
 - `switchScene "<new_scene>"` -- transfers from the narrative / visual novel to a different scene. Currently supported scenes values are:
   - tycoon -- this is the tycoon minigame. Before transfering to this scene you should probably set volume to zero and fade to black.
 
+### Functions: Client Requests
+- `addRequest "<client>" "<description>" <cycles>` -- adds a new request to your order book.
+  - valid clients are `rose`, `sif`, `eli`
+  - cycles is how many cycles you have to fill that request
+  - description is a description of the request. it's in the form `<number>:<item>` and additional entries may be added if separated by a `;`. Examples of usage:
+    - 2 tomatoes: `2:tom`
+    - 2 tomatoes, 1 tilapia: `2:tom;1:til`
+    - 3 eggplant, 2 salmon: `3:egg;2:salmon`
+    - valid items are:
+      - `tom` / `tomato`
+      - `egg` / `eggplant`
+      - `cuke` / `cucumber`
+      - `let` / `lettuce`
+      - `salmon`
+      - `cod`
+      - `til` / `tilapia`
+  - example usage:
+      - `<<addRequest eddy "2:tom" 1000>>` -- adds a request from eddy for 2 tomatoes, you have 1000 days to fill it (this is the tutorial request)
+      - `<<addRequest sif "1:salmon;2:let" 2>>` -- adds a request from Tychus & Sif for 1 salmon and 2 lettuce
+- `canFill <client>` -- this is a function that can be used to check if an existing request exists and can be filled by the current inventory. See example usage in `h4de.yarn`
+- `hasDelivery` -- this is a function than can be used to check if Carrier has any orders that can be filled. See exampl eusage in `h4de.yarn`
+- `fillRequest <client>` -- fill an existing request for `client`. No validation is done that you have enough inventory to fill this request so make sure to call `canFill <client>` somewhere before ending up here
+- `completedRequests <client>` returns how many orders have been completed for this client. Example usage might be `<<if completedRequests("sif") > 3>>` to guard against dialogue that should only happen after 3 filled requests.
+
+  
+
 ### Functions: Visuals
 - `reset` -- this unloads the left+right characters and sets the Background to the "no-signal" screen
 - `loadBG "<path>"` -- takes a path to a background image and sets it; we'll discuss how to add background images in a bit
@@ -31,7 +57,6 @@
   - `volumeBG .5` -- instantly sets the volume to half
   - `volumeBG .75 5` -- fades the volume from the current value to .75 over 5 seconds
 - `crossfadeBGTo "<track_name>" <time_sec>` -- fades the current track out and a new track in over `time_sec`. The new track will be playing at the same level as the previous track.
-
 
 Indicating you would like to call a function in the script is done by `<<function_name args>>`. If
 there are no args you can omit them and just `<<function_name>>`. Multiple args are space separated.
