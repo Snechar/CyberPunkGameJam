@@ -11,6 +11,7 @@ public class Driver : MonoBehaviour {
     public const string TYCOON_NAME = "SampleScene";
     public const string INTRO_NAME = "Intro";
 
+    private int cycles = 0;
     public AudioManager audioManager;
 
     private bool requestedBar = false;
@@ -201,6 +202,13 @@ public class Driver : MonoBehaviour {
     
     public void Debug_SwitchToNone() {
         SwitchScenes(JamScenes.NONE);
+    }
+
+    public int CurrentCycleNumber() {
+        if (CycleManagerSingleton.Instance == null) {
+            return 0;
+        }
+        return CycleManagerSingleton.Instance.GetCurrentCycle();
     }
 }
 

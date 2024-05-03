@@ -42,7 +42,8 @@ public class Intro : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        IntroCompleted();
+        // IntroCompleted();
+
         if (completed) {
             return;
         }
