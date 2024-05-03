@@ -36,6 +36,7 @@ public class BarManager : MonoBehaviour {
         dlgRunner.AddCommandHandler<string>("loadRight", LoadCharacterRight);
         dlgRunner.AddCommandHandler("unloadLeft", UnloadLeft);
         dlgRunner.AddCommandHandler("unloadRight", UnloadRight);
+        dlgRunner.AddCommandHandler("unloadAll", () => { UnloadLeft(); UnloadRight(); });
         dlgRunner.AddCommandHandler<float>("fadeIn", FadeIn);
         dlgRunner.AddCommandHandler<float>("fadeOut", FadeOut);
         dlgRunner.AddCommandHandler<string>("playBG", audioManager.Play);
@@ -146,5 +147,6 @@ public class BarManager : MonoBehaviour {
                 break;
         }
         driver.SwitchScenes(nextScene);
+        dlgRunner.Stop();
     }
 }

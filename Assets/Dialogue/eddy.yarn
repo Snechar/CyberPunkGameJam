@@ -1,0 +1,36 @@
+title: EddyDelivery
+---
+<< loadLeft "Bar/Characters/Eddy" >>
+
+You step aside with Eddy and hand over the tomatoes. While it's not technically illegal to posses them it would raise questions better left unasked.
+
+Eddy: Ah! I never cease to be amazed you manage to source these.
+Carrier: Just doing my job.
+Eddy: And a great show of it at that...
+
+The TV swirls with an explosion of color and catches Eddy's eye. He turns it up.
+
+Newscaster: This just in: it has been confirmed the last natural born tiger has died. From now, only clones of the species remain.
+
+Eddy: Ah, that's damned sad.
+Carrier: What's a tiger?
+Eddy: Don't worry about it. Not like it matters much any more.
+
+<< fillRequest eddy >>
+Eddy perks back up as he stores your ilicit vegetation in a locked refrigeration unit. He's always waving away any more questions.
+
+Eddy: Maybe I'll tell you over drinks. For now get back out there, I think I saw some new clients about.
+
+<< jump Arrival >>
+
+===
+
+title: EddyChatter
+---
+<< unloadAll >>
+<< loadLeft "Bar/Characters/Eddy" >>
+
+Eddy: This sure is a TODO
+-> Cool
+<< jump Arrival >>
+===
