@@ -20,7 +20,7 @@ Eddy: Hey there, welcome to H4-DEs...
 Eddy: Oh, Carrier, glad you're back! looking for new clients?
 -> Sure, if it's not too much trouble.
    Eddy laughs
-   Eddy: Never trouble. How about you start off with a couple of tomatoes for me and we'll have a Bloody Mary next time you're in.
+   Eddy: You're never trouble. How about you start off with a couple of tomatoes for me and we'll have a Bloody Mary next time you're in.
 -> Not right now, trying to lay low.
    Eddy: I get it. What about a milkrun for me?
    You pause. You really are trying to avoid heat but Eddy has always been kind and H4-DEs is your base at the moment.
@@ -38,23 +38,82 @@ Eddy: Nova. Oh by they way, got some new seeds for you. Grow a bit.
 
 title: Arrival
 ---
-Eddy: What's cooking Carrier.
+Where to next?
+<< unloadAll >>
 << if hasDelivery() >>
--> Look for your clients.
-   <<jump MakeDelivery>>
--> Head to the grow house.
-    Carrier: I'm out.
-    Eddy: Nova.
+    -> Chat With Eddy
+        <<jump EddyChatter>>
+    -> Chat with H3x
+        <<jump H3xChatter>>
+    -> Make deliveries.
+        <<jump MakeDelivery>>
+    -> Head to the grow house.
+        Carrier: I'm out.
+        Eddy: Nova.
 <<else>>
--> Head to the grow house.
-    Carrier: I'm out.
-    Eddy: Nova.
-    <<switchScene "tycoon">>
+    -> Look for work
+        <<jump FindWork>>
+    -> Chat With Eddy
+        <<jump EddyChatter>>
+    -> Chat with H3x
+        <<jump H3xChatter>>
+    -> Head to the grow house.
+        Carrier: I'm out.
+        Eddy: Nova.
+        <<switchScene "tycoon">>
 <<endif>>
 ===
 
 title: MakeDelivery
 ---
 <<unloadLeft>>
-TODO: Make a delivery
+
+You've got some goods to deliver
+<< if canFill("eddy") >>
+// only one time we can fill eddy and he'll be the only option
+-> Go see Eddy
+    << jump EddyDelivery >>
+
+// painfully list out all possible combinations of pending deliveries
+<< elseif canFill("eli") and canFill("rose") and canFill("sif") >>
+-> Go See Eli.
+    << jump EliDelivery >>
+-> Go see Rose.
+    << jump RoseDelivery >>
+-> Go see Tychus & Sif
+    << jump SifDelivery >>
+<< elseif canFill("eli") and canFill("rose") >>
+-> Go See Eli.
+    << jump EliDelivery >>
+-> Go see Rose.
+    << jump RoseDelivery >>
+<< elseif canFill("eli") and canFill("sif") >>
+-> Go See Eli.
+    << jump EliDelivery >>
+-> Go see Tychus & Sif
+    << jump SifDelivery >>
+<< elseif canFill("rose") and canFill("sif") >>
+-> Go see Rose.
+    << jump RoseDelivery >>
+-> Go see Tychus & Sif
+    << jump SifDelivery >>
+<< elseif canFill("eli") >>
+-> Go See Eli.
+    << jump EliDelivery >>
+<< elseif canFill("rose") >>
+-> Go see Rose.
+    << jump RoseDelivery >>
+<< elseif canFill("sif") >>
+-> Go see Tychus & Sif
+    << jump SifDelivery >>
+<< else >>
+    On the other hand you don't have anything ready for delivery right now.
+    << jump H4DEs >>
+<< endif >>
+===
+
+title: FindWork
+---
+TODO: how do we even decide who's available for requests.
+<<jump Arrival>>
 ===
