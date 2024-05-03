@@ -14,6 +14,7 @@ public class FadeLayer : MonoBehaviour {
     }
 
     public IEnumerator ChangeAlphaOverTime(float alpha, float time) {
+        Debug.Log($"fadeTarget: " + fadeTarget);
         var curAlpha = fadeTarget.color.a;
         float elapsed = 0f;
 

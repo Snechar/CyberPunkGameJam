@@ -8,18 +8,25 @@ using Yarn.Unity;
 public class Driver : MonoBehaviour {
     private static Driver instance;
     public const string BAR_NAME = "Bar";
-    public const string TYCOON_NAME = "Tycoon";
+    public const string TYCOON_NAME = "SampleScene";
+    public const string INTRO_NAME = "Intro";
 
     public AudioManager audioManager;
 
     private bool requestedBar = false;
     private Scene barScene;
     private GameObject barRoot;
+    
     private bool requestedTycoon = false;
     private Scene tycoonScene;
     private GameObject tycoonRoot;
 
+    private bool requestedIntro = false;
+    private Scene introScene;
+    private GameObject introRoot;
+
     private InMemoryVariableStorage variableStore;
+    private RequestManager requestManager;
 
     private JamScenes curScene;
     private JamScenes nextScene;
@@ -31,7 +38,10 @@ public class Driver : MonoBehaviour {
     private void Awake() {
         Driver.instance = this;
         variableStore = GetComponent<InMemoryVariableStorage>();
+        requestManager = GetComponent<RequestManager>();
         SceneManager.sceneLoaded += SceneLoaded;
+
+        SwitchScenes(JamScenes.INTRO);
     }
 
     private Button startVNButton;
@@ -67,6 +77,10 @@ public class Driver : MonoBehaviour {
         return audioManager;
     }
 
+    public RequestManager GetRequestManager() {
+        return requestManager;
+    }
+
     public InMemoryVariableStorage GetVariableStore() {
         return variableStore;
     }
@@ -79,6 +93,9 @@ public class Driver : MonoBehaviour {
                 break;
             case TYCOON_NAME:
                 tycoonRoot = tycoonScene.GetRootGameObjects()[0];
+                break;
+            case INTRO_NAME:
+                introRoot = introScene.GetRootGameObjects()[0];
                 break;
         }
     }
@@ -97,6 +114,14 @@ public class Driver : MonoBehaviour {
         }
         SceneManager.LoadScene(TYCOON_NAME, LoadSceneMode.Additive);
         tycoonScene = SceneManager.GetSceneByName(TYCOON_NAME);
+    }
+
+    public void LoadIntro() {
+        if (requestedIntro) {
+            return;
+        }
+        SceneManager.LoadScene(INTRO_NAME, LoadSceneMode.Additive);
+        introScene = SceneManager.GetSceneByName(INTRO_NAME);
     }
 
     public void Button1() {
@@ -134,6 +159,9 @@ public class Driver : MonoBehaviour {
             case JamScenes.TYCOON:
                 LoadTycoon();
                 break;
+            case JamScenes.INTRO:
+                LoadIntro();
+                break;
         }
     }
 
@@ -143,6 +171,8 @@ public class Driver : MonoBehaviour {
                 return tycoonRoot != null;
             case JamScenes.BAR:
                 return barRoot != null;
+            case JamScenes.INTRO:
+                return introRoot != null;
             case JamScenes.NONE:
                 return true;
         }
@@ -155,6 +185,8 @@ public class Driver : MonoBehaviour {
                 return barRoot;
             case JamScenes.TYCOON:
                 return tycoonRoot;
+            case JamScenes.INTRO:
+                return introRoot;
         }
         return null;
     }
@@ -174,6 +206,7 @@ public class Driver : MonoBehaviour {
 
 public enum JamScenes {
     NONE,
+    INTRO,
     BAR,
     TYCOON,
 }

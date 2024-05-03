@@ -11,6 +11,14 @@ public class InventoryManagerSingleton : MonoBehaviour
     public List<InventorySlot> InventorySlots = new List<InventorySlot>();
     public List<SO_Produce> sO_Produces = new List<SO_Produce>(); 
 
+    public void DebugLog() {
+        var str = "Inventory:\n";
+        foreach (var slot in InventorySlots) {
+            str += "  " + str.ToString() + "\n";
+        }
+        Debug.Log(str);
+    }
+
     private void Awake()
     {
         // If there is an instance, and it's not me, delete myself.
@@ -76,6 +84,24 @@ public class InventoryManagerSingleton : MonoBehaviour
             }
         }
         return 0;
+    }
+
+    public int CountItem(ProduceName tgt) {
+        var count = 0;
+        foreach (var slot in InventorySlots) {
+            if (slot.produce.produceName.Equals(tgt)) {
+                count += slot.numberOfProduce;
+            }
+        }
+        return count;
+    }
+
+    public void RemoveItem(ProduceName tgt, int count) {
+        foreach (var slot in InventorySlots) {
+            if (tgt.Equals(slot.produce.produceName)) {
+                slot.numberOfProduce -= count;
+            }
+        }
     }
 
     public SO_Produce ReturnProduceByName(ProduceName name)
