@@ -32,12 +32,17 @@ public class AudioManager : MonoBehaviour {
     }
 
     private void Play(AudioClip clip) {
+        Debug.Log("AudioManager.Play");
         if (clip != null) {
             if (audioSource.clip != clip) {
                 audioSource.clip = clip;
+            } else {
+                Debug.Log("AM.Play: clip was the same");
             }
             if (!audioSource.isPlaying) {
                 audioSource.Play();
+            } else {
+                Debug.Log("AM.play: audioSource is already playing");
             }
         }
     }

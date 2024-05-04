@@ -42,8 +42,7 @@ public class Intro : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        // IntroCompleted();
-
+        IntroCompleted();
         if (completed) {
             return;
         }
@@ -74,10 +73,13 @@ public class Intro : MonoBehaviour {
     }
 
     private void IntroCompleted() {
+        if (completed) {
+            return;
+        }
         completed = true;
+        continueBtn.SetActive(false);
         var driver = Driver.GetInstance();
         driver.GetAudioManager().SetBGVolume(0, 1);
-        driver.GetVariableStore().SetValue("$isFirstStart", true);
         driver.SwitchScenes(JamScenes.BAR);
     }
 }

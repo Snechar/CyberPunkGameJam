@@ -1,13 +1,13 @@
  using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Yarn.Unity;
 
 public class BarManager : MonoBehaviour {
     private Driver driver;
-    private VariableStorageBehaviour variableStore;
 
     public DialogueRunner dlgRunner;
     public AudioManager audioManager;
@@ -26,7 +26,7 @@ public class BarManager : MonoBehaviour {
 
         if (dlgRunner == null) {
             dlgRunner = FindObjectOfType<DialogueRunner>();
-            dlgRunner.VariableStorage = driver.GetVariableStore();
+            driver.SetVariableStore(dlgRunner.GetComponent<InMemoryVariableStorage>());
         }
         if (audioManager == null) {
             audioManager = driver.GetAudioManager();
@@ -35,6 +35,7 @@ public class BarManager : MonoBehaviour {
             requestManager = driver.GetRequestManager();
         }
 
+        dlgRunner.AddCommandHandler("dumpVariableStore", DumpStore);
         dlgRunner.AddCommandHandler("reset", Reset);
         dlgRunner.AddCommandHandler<string>("loadBG", LoadBG);
         dlgRunner.AddCommandHandler<string>("loadLeft", LoadCharacterLeft);
@@ -76,13 +77,32 @@ public class BarManager : MonoBehaviour {
         //dlgRunner.AddCommandHandler("test", Test);
     }
 
+    private void DumpStore() {
+        var store = driver.GetVariableStore();
+        var  (floatDict, stringDict, boolDict) = store.GetAllVariables();
+        var str = "Variables {\n";
+        foreach (var e in floatDict) {
+            str += "    " + e.Key + " -> " + e.Value + "\n";
+        }
+        foreach (var e in stringDict) {
+            str += "    " + e.Key + " -> " + e.Value + "\n";
+        }
+        foreach (var e in boolDict) {
+            str += "    " + e.Key + " -> " + e.Value + "\n";
+        }
+        str += "}\n";
+        Debug.Log(str);
+    }
+
     bool justEnabled = false;
     private void OnEnable() {
+        Debug.Log("BarManager.OnEnable");
         justEnabled = true;
     }
 
     private void Update() {
         if (justEnabled) {
+            Debug.Log("BarManager.Update -> StartDialogue");
             dlgRunner.StartDialogue("H4DEs");
             justEnabled = false;
         }

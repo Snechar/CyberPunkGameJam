@@ -1,13 +1,14 @@
 title: H4DEs
 ---
+<<dumpVariableStore>>
 <<reset>>
 <<loadBG "Bar/BarBGOfficial">>
 
 <<playBG "Dead Rain">>
-<<volumeBG .1 4>>
-<<fadeIn 1>>
+<<volumeBG .1 2>>
 
-<<if $isFirstStart>>
+<<if !$hasStartedBefore >>
+    <<fadeIn 2>>
     // X_level is the conversation level you've completed
     // X_score is whether or not you've done well with your deliveries
     //   2+ days early = +2
@@ -29,6 +30,7 @@ title: H4DEs
     <<loadLeft "Bar/Characters/Eddy">>
     <<jump FirstStart>>
 <<else>>
+    <<fadeIn 1>>
     <<jump Arrival>>
 <<endif>>
 ===
@@ -52,7 +54,8 @@ Eddy: Nova. Oh by they way, got some new seeds for you. Grow a bit.
 <<dumpRequestBook>>
 
 <<set $isFirstStart = false>>
-<<jump H4DEs>>
+<<set $hasStartedBefore = true>>
+<<jump Arrival>>
 ===
 
 title: Arrival
