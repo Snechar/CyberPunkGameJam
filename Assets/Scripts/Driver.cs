@@ -33,6 +33,9 @@ public class Driver : MonoBehaviour {
     private JamScenes curScene;
     private JamScenes nextScene;
 
+    public GameObject cycleDisplay;
+    public TMP_Text cycleDisplayText;
+
     public static Driver GetInstance() {
         return Driver.instance;
     }
@@ -52,6 +55,11 @@ public class Driver : MonoBehaviour {
     }
 
     void Update() {
+        Debug.Log("curScene: " + curScene);
+        cycleDisplay.SetActive(curScene == JamScenes.BAR || curScene == JamScenes.TYCOON);
+        if (cycleDisplay.activeSelf) {
+            cycleDisplayText.text = "Day: " + CurrentCycleNumber();
+        }
         if (nextScene != curScene) {
             if (!HasLoaded(nextScene)) {
                 Debug.Log($"{nextScene} has not yet loaded, waiting");
