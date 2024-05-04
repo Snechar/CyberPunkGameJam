@@ -1,8 +1,8 @@
 title: H4DEs
 ---
 <<reset>>
-<<loadBG "Bar/BarBG1">>
-<<loadLeft "Bar/Characters/Eddy">>
+<<loadBG "Bar/BarBGOfficial">>
+
 <<playBG "Dead Rain">>
 <<volumeBG .1 4>>
 <<fadeIn 1>>
@@ -26,6 +26,7 @@ title: H4DEs
     << set $sif_level = 0 >>
     << set $sif_score = 0 >>
 
+    <<loadLeft "Bar/Characters/Eddy">>
     <<jump FirstStart>>
 <<else>>
     <<jump Arrival>>
@@ -58,8 +59,12 @@ title: Arrival
 ---
 << unloadAll >>
 << if completedRequests("eddy") == 0 >>
-    Better not keep Eddy waiting, I should head to the grow house.
-    <<switchScene "tycoon">>
+    << if canFill("eddy") >>
+        <<jump EddyDelivery>>
+    << else >>
+        Better not keep Eddy waiting, I should head to the grow house.
+        <<jump ToTycoon>>
+    << endif >>
 << elseif hasDelivery() >>
     What next?
     -> Chat With Eddy
@@ -74,22 +79,19 @@ title: Arrival
 <<else>>
     What next?
     -> Chat with your clients.
-        Who do you want to see
-            -> Eli
-                <<jump EliChatter>>
-            -> Rose
-                <<jump RoseChatter>>
-            -> Tychus & Sif
-                <<jump SifChatter>>
+        -> Eli
+            <<jump EliChatter>>
+        -> Rose
+            <<jump RoseChatter>>
+        -> Tychus & Sif
+            <<jump SifChatter>>
     -> Chat With Eddy
         <<jump EddyChatter>>
     -> Chat with H3x
         <<jump H3xChatter>>
     -> Head to the grow house.
         Carrier: I'm out.
-        <<volumeBG 0 1.5>>
-        <<fadeOut 1.5>>
-        <<switchScene "tycoon">>
+        <<jump ToTycoon>>
 <<endif>>
 ===
 
@@ -182,4 +184,12 @@ title: FindWork
 
 TODO: how do we even decide who's available for requests.
 <<jump Arrival>>
+===
+
+title: ToTycoon
+---
+<<volumeBG 0 1.5>>
+<<fadeOut 1.5>>
+<<unloadAll>>
+<<switchScene "tycoon">>
 ===

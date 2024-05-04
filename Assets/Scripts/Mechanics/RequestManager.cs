@@ -74,12 +74,23 @@ public class RequestManager : MonoBehaviour {
         return false;
     }
 
+    public bool HasPending(string client) {
+        client = client.ToLower();
+        return requestBook.ContainsKey(client);
+    }
+
     public void FillRequest(string client) {
         client = client.ToLower();
         if (requestBook.ContainsKey(client)) {
             var rq = requestBook[client];
             rq.Fill(InventoryManagerSingleton.Instance);
+            requestBook.Remove(client);
             lastFilled = client;
+            if (completedRequests.ContainsKey(client)) {
+                completedRequests[client] = completedRequests[client] + 1;
+            } else {
+                completedRequests[client] = 1;
+            }
         } else {
             Debug.Log("No pending request for client");
         }
@@ -88,8 +99,10 @@ public class RequestManager : MonoBehaviour {
     public int CountCompletedRequests(string client) {
         client = client.ToLower();
         if (completedRequests.ContainsKey(client)) {
+            Debug.Log($"completedRequests({client}): " + completedRequests[client]);
             return completedRequests[client];
         }
+        Debug.Log($"completedRequests({client}): " + 0);
         return 0;
     }
 

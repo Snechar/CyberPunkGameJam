@@ -58,6 +58,9 @@ public class BarManager : MonoBehaviour {
         // checks if there are any existing deliveries that can be filled
         dlgRunner.AddFunction<bool>("hasDelivery", requestManager.HasAnyDelivery);
 
+        // returns true if there is a request pending for a specific character
+        dlgRunner.AddFunction<string ,bool>("pendingRequest", requestManager.HasPending);
+
         // fills a delivery for a specific client
         dlgRunner.AddCommandHandler<string>("fillRequest", requestManager.FillRequest);
 
