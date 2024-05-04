@@ -1,13 +1,32 @@
 title: H4DEs
 ---
 <<reset>>
-<<loadBG "Bar/BarBG1">>
-<<loadLeft "Bar/Characters/Eddy">>
+<<loadBG "Bar/BarBGOfficial">>
+
 <<playBG "Dead Rain">>
 <<volumeBG .1 4>>
 <<fadeIn 1>>
 
 <<if $isFirstStart>>
+    // X_level is the conversation level you've completed
+    // X_score is whether or not you've done well with your deliveries
+    //   2+ days early = +2
+    //   1 day early = +1
+    //   on time = 0
+    //   <= 2 days late = -1
+    //   > 2 days late = -2
+    // X_love is how much they like you
+    << set $eli_level = 0 >>
+    << set $eli_score = 0 >>
+    << set $eli_love = 0 >>
+
+    << set $rose_level = 0 >>
+    << set $rose_score = 0 >>
+
+    << set $sif_level = 0 >>
+    << set $sif_score = 0 >>
+
+    <<loadLeft "Bar/Characters/Eddy">>
     <<jump FirstStart>>
 <<else>>
     <<jump Arrival>>
@@ -38,9 +57,16 @@ Eddy: Nova. Oh by they way, got some new seeds for you. Grow a bit.
 
 title: Arrival
 ---
-Where to next?
 << unloadAll >>
-<< if hasDelivery() >>
+<< if completedRequests("eddy") == 0 >>
+    << if canFill("eddy") >>
+        <<jump EddyDelivery>>
+    << else >>
+        Better not keep Eddy waiting, I should head to the grow house.
+        <<jump ToTycoon>>
+    << endif >>
+<< elseif hasDelivery() >>
+    What next?
     -> Chat With Eddy
         <<jump EddyChatter>>
     -> Chat with H3x
@@ -51,16 +77,21 @@ Where to next?
         Carrier: I'm out.
         Eddy: Nova.
 <<else>>
-    -> Look for work
-        <<jump FindWork>>
+    What next?
+    -> Chat with your clients.
+        -> Eli
+            <<jump EliChatter>>
+        -> Rose
+            <<jump RoseChatter>>
+        -> Tychus & Sif
+            <<jump SifChatter>>
     -> Chat With Eddy
         <<jump EddyChatter>>
     -> Chat with H3x
         <<jump H3xChatter>>
     -> Head to the grow house.
         Carrier: I'm out.
-        Eddy: Nova.
-        <<switchScene "tycoon">>
+        <<jump ToTycoon>>
 <<endif>>
 ===
 
@@ -114,6 +145,51 @@ You've got some goods to deliver
 
 title: FindWork
 ---
+
+<< if workAvailable("eli") and workAvailable("rose") and workAvailable("sif") >>
+-> Eli .
+    << jump EliDelivery >>
+-> Go see Rose.
+    << jump RoseDelivery >>
+-> Go see Tychus & Sif
+    << jump SifDelivery >>
+<< elseif workAvailable("eli") and workAvailable("rose") >>
+-> Go See Eli.
+    << jump EliDelivery >>
+-> Go see Rose.
+    << jump RoseDelivery >>
+<< elseif workAvailable("eli") and workAvailable("sif") >>
+-> Go See Eli.
+    << jump EliDelivery >>
+-> Go see Tychus & Sif
+    << jump SifDelivery >>
+<< elseif workAvailable("rose") and workAvailable("sif") >>
+-> Go see Rose.
+    << jump RoseDelivery >>
+-> Go see Tychus & Sif
+    << jump SifDelivery >>
+<< elseif workAvailable("eli") >>
+-> Go See Eli.
+    << jump EliDelivery >>
+<< elseif workAvailable("rose") >>
+-> Go see Rose.
+    << jump RoseDelivery >>
+<< elseif workAvailable("sif") >>
+-> Go see Tychus & Sif
+    << jump SifDelivery >>
+<< else >>
+    On the other hand you don't have anything ready for delivery right now.
+    << jump H4DEs >>
+<< endif >>
+
 TODO: how do we even decide who's available for requests.
 <<jump Arrival>>
+===
+
+title: ToTycoon
+---
+<<volumeBG 0 1.5>>
+<<fadeOut 1.5>>
+<<unloadAll>>
+<<switchScene "tycoon">>
 ===

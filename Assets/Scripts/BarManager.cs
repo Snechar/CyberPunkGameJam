@@ -7,6 +7,7 @@ using Yarn.Unity;
 
 public class BarManager : MonoBehaviour {
     private Driver driver;
+    private VariableStorageBehaviour variableStore;
 
     public DialogueRunner dlgRunner;
     public AudioManager audioManager;
@@ -15,6 +16,10 @@ public class BarManager : MonoBehaviour {
     public Image leftChar;
     public Image rightChar;
     public FadeLayer curtain;
+
+    private void SetupRefs() {
+        // todo: setup stubs here
+    }
 
     private void Awake() {
         driver = Driver.GetInstance();
@@ -46,14 +51,24 @@ public class BarManager : MonoBehaviour {
 
         // adds a pending request for a user
         dlgRunner.AddCommandHandler<string, string, int>("addRequest", requestManager.AddRequest);
+
         // checks if a user's current request can be filled
         dlgRunner.AddFunction<string, bool>("canFill", requestManager.CanFill);
+
         // checks if there are any existing deliveries that can be filled
         dlgRunner.AddFunction<bool>("hasDelivery", requestManager.HasAnyDelivery);
+
+        // returns true if there is a request pending for a specific character
+        dlgRunner.AddFunction<string ,bool>("pendingRequest", requestManager.HasPending);
+
         // fills a delivery for a specific client
         dlgRunner.AddCommandHandler<string>("fillRequest", requestManager.FillRequest);
+
         // how many deliveries have been completed for a client
-        dlgRunner.AddFunction<string, int>("completedRquests", requestManager.CountCompletedRequests);
+        dlgRunner.AddFunction<string, int>("completedRequests", requestManager.CountCompletedRequests);
+
+        // check to see if we should have work available for a client
+        dlgRunner.AddFunction<string, bool>("workAvailable", requestManager.WorkAvailable);
 
         dlgRunner.AddCommandHandler("dumpRequestBook", requestManager.DumpRequestBook);
 

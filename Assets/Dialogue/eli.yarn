@@ -1,5 +1,269 @@
 title: EliDelivery
 ---
--> Maybe not now.
-    << jump MakeDelivery >>
+<< loadLeft "Bar/Characters/Eli" >>
+
+// TODO: adjust eli_score based on date vs requseted date
+
+<< fillRequest eli >>
+
+<<if completedRequests("eli") == 1>>
+    // completing first job
+    Eli: Well met, comrade.
+    -> Comrade?
+        Eli: Yes, you're a fellow member of the Proletariat and are aiding our noble cause. Thus, comrade!
+        Carrier: Just "choom" is fine, choom.
+    -> I've brought supplies
+        Eli: Preem.
+        Carrier: Also, just "choom" is fine, choom.
+<<elseif completedRequests("eli") == 2>>
+    // completing second job
+    Eli: Thank you for your contribution. Your brothers thank you.
+    Carrier: I'm just doing my job. You pay for a service, I deliver.
+    Eli: Even so, your support is invaluable.
+<<elseif completedRequests("eli") == 3>>
+    // completing third job
+    Eli: You have done more than we could have expected. Take this.
+    He reaches into his jacket and produces a small bauble. It's a many sided geometric shape with numbers on each side.
+    Carrier: Thanks...what is it?
+    Eli: A die. It has no real value but represents chance. I've always found it brings me luck. You have done much for our cause, so I wish to share that luck with you.
+    A bit weird but clearly a sentimental gift; with a show of appreciation, you pocket the die. Eli's an odd kid, but good. Hope that whole thing works out for him.
+<<endif>>
+
+<<jump EliChatter>>
+===
+
+title: EliChatter
+---
+<< loadLeft "Bar/Characters/Eli" >>
+<<if completedRequests("eli") == 0>>
+    << if pendingRequest("eli") >>
+        Eli: We're waiting on your delivery. It's essential don't delay!
+        << jump Arrival >>
+    << endif >>
+    Eli: I see they've assigned a new courier for this route. I'm Eli, good to meet you.
+    Carrier: And you - though they call me Carrier around here. I heard you need a large quantity of goods?
+    Eli: Yes, though I can't give you the specifics. Nonetheless, we'll pay for any supplies you can bring.
+    Carrier: Any preferences?
+    Eli: A little bit of everything - fruits, veggies, meats. Everything.
+    Carrier: Sounds simple...
+    Eli: Except the quantity of goods we require are quite demanding, which means the risks will be high.
+    Eli: Eddies shouldn't be an issue; we just desperately need supplies.
+    Carrier: Mhm. Quantities - how much are we talkin'?
+    Eli: Least ten units of tomatoes and four units of tilapia. Need it ASAP, too - ten days, max.
+    Carrier: Heh, you weren't kidding about the quantity...
+        -> I'll take the job
+            Eli: Excellent! I'll be here when you're ready to drop off.
+            << addRequest eli "10:tom;4:til" 10 >>
+            << jump Arrival >>
+        -> I'll have to refuse for now.
+            Eli: I see. Well, I hope you change your mind. Come back if you reconsider.
+            << jump Arrival >>
+<<endif>>
+
+Eli: Greetings, comr- er, choomba!
+-> Inquire about work.
+    <<jump EliGetWork>>
+-> Just Chat.
+    <<jump EliChill>>
+-> Check in with a different client.
+    <<unloadLeft>>
+    <<jump Arrival>>
+===
+
+title: EliGetWork
+---
+<< if pendingRequest("eli") >>
+    Eli looks up excitedly.
+    Eli: Preem! You're early.
+    Carrier: Ah, no it's not ready yet.
+    Eli: That's unfortant. Please hurry.
+    << jump EliChatter >>
+<< endif >>
+Carrier: Lookin' for work. Any chance the noble cause has need of my services?
+
+<<if workAvailable("eli")>>
+    <<if completedRequests("eli") == 1>>
+        Eli: Actually, yes!
+        Eli: While allocating your first provisions, we realized we needed to provide our comrades with additional protein.
+        Carrier: I've got a line of tilapia and cod right now - how's that?
+        Eli: That's perfect. If possible, we need this to be sourced strictly off-grid.
+        Eli: Rumors of foodstuffs with nanites have begun to circulate.
+        Eli: We don't have confirmation on their behavior yet, but this isn't a risk we can take.
+        Carrier: Can do. How much we talkin' this time?
+        // TODO: add wait before event
+        Eli: We have an upcoming event and anticipate the need for substantial reserves afterward.
+        Eli: How's ten units of cod and five of tilapia? Deadline'd be...twenty-three days.
+        -> Quite a demanding order there, choom - gonna have to pass for now.
+            Eli: Understandable, friend. I suppose we can put this on hold for now, though if you happen to change your mind do let me know!
+        -> Okay, I'll see what I can do.
+            Eli: Nova! Thanks, choom!
+            <<addRequest eli "10:cod;5:til" 23>>
+        Carrier: Catch you later choom.
+        <<jump Arrival>>
+    <<elseif completedRequests("eli") == 2>>
+        // TODO: add wait before event
+        Eli: Our last event was a success! Your contribution has significantly sped up our comrades' recovery.
+        Carrier: Lovely to hear! More planned for the future perhaps?
+        Eli: No promises!
+        Eli: ...But we could use a substantial amount of common veggies. There is a celebration .. of sorts.
+        Carrier: A celebration, really?
+        Eli: Choom, you know I can't tell you more. Perhaps if you joined us?
+        Carrier: We'll see. For now let's talk order.
+        Eli: five eggplant, ten cucumber, five lettuce, three salmon. And we'll need that in 11 days.
+        << addRequest eli "5:egg;10:cuke;5:let;3:salmon" 11 >>
+        Carrier: Got it, I'll be in touch.
+        << jump Arrival >>
+    <<else>>
+        Unfortunately not, choomba. I'll definitely call on you if something comes up, though.
+        << jump EliChatter >>
+    <<endif>>
+<<else>>
+    Unfortunately not, choomba. I'll definitely call on you if something comes up, though.
+    << jump EliChatter >>
+<<endif>>
+
+===
+
+title: EliChill
+---
+// if we're here we will have completed at least one eli order
+// $eli_level represents how much of the social conversation we've had
+<< if $eli_level < 1 >>
+    -> Tell me about yourself.
+        << set $eli_branch_11 = true >>
+        Eli: Oh, me? I'm not special. I just... arrange deliveries, is all. I'm Eli.
+        Carrier: Hey, this gig ain't easy, choom, you know that. Can't just all be for you, can it?
+            Eli is clearly both impassioned and slightly uncomfortable at this line of questioning.
+            Eli: It's for the...
+            He continues more quietly.
+            Eli: It's for the poor and defenseless of the Undeground, as well as the ones who ... defend the defenseless.
+            Carrier: And who defends the defenseless?
+            Eli gets even more quiet. You didn't think that would be possible.
+            Eli: Why, the revolution, of course.
+            This is clearly more than you should know. Don't ask about clients is rule number one. And yet..leaning in...
+            Carrier: The revolution?
+            Eli draws back and says no more.
+            Eli: Maybe later, choom.
+    -> The place I deliver to I've heard folk call "The Undeground."
+        << set $eli_branch_12 = true >>
+        Eli: The undeground is where the poor, the downtrodden, the homeless fight to survive under this capitalist hellscape we call a city. It's where we made our camps.
+        Carrier: We?
+        Eli mumbles and defers.
+        -> Souds like a dump.
+            Eli: Have some sympathy! It may be your home one day, too.
+        -> That's very noble of you.
+            Eli: It is nothing less than our duty.
+    -> I should be going.
+        << jump Arrival >>
+
+    << if $eli_branch_11 and $eli_branch_12 >>
+        << set $eli_level = 1 >>
+    << endif >>
+
+    << if $eli_level == 1 >>
+        Carrier: I should be going.
+        << jump Arrival >>
+    << endif >>
+
+<< elseif $eli_level == 1 and completedRequests("eli") > 1 >>
+    // must have spoken with him once and completed 2 requests
+    -> No, really, tell me about yourself.
+        << set $eli_branch_21 = true >>
+        Eli: Well, I suppose you deserve to know something - my name is Elijah Kildridge.
+        Eli: Perhaps it means nothing to you, but, to me, it's the only thing that I own anymore. Bourgeoise took the rest from me when I couldn't pay off my debts.
+        Eli: Then again, could I? There was no work to be found! And what work could be found had more turnover than a bakery!
+        -> Sorry to hear that; I know what it's like to be without work.
+            Eli: Thank you, that means a lot coming from you, comrade.
+        -> Sounds like you didn't work hard enough.
+            Eli: Corpo bootlicker! You try working two full jobs and still losing ground to exorbitant rates!
+            Eli: The system is designed to keep us poor and too tired to fight. Don't be blinded by any success: it is temporary.
+        
+        Eli: I was on the streets for a year and a half. Still would be if not for Mohr.
+        Eli: He gave me purpose, a reason to get through the day. Not everyone has that.
+    -> You've mentioned a revolution...
+        << set $eli_branch_22 = true >>
+        He leans in once more speaking quietly and cautiously. Occasionally he'll glance around for unknown observers.
+        Eli: We are a united front of revolutionaries of all creeds.
+        Eli: We are a united front of revolutionaries of all creeds. Marxists...
+        Eli: We are a united front of revolutionaries of all creeds. Marxists, Marxist-Leninists...
+        Eli: We are a united front of revolutionaries of all creeds. Marxists, Marxist-Leninists, Marxist-Leninist-Maoists...
+        Eli: and also some Anarchists - they are here, too.
+        Carrier: Okay, but who are you? What are you fighting for?
+        Eli: We fight for a society run by the Proletariet: the working class. Though there are many disagreements on how.
+        Eli: For now, we all agree that the current power structure is too vast to fight alone and the times too dire to be demanding of allies.
+        Eli: The enemy is unifying.
+    -> What do you do for fun?
+        << set $eli_branch_23 = true >>
+        A gleam crosses his eye and what appears to be earnest humor crosses Eil's face.
+        This is a side you don't normally see of your ever-serious friend.
+        Eli: When not busy with revolutionary matters, I love to roleplay. I especially love Temples & Templars 6th Edition.
+        Eli: I've taught some of my chooms how to play, but we still have more room if you'd like to join?
+        -> I'd love to, but what is it?
+        -> I'm not sure what that is.
+        Eli: Temples & Templars is a game where you play as a either a warrior, a berserker, a magi, a crusader, or a thief in a fantasy realm and raid temples for loot and for glory.
+        Eli: But it doesn't just have to be about that, it can be whatever the Templemaster creates; the players also have an active role in creating the story, too!
+        -> Wow sounds like a lot of fun. How do I begin?
+            Eli: Well, first you create a character out of one of the races. Alfar, Dwerg, Human, and Orkney.
+            Eli: Ah. This might take a while actually, but it's quick once you get the hang of it. Why don't we exchange numbers and I can guide you through character creation?
+        -> That doesn't really sound like my thing.
+            Yeah, it's not everybody's thing.
+    -> I should be going.
+        << jump Arrival >>
+
+    << if $eli_branch_21 and $eli_branch_22 and $eli_branch_23 >>
+        << set $eli_level = 2 >>
+    << endif >>
+
+    << if $eli_level == 2 >>
+        Carrier: I should be going.
+        << jump Arrival >>
+    << endif >>
+
+<< elseif $eli_level == 2 and completedRequests("eli") > 2 >>
+    -> So, tell me about Mohr - he sounds pretty important to you.
+        << set $eli_branch_31 = true >>
+        Eli: He is our leader. He has been head of the vanguard and leading the charge toward a glorious future. He saved me from a life of purposeless destitution and I will be forever grateful for that.
+        As he spoke Eli's demeanor took on a feel of deference and deep respect. Whoever this Mohr character is, you hope he's working in good faith...and with great guards. 
+        Unfortunate but he doesn't sound like the kind of man the corpos are going to let stick around.
+    -> So, about Temples & Templars...
+        << set $eli_branch_32 = true >>
+        Eli: So you want to hear more about it, eh? I knew you couldn't resist.
+        Eli: So basically you select a class and race from the options I said earlier as well as a background like Noble, Clergy, and Peasantry among other options.
+        Eli: Then you write out a story for your character to show where they've come from and figure out where they are going then boom, you have a character!
+        -> Can I join up with your game? I think I have an idea.
+            Eli: Nova. Whatcha got?
+                -> A Half-Orkney Magi named Gruzbak
+                    Eli: Nice, Orkneys are my favorite, too.
+                -> A Dwerk Thief named Ulfbert
+                    Eli: Dwergs are fun. Their small size makes them great thieves.
+                -> An Alfar Berzerker named Shoshannah.
+                    Eli: Good starting comob. Alfar natural resistance pairs well with berzerker half-damage.
+        -> I was just curious, but I'll think about it.
+            Eli: Of course. No pressure.
+    -> I should be going.
+        << jump Arrival >>
+
+    << if $eli_branch_31 and $eli_branch_32 >>
+        << set $eli_level = 3 >>
+    << endif >>
+
+    << if $eli_level == 3 >>
+        Carrier: I should be going.
+        << jump Arrival >>
+    << endif >>
+
+<< elseif $eli_level == 3 >>
+    Carrier: Just checking in. How's the revolution? Have the deliveries been helping?
+    Eli: Marvelously, comrade!
+    Carrier: That's good to hear, I wasn't sure.
+    Eli: We've been able to keep everyone fed - albeit with some rationing here and there - but we're doing well.
+    << set $eli_level = 4 >>
+    << jump Arrival >>
+<< else >>
+    Eli: Good to see you, choom! What's on your mind?
+    Carrier: Nothing much. Just checking in.
+    <<jump Arrival>>
+<< endif >>
+
+<< jump EliChill >>
 ===

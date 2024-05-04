@@ -11,7 +11,6 @@ public class Driver : MonoBehaviour {
     public const string TYCOON_NAME = "SampleScene";
     public const string INTRO_NAME = "Intro";
 
-    private int cycles = 0;
     public AudioManager audioManager;
 
     private bool requestedBar = false;
@@ -29,6 +28,8 @@ public class Driver : MonoBehaviour {
     private InMemoryVariableStorage variableStore;
     private RequestManager requestManager;
 
+    private Button startVNButton;
+
     private JamScenes curScene;
     private JamScenes nextScene;
 
@@ -42,10 +43,13 @@ public class Driver : MonoBehaviour {
         requestManager = GetComponent<RequestManager>();
         SceneManager.sceneLoaded += SceneLoaded;
 
+        var startButton = GameObject.Find("StartDlg");
+        if (startButton != null) {
+            startVNButton.GetComponent<Button>();
+        }
+
         SwitchScenes(JamScenes.INTRO);
     }
-
-    private Button startVNButton;
 
     void Update() {
         if (nextScene != curScene) {
@@ -68,10 +72,9 @@ public class Driver : MonoBehaviour {
             curScene = nextScene;
         }
 
-        if (startVNButton == null) {
-            startVNButton = GameObject.Find("StartDlg").GetComponent<Button>();
+        if (startVNButton != null) {
+            startVNButton.interactable = curScene == JamScenes.BAR;
         }
-        startVNButton.interactable = curScene == JamScenes.BAR;
     }
 
     public AudioManager GetAudioManager() {

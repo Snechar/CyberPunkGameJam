@@ -3,3 +3,9 @@ title: RoseDelivery
 -> Maybe not now.
     << jump MakeDelivery >>
 ===
+
+title: RoseChatter
+---
+Eh, maybe later.
+<<jump Arrival>>
+===
