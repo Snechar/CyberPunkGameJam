@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class InventoryManagerSingleton : MonoBehaviour
-{
+public class InventoryManagerSingleton : MonoBehaviour {
+    public InventoryDisplay display;
 
-    public static InventoryManagerSingleton Instance { get; private set; }
+    public static InventoryManagerSingleton Instance {
+        get; private set;
+    }
     [SerializeField]
     public List<InventorySlot> InventorySlots = new List<InventorySlot>();
-    public List<SO_Produce> sO_Produces = new List<SO_Produce>(); 
+    public List<SO_Produce> sO_Produces = new List<SO_Produce>();
 
     public void DebugLog() {
         var str = "Inventory:\n";
@@ -19,67 +21,54 @@ public class InventoryManagerSingleton : MonoBehaviour
         Debug.Log(str);
     }
 
-    private void Awake()
-    {
+    private void Awake() {
         // If there is an instance, and it's not me, delete myself.
 
-        if (Instance != null && Instance != this)
-        {
+        if (Instance != null && Instance != this) {
             Destroy(this);
-        }
-        else
-        {
+        } else {
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
     }
 
-    public void AddItem(SO_Produce produce)
-    {
-        if (InventorySlots.Count < 1)
-        {
+    public void AddItem(SO_Produce produce) {
+        if (InventorySlots.Count < 1) {
             InventorySlots.Add(new InventorySlot(produce, 1));
+            updateDisplay();
             return;
         }
-        foreach (InventorySlot slot in InventorySlots)
-        {
-            if (slot.produce == produce)
-            {
+        foreach (InventorySlot slot in InventorySlots) {
+            if (slot.produce == produce) {
                 slot.numberOfProduce++;
+                updateDisplay();
                 return;
             }
         }
         InventorySlots.Add(new InventorySlot(produce, 1));
+        updateDisplay();
     }
 
-    public bool RemoveItem(SO_Produce produce, int amount)
-    {
-
-        if (InventorySlots.Count > 0)
-        {
-            foreach (InventorySlot slot in InventorySlots)
-            {
-                if (slot.produce == produce)
-                {
-                    if (slot.numberOfProduce - amount < 0)
+    public bool RemoveItem(SO_Produce produce, int amount) {
+        if (InventorySlots.Count > 0) {
+            foreach (InventorySlot slot in InventorySlots) {
+                if (slot.produce == produce) {
+                    if (slot.numberOfProduce - amount < 0) {
                         return false;
+                    }
                     slot.numberOfProduce = slot.numberOfProduce - amount;
-
+                    updateDisplay();
                     return true;
                 }
             }
         }
         return false;
     }
-    public int CountItem(SO_Produce produce)
-    {
-        if (InventorySlots.Count > 0)
-        {
-            foreach (InventorySlot slot in InventorySlots)
-            {
-                if (slot.produce == produce)
-                {
-                   return slot.numberOfProduce;
+    public int CountItem(SO_Produce produce) {
+        if (InventorySlots.Count > 0) {
+            foreach (InventorySlot slot in InventorySlots) {
+                if (slot.produce == produce) {
+                    return slot.numberOfProduce;
                 }
             }
         }
@@ -102,15 +91,20 @@ public class InventoryManagerSingleton : MonoBehaviour
                 slot.numberOfProduce -= count;
             }
         }
+        updateDisplay();
     }
 
-    public SO_Produce ReturnProduceByName(ProduceName name)
-    {
-        foreach (var item in sO_Produces) { 
-            if(item.produceName == name)
+    public SO_Produce ReturnProduceByName(ProduceName name) {
+        foreach (var item in sO_Produces) {
+            if (item.produceName == name)
                 return item;
         }
         return null;
     }
 
+    private void updateDisplay() {
+        if (display != null) {
+            display.UpdateInventory();
+        }
+    }
 }
