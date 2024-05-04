@@ -12,6 +12,7 @@ public class Driver : MonoBehaviour {
     public const string INTRO_NAME = "Intro";
 
     public AudioManager audioManager;
+    public Camera mainCamera;
 
     private bool requestedBar = false;
     private Scene barScene;
@@ -42,7 +43,6 @@ public class Driver : MonoBehaviour {
 
     private void Awake() {
         Driver.instance = this;
-        variableStore = GetComponent<InMemoryVariableStorage>();
         requestManager = GetComponent<RequestManager>();
         SceneManager.sceneLoaded += SceneLoaded;
 
@@ -55,7 +55,6 @@ public class Driver : MonoBehaviour {
     }
 
     void Update() {
-        Debug.Log("curScene: " + curScene);
         cycleDisplay.SetActive(curScene == JamScenes.BAR || curScene == JamScenes.TYCOON);
         if (cycleDisplay.activeSelf) {
             cycleDisplayText.text = "Day: " + CurrentCycleNumber();
@@ -97,6 +96,10 @@ public class Driver : MonoBehaviour {
         return variableStore;
     }
 
+    public void SetVariableStore(InMemoryVariableStorage storeage) {
+        variableStore = storeage;
+    }
+
     public void SceneLoaded(Scene scene, LoadSceneMode mode) {
         Debug.Log($"SceneLoaded: {scene.name}");
         switch (scene.name) {
@@ -105,6 +108,8 @@ public class Driver : MonoBehaviour {
                 break;
             case TYCOON_NAME:
                 tycoonRoot = tycoonScene.GetRootGameObjects()[0];
+                var canvas = tycoonRoot.GetComponentInChildren<Canvas>();
+                canvas.worldCamera = mainCamera;
                 break;
             case INTRO_NAME:
                 introRoot = introScene.GetRootGameObjects()[0];
@@ -157,6 +162,7 @@ public class Driver : MonoBehaviour {
     }
 
     public void SwitchScenes(JamScenes toScene) {
+        Debug.Log("SwitchScenes -> " + toScene);
         if (curScene == toScene) {
             return;
         }

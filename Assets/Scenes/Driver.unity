@@ -2353,6 +2353,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioManager: {fileID: 236787182}
+  mainCamera: {fileID: 1843292415}
   cycleDisplay: {fileID: 47324384}
   cycleDisplayText: {fileID: 232897765}
 --- !u!4 &1500363883
