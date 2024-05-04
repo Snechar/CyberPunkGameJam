@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f51879db368c997488b203adff79b25b, type: 3}
-  m_Name: SO_TomatoPlant
+  m_Name: SO_EggplantPlant
   m_EditorClassIdentifier: 
-  timeToGrowCycles: 4
+  timeToGrowCycles: 5
   currentCycle: 0
   sprites:
-  - {fileID: 1622343167, guid: e9afc4ae0d22d7a41a983ebc32a110a1, type: 3}
-  - {fileID: -452707620, guid: e9afc4ae0d22d7a41a983ebc32a110a1, type: 3}
-  - {fileID: 642468961, guid: e9afc4ae0d22d7a41a983ebc32a110a1, type: 3}
-  - {fileID: 1728637810, guid: e9afc4ae0d22d7a41a983ebc32a110a1, type: 3}
-  produce: {fileID: 11400000, guid: 11fbf502451c5084db25d5c853ceae4a, type: 2}
+  - {fileID: 548132804, guid: e9afc4ae0d22d7a41a983ebc32a110a1, type: 3}
+  - {fileID: 914393168, guid: e9afc4ae0d22d7a41a983ebc32a110a1, type: 3}
+  - {fileID: -901013218, guid: e9afc4ae0d22d7a41a983ebc32a110a1, type: 3}
+  - {fileID: 1785063813, guid: e9afc4ae0d22d7a41a983ebc32a110a1, type: 3}
+  - {fileID: 1486621329, guid: e9afc4ae0d22d7a41a983ebc32a110a1, type: 3}
+  produce: {fileID: 11400000, guid: a50d01b2b1d72e746b57cf5e6c2ad482, type: 2}
   ProduceType: 0
   currentSprite: {fileID: 1174571981, guid: b18d96ee5c41849489a5d61d350358c0, type: 3}

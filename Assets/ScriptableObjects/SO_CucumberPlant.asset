@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f51879db368c997488b203adff79b25b, type: 3}
+  m_Name: SO_CucumberPlant
+  m_EditorClassIdentifier: 
+  timeToGrowCycles: 3
+  currentCycle: 0
+  sprites:
+  - {fileID: 896425024, guid: e9afc4ae0d22d7a41a983ebc32a110a1, type: 3}
+  - {fileID: 372379468, guid: e9afc4ae0d22d7a41a983ebc32a110a1, type: 3}
+  - {fileID: -193947424, guid: e9afc4ae0d22d7a41a983ebc32a110a1, type: 3}
+  produce: {fileID: 11400000, guid: d1bd6aaa9daded947836d4faea9ce57c, type: 2}
+  ProduceType: 0
+  currentSprite: {fileID: 896425024, guid: e9afc4ae0d22d7a41a983ebc32a110a1, type: 3}
