@@ -1,11 +1,150 @@
-title: RoseDelivery
----
--> Maybe not now.
-    << jump MakeDelivery >>
-===
-
 title: RoseChatter
 ---
 Eh, maybe later.
 <<jump Arrival>>
+===
+
+
+title: RoseDelivery
+---
+<< loadLeft "Bar/Characters/Rose" >>
+
+// TODO: adjust rose_score based on date vs requseted date
+
+<< fillRequest rose >>
+
+<<if completedRequests("rose") == 1>>
+    // completing first job
+    TODO
+<<elseif completedRequests("rose") == 2>>
+    // completing second job
+    TODO
+<<elseif completedRequests("rose") == 3>>
+    TODO
+<<endif>>
+
+<<jump RoseChatter>>
+===
+
+title: RoseChatter
+---
+<< loadLeft "Bar/Characters/Rose" >>
+<<if completedRequests("rose") == 0>>
+    << if pendingRequest("rose") >>
+        TODO: waiting for delivery bark
+        << jump Arrival >>
+    << endif >>
+    TODO: first order
+<<endif>>
+
+TODO Rose: General greeting
+-> Inquire about work.
+    <<jump RoseGetWork>>
+-> Just Chat.
+    <<jump RoseChill>>
+-> Check in with a different client.
+    <<unloadLeft>>
+    <<jump Arrival>>
+===
+
+title: RoseGetWork
+---
+<< if pendingRequest("rose") >>
+    TODO: getting work but already have pending work
+    << jump RoseChatter >>
+<< endif >>
+TODO: Asking rose for work
+
+<<if workAvailable("rose")>>
+    <<if completedRequests("rose") == 1>>
+        TODO: second rose order
+
+        <<jump Arrival>>
+    <<elseif completedRequests("rose") == 2>>
+        TODO: third rose order
+
+        << jump Arrival >>
+    <<else>>
+        TODO: No order available
+        << jump RoseChatter >>
+    <<endif>>
+<<else>>
+    TODO: no work available
+    << jump RoseChatter >>
+<<endif>>
+
+===
+
+title: RoseChill
+---
+// if we're here we will have completed at least one rose order
+// $rose_level represents how much of the social conversation we've had
+<< if $rose_level < 1 >>
+    -> Rose Question 1.1
+        << set $rose_branch_11 = true >>
+        Rose Exchange 1.1
+    -> Rose Question 1.2
+        << set $rose_branch_12 = true >>
+        Rose Exchange 1.2
+    -> I should be going.
+        << jump Arrival >>
+
+    << if $rose_branch_11 and $rose_branch_12 >>
+        << set $rose_level = 1 >>
+    << endif >>
+
+    << if $rose_level == 1 >>
+        Carrier: I should be going.
+        << jump Arrival >>
+    << endif >>
+
+<< elseif $rose_level == 1 and completedRequests("rose") > 1 >>
+    // must have spoken with him once and completed 2 requests
+    -> Rose Question 2.1
+        << set $rose_branch_21 = true >>
+        Rose Exchange 2.1
+    -> Rose Question 2.2
+        << set $rose_branch_22 = true >>
+        Rose Exchange 2.2
+    -> I should be going.
+        << jump Arrival >>
+
+    << if $rose_branch_21 and $rose_branch_22 >>
+        << set $rose_level = 2 >>
+    << endif >>
+
+    << if $rose_level == 2 >>
+        Carrier: I should be going.
+        << jump Arrival >>
+    << endif >>
+
+<< elseif $rose_level == 2 and completedRequests("rose") > 2 >>
+    -> Rose Question 3.1
+        << set $rose_branch_31 = true >>
+        Rose Exchange 3.1
+    -> Rose Question 3.2
+        << set $rose_branch_32 = true >>
+        Rose Exchange 3.2
+    -> I should be going.
+        << jump Arrival >>
+
+    << if $rose_branch_31 and $rose_branch_32 >>
+        << set $rose_level = 3 >>
+    << endif >>
+
+    << if $rose_level == 3 >>
+        Carrier: I should be going.
+        << jump Arrival >>
+    << endif >>
+
+<< elseif $rose_level == 3 >>
+    Rose Epilogue
+    << set $rose_level = 4 >>
+    << jump Arrival >>
+<< else >>
+    Rose no additional work
+    <<jump Arrival>>
+<< endif >>
+
+<< jump RoseChill >>
 ===
