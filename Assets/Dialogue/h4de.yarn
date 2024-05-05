@@ -4,8 +4,8 @@ title: H4DEs
 <<reset>>
 <<loadBG "Bar/BarBGOfficial">>
 
-<<playBG "Dead Rain">>
-<<volumeBG .1 2>>
+<<volumeBG .1>>
+<<crossfadeBGTo "Dead Rain" 2>>
 
 <<if !$hasStartedBefore >>
     <<fadeIn 2>>
@@ -191,7 +191,7 @@ TODO: how do we even decide who's available for requests.
 
 title: ToTycoon
 ---
-<<volumeBG 0 1.5>>
+<<crossfadeBGTo "neon harvest" 3>>
 <<fadeOut 1.5>>
 <<unloadAll>>
 <<switchScene "tycoon">>

@@ -51,7 +51,8 @@ public class Driver : MonoBehaviour {
             startVNButton.GetComponent<Button>();
         }
 
-        SwitchScenes(JamScenes.INTRO);
+        // SwitchScenes(JamScenes.INTRO);
+        SwitchScenes(JamScenes.BAR);
     }
 
     void Update() {
