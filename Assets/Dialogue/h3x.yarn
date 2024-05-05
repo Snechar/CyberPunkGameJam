@@ -3,7 +3,8 @@ title: H3xChatter
 << unloadAll >>
 << loadRight "Bar/Characters/H3x" >>
 
-H3x: This sure is a TODO
--> Cool
+H3X: Looks like somebody's got drinking money. What can I get you?
+Carrier: Maybe later, thanks.
+
 << jump Arrival >>
 ===
