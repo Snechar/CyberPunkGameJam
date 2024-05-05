@@ -1,11 +1,263 @@
 title: RoseDelivery
 ---
--> Maybe not now.
-    << jump MakeDelivery >>
+<< loadLeft "Bar/Characters/Rose" >>
+
+// TODO: adjust rose_score based on date vs requseted date
+
+<< fillRequest rose >>
+
+<<if completedRequests("rose") == 1>>
+    // completing first job
+    Caitlyn: I see. Not bad. Not bad at all, Carrier.
+    -> Happy to impress.
+        Caitlyn: So modest. Tell me, how did you do this?
+        Carrier: Trade secret miss. I'm sure we all have them.
+        Caitlyn: True.
+        Caitlyn: True. You may call me Caitlyn Rose. And no, that is not my real name.
+    -> That was hell to deliver. You owe me.
+        Caitlyn: I can imagine. Fresh fish is rare, even in my circles.
+        Carrier: Corpo, right? Maybe an exec?
+        Caitlyn: Hardly. Just rich. It's not so easy as you might think.
+        Carrier: ...I don't believe you.
+        Caitlyn: Ha! Well at least you're honest.
+    Caitlyn produces an envelope of crisp eddies far larger than your usual fee. It seems she was telling the truth about being rich at least.
+    A thought crosses your mind that physical bills are rare and far easier to counterfeit but it's probably safer not to challenge her.
+    Caitlyn: I trust I can call upon you again, if need be.
+
+<<elseif completedRequests("rose") == 2>>
+    Caitlyn: Once again, you've proven your skills, Carrier.
+    -> I exchange creds for goods. Simple as.
+        Caitlyn: I can tell. But tell me something-why are you doing this?
+        Carrier: I have my reasons.
+        Caitlyn: You know there wes a rumor of a Courer years back. No matter what they would deliver any package.
+        Caitlyn: There seemed to be nowhere in Delta City that was off limits.
+        -> Sounds like a dependable choom.
+        -> Is that so? Sounds like a fool.
+        Caitlyn: They disappeared a few years back. Nobody knows why...
+        Carrier: Let me know if you need anything, Ms Rose.
+    -> Don't want to lose a customer.
+        Carrier: Besides, I enjoy your company.
+        Caitlyn: If I had an eddie for every time I heard that I wouldn't need this job.
+        Carrier: Is it stressful?
+        Caitlyn: More than you'd think. I'm among the rich but not part of it.
+        Carrier: That all you're going to spill?
+        Caitlyn: I wouldn't want to have to kill you.
+    -> Less talk, more money
+        Caitlyn: Oh! Straight to the point, and rudely, at that.
+        Caitlyn: You would not do well in my line of work.
+<<elseif completedRequests("rose") == 3>>
+    Caitlyn: Once again you have proven to be invaluable.
+    -> You really like this stuff, huh?
+        Caitlyn: Of course! Do you know what the standard process is to find fresh sushi?!
+        Carrier: ...Yes?
+        Caitlyn: Fair play. I suppose if anyone would it would be you.
+    -> Well, I like to have a challenge.
+        Caitlyn: I gathered that, but something tells me you don't do this for the thrill.
+        Carrier: I've never said no to eddies.
+        Caitlyn: Is that it? How is your mother, by the way?
+        Carrier: ...
+<<endif>>
+
+<<jump RoseChatter>>
 ===
 
 title: RoseChatter
 ---
-Eh, maybe later.
-<<jump Arrival>>
+<< loadLeft "Bar/Characters/Rose" >>
+<<if completedRequests("rose") == 0>>
+    << if pendingRequest("rose") >>
+        Caitlyn: Come back when you're ready, little mailman.
+        << jump Arrival >>
+    << endif >>
+
+    Caitlyn: Either you want something from me, or you believe you have a chance.
+    Caitlyn: Which is it, and quick.
+    -> I heard you were looking for a certain type of rare goods.
+    -> Chance? I'm not playing cards. I heard you wanted something.
+    Caitlyn: I see.
+    Caitlyn: I see. You must be Carrier. Eddy spoke of you.
+    Carrier: Did he?
+    Caitlyn: Eddy has a bit of a reputation in my circle. I came seeking food, not synthetic, and he referred me to you.
+    Carrier: He must trust you a lot to give that up...
+    Carrier: He must trust you a lot to give that up... or you threatened him.
+    Caitlyn: Both are likely true. But, as it is, I have a job for you.
+    -> ...
+    -> Okay.
+    Caitlyn: It will not be easy, right. What I seek is fresh tilapia, four units, in 5 days.
+        -> Simple enough.
+            <<addRequest rose "4:til" 5>>
+        -> Sorry, I can't make that.
+            Caitlyn: I see. Come back when you're a bit more put together.
+    << jump Arrival>>
+<<endif>>
+
+Caitlyn: State your business.
+-> Inquire about work.
+    <<jump RoseGetWork>>
+-> Just Chat.
+    <<jump RoseChill>>
+-> Check in with a different client.
+    <<unloadLeft>>
+    <<jump Arrival>>
+===
+
+title: RoseGetWork
+---
+<< if pendingRequest("rose") >>
+    Caitlyn: Come back when you're ready, little mailman.
+    << jump RoseChatter >>
+<< endif >>
+
+Carrier: Checking in, got any work?
+
+<<if workAvailable("rose")>>
+    <<if completedRequests("rose") == 1>>
+        Caitlyn: Did you know that eating raw fish was common before the economic collapse?
+        Caitlyn: But also some varieties were deadly if not prepared correctly and that was the appeal.
+        Carrier: Is this what you learned training to engage with corpos and wageslaves?
+        Caitlyn: Ah, no, this is more of a personal interest.
+        Caitlyn: In any event I have additional requests. 4 Salmon in 4 days. Make haste.
+        Carrier: Got it.
+        << addRequest rose "4:salmon" 4 >>
+        <<jump Arrival>>
+    <<elseif completedRequests("rose") == 2>>
+        Caitlyn: In this region pre-collapse the preferred preparation for fish was to coat ground wheat and a mild alcohol.
+        Caitlyn: You would then submerse a cut of it into boiling oil to drive off the alcohol leaving an item that was light and crispy.
+        Carrier: That sounds wasteful. Why not make bread with the wheat and drink the alcohol?
+        Caitlyn: Indeed it is. But also delightful.
+        Caitlyn: I was at a corp event once and it was the focus of the dinner.
+        Carrier: If I didn't know better I'd say you enjoy that crowd.
+        Caitlyn: Careful now. I never said I hated the benefits, only the people I meet.
+        Caitlyn: On that note, my order: 2 units cod, 4 units tilapia. 3 days.
+        << addRequest rose "4:tilapia;2:cod" 3 >>
+        Carrier: No problem
+        << jump Arrival >>
+    <<else>>
+        Caitlyn: Hi Carrier, this isn't the time for errands. Think on my offer.
+        << jump RoseChatter >>
+    <<endif>>
+<<else>>
+    Caitlyn: I don't need you right now.
+    << jump RoseChatter >>
+<<endif>>
+
+===
+
+title: RoseChill
+---
+// if we're here we will have completed at least one rose order
+// $rose_level represents how much of the social conversation we've had
+<< if $rose_level < 1 >>
+    -> If you're not some corpo exec what do you do?
+        << set $rose_branch_11 = true >>
+        Caitlyn: Me? I'm just your average office worker. I married well.
+        Carrier: There is no way...
+        Caitlyn: As they say "best not to prod the sleeping lion."
+    -> What do you do for fun?
+        << set $rose_branch_12 = true >>
+        Caitlyn: Believe it or not, kintsugi.
+        Carrier: The gold fixing thing?
+        Caitlyn: Crudely put, but yes. It ...
+        Caitlyn: Crudely put, but yes. It ... soothes me.
+    -> Do you have thoughts on the revolution?
+        << set $rose_branch_13 = true >>
+        Caitlyn: Another one? I can't keep up with them."
+    -> I should be going.
+        << jump Arrival >>
+
+    << if $rose_branch_11 and $rose_branch_12 and $rose_branch_13 >>
+        << set $rose_level = 1 >>
+    << endif >>
+
+    << if $rose_level == 1 >>
+        Carrier: I should be going.
+        << jump Arrival >>
+    << endif >>
+
+<< elseif $rose_level == 1 and completedRequests("rose") > 1 >>
+    // must have spoken with him once and completed 2 requests
+    -> Tell me about Caitlyn Rose outside this bar.
+        << set $rose_branch_21 = true >>
+        Caitlyn: About me? You should know I can't.
+        Carrier: Right. What about the things that won't leave me dead?
+        Caitlyn: Hm.
+        Caitlyn sits and thinks. Too quiet and too long, this isn't who you're used to seeing.
+        Caitlyn: I'm afraid I can't.. No, not can't, it's simply not easy to talk about.
+        -> Are you okay?
+            A bit of a shocked look flashes across her face. If you weren't looking for it you'd have missed it. A bit of a cloud settles in its place.
+            Caitlyn: ...
+            Silence
+            Carrier: Has anyone asked you that before?
+            Caitlyn: Before? Yes, I suppose...
+            She trails off, lost in memory and seems unable to continue.
+    -> Tell me about the world of the rich.
+        << set $rose_branch_22 = true >>
+        Caitlyn: It's a braindance dressing the slums up as a corpo palace.
+        Carrier: Ouch.
+        Carrier: You don't seem to like them much.
+        Caitlyn: Have you ever starved before, and looked up at their towers wondering: Why are they up there while I'm down here?
+        Caitlyn: Well the slums may wash off but the memories are more persistent.
+    -> I should be going.
+        << jump Arrival >>
+
+    << if $rose_branch_21 and $rose_branch_22 >>
+        << set $rose_level = 2 >>
+    << endif >>
+
+    << if $rose_level == 2 >>
+        Carrier: I should be going.
+        << jump Arrival >>
+    << endif >>
+
+<< elseif $rose_level == 2 and completedRequests("rose") > 2 >>
+    -> What do you know about Delta City?
+        << set $rose_branch_31 = true >>
+        Caitlyn: You have access to all far reaches of it. Perhaps even exceeding my reach. What could I tell you?
+        Carrier: We have different interests, surely there is something?
+        Caitlyn: Hm. Do you know how about its founding?
+        Caitlyn: Delta city was originally a trade town. Founded as a mix of corporate expansion and the natural tendency of a port to draw us in.
+        Caitlyn: It even had its own currency... It wasn't a good place but it was better.
+        Carrier: You sound sentimental. What happend?
+        Caitlyn: First corp war. Delta City was not technically involved but there was an important trade deal acting as a lifeline to one of the combatants.
+        Caitlyn: It made us a good target.
+        Caitlyn: In any event my parents had moved here and I was still young when the war came to us.
+        Caitlyn: The rest goes as you might expect.
+    -> So, for fun. Kintsugi, really?
+        Caitlyn: ..I don't know. Maybe?
+        Caitlyn: There is something lovely about taking a shattered thing and making it both more beautiful and strong. But it is more soothing than fun.
+        Caitlyn: Fun is for later I suppose.
+        << set $rose_branch_32 = true >>
+    -> I should be going.
+        << jump Arrival >>
+
+    << if $rose_branch_31 and $rose_branch_32 >>
+        << set $rose_level = 3 >>
+    << endif >>
+
+    << if $rose_level == 3 >>
+        Carrier: I should be going.
+        << jump Arrival >>
+    << endif >>
+
+<< elseif $rose_level == 3 >>
+    Caitlyn: Ah, Carrier!
+    Caitlyn: I have come to realize something that has been at the back of mind for many months.
+    Carrier: And that is...
+    Caitlyn: Delta City is about to go into a recession.
+    Carrier: Again?
+    Caitlyn: Yes but I fear it will be worse. The corporations seem to be both unprepared and also speeding us toward it.
+    Carrier: Fantastic.
+    Caitlyn: I have contacts in Stockholm and will be leaving soon. You have proven an acceptable aquaintance, if you wish I would vouch for you.
+    Carrier: I...
+    Carrier: Thank you, I have things I can't leave behind.
+    Caitlyn: A person such as yourself would do well there and there would be room and care for your mother. Think on it Carrier.
+    << set $rose_level = 4 >>
+    << jump Arrival >>
+<< else >>
+    Caitlyn: Welcome back Carrier. I leave shortly and suggest you do the same.
+    Carrier: ...
+    <<jump Arrival>>
+<< endif >>
+
+<< jump RoseChill >>
 ===

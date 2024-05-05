@@ -76,7 +76,7 @@ title: EliGetWork
     Eli looks up excitedly.
     Eli: Preem! You're early.
     Carrier: Ah, no it's not ready yet.
-    Eli: That's unfortant. Please hurry.
+    Eli: That's unfortunate. Please hurry.
     << jump EliChatter >>
 << endif >>
 Carrier: Lookin' for work. Any chance the noble cause has need of my services?
