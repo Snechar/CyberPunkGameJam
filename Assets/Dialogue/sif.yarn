@@ -6,6 +6,20 @@ title: SifDelivery
 
 title: SifChatter
 ---
-Eh, maybe later.
+<< loadLeft "Bar/Characters/SifAlt" >>
+???: Can I help you?
+Carrier: I heard you might have some work for me?
+
+<< if completedRequests("eli") == 3 and completedRequests("rose") == 3 >>
+    Tychus: Maybe. I'm Tychus and this is Sif.
+    Sif: *bark*bark*
+    Tychus: No work now, but maybe in a few weeks...
+    Narrator: Maybe in a few weeks once the team finishes adding the rest of the content that got cut to make jam deadlines.
+<< else >>
+    ???: Come back when you're more experienced, choom.
+<< endif >>
+
+Carrier: Preem.
+
 <<jump Arrival>>
 ===

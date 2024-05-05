@@ -30,7 +30,8 @@ title: EddyChatter
 << unloadAll >>
 << loadLeft "Bar/Characters/Eddy" >>
 
-Eddy: This sure is a TODO
--> Cool
+Eddy: What can I do for you Carrier?
+Carrier: Not much, just checking in.
+
 << jump Arrival >>
 ===
