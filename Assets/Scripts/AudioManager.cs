@@ -1,8 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour {
@@ -87,6 +83,8 @@ public class AudioManager : MonoBehaviour {
                 return JamTrack.REMEMBER_YESTERDAY;
             case "the color purple":
                 return JamTrack.THE_COLOR_PURPLE;
+            case "neon harvest":
+                return JamTrack.NEON_HARVEST;
         }
         Debug.Log($"Failed to find track named {str}");
         return null;
@@ -100,11 +98,13 @@ public class AudioManager : MonoBehaviour {
         var initialVolume = audioSource.volume;
         var elapsed = 0f;
         var halfTime = time / 2;
-        while (elapsed < halfTime) {
-            var progress = elapsed / halfTime;
-            audioSource.volume = Mathf.Lerp(initialVolume, 0, progress);
-            yield return null;
-            elapsed += Time.deltaTime;
+        if (audioSource.isPlaying) {
+            while (elapsed < halfTime) {
+                var progress = elapsed / halfTime;
+                audioSource.volume = Mathf.Lerp(initialVolume, 0, progress);
+                yield return null;
+                elapsed += Time.deltaTime;
+            }
         }
 
         audioSource.clip = getClip(newTrack);
@@ -127,4 +127,5 @@ public enum JamTrack {
     DEAD_RAIN = 0,
     REMEMBER_YESTERDAY = 1,
     THE_COLOR_PURPLE = 2,
+    NEON_HARVEST = 3,
 }
