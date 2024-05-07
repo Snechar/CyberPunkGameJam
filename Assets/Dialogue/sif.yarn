@@ -1,25 +1,278 @@
 title: SifDelivery
 ---
--> Maybe not now.
-    << jump MakeDelivery >>
+<< loadLeft "Bar/Characters/SifAlt" >>
+
+// TODO: adjust sif_score based on date vs requseted date
+
+<< fillRequest sif >>
+
+<<if completedRequests("sif") == 1>>
+    // completing first job
+    Tychus: Ah! Thank you. I got something for you.
+    He gently pulls a bit of heart shaped metal from somewhere, it looks like a pin, and places it gently in your hand. Sif barks approval.
+    Tychus: You've done a service for us and I'm certain you've made plenty of sacrifices as well.
+    -> Appreciate it, what is it?
+        Tychus: That's a Purple Heart. Started in the US and carried through into the Free States and some merc groups adopted the practice in lieu of risk comp.
+        Tychus: Tradition is a bit of a relic but it was given as an awarded for those injured during their service.
+        Carrier: But I wasn't injured?
+        Tychus: Well, it don't look like you were hurt on this run but I recognize when folks made sacrifices. You'll wear it well.
+    -> A purple heart? I couldn't!
+        Tychus: Eh, I have my "reminder" of my service right here!
+        He motions toward his cybernetic arm.
+        Tychus: Besides, while it don't look like you were hurt on this run but I recognize when folks made sacrifices. You'll wear it well.
+    -> Where's that pin been? No thanks.
+        Carrier: Keep it, I only take eddies.
+        Tychus: Oh... well I didn't take you for the wise ass type. Fine.
+    Tychus: This package is exactly what my people need. Though we could use more and willing to pay, as always.
+<<elseif completedRequests("sif") == 2>>
+    // completing second job
+    Tychus: At this point I'm going to assume you're part cybernetic too.
+    He makes a motion and the metallic hand pivots away revealing a close combat flamethrower. Rare, with a somewhat limited fuel supply, but extremely effcitev and usually an unwelcome surprise to discover.
+    -> Preem!
+        Carrier: I'd love a flamethrower arm. Could come in ... handy.
+        Tychus: This ain't no joke son! In a twist of fate it was chromed up shock troops with flamers that took the thing.
+    -> My mother has cybernetic limbs.
+        Carrier: They've been a great help ever ...or were.
+        Tychus: Hoorah! Uncommon for civs to get full limbs, she a trooper? What's her name, you look kinda like me.
+        Tychus laughs clearly lost in memory of some old romance.
+    -> That's some drek!
+        Carrier: I got this arm but I'm no booster.
+        Somewhat taken aback Tychus tenses and holds Sif--now growling--back.
+        Tychus: Calm down boy, he ain't worth it.
+    Tychus: Anyway. Some of my people have taken an upturn in their recovery.
+    Tychus: I think the ganic food reminds them of better days. Gives some hope for some change tomorrow.
+    -> Good, I'm growing more every day.
+        Tychus: Nova. You're a real choom.
+    -> Demand going up as well.
+        Carrier: Might need to charge more.
+        Tychus: Eddies are tight but we'll do what we can. Just...
+        Tychus: There's better hustles if you want to profit so I'm guessing you should remember why you started.
+    Tychus: Be safe out there. Word is a churn is coming, get ready.
+<<elseif completedRequests("sif") == 3>>
+    Tychus: Hell Carrier. Glad to see you again.
+    -> Same, Tychus.
+        Carrier: It's tense out there. How're your people?
+        Tychus: Well as can be. Lost one to a badge raid last night. Same old shit, needed a body for some corpo bullshit and we're easy pickings.
+        Carrier: Sorry to hear that.
+    -> I'm not a soldier...
+        He laughs heartily. Sif stares at you expecting pets.
+        Tychus: Don't have to serve in a troop to be a soldier.
+        Carrier: Well what's my rank.
+        Tychus: Same as everyone else. Poor is your rank and your sentance: we're all just casualties eventually.
+    -> I've never been to war.
+    Tychus: These streets are the war, kid. They're where the wost suffering takes place. Where hope goes to die.
+    Tychus: But I'm trying to bring some back to carve out a place that's not so bad.
+    Tychus: And you've made a difference for a lot of people. Thank you.
+    Carrier: Sure thing.
+    Tychus: I've gone on too long. Imagine I'll see you around when you're done delivering.
+<<endif>>
+
+<<jump SifChatter>>
 ===
 
 title: SifChatter
 ---
 << loadLeft "Bar/Characters/SifAlt" >>
-???: Can I help you?
-Carrier: I heard you might have some work for me?
+<<if completedRequests("sif") == 0>>
+    << if pendingRequest("sif") >>
+        Tychus: My people are waiting. I need you to hurry.
+        << jump Arrival >>
+    << endif >>
+    Tychus: A new courier? What happened to the old guy?
+    -> No clue.
+        Carrier: It's a job with a short tenure.
+        Tychus: Another casualty I guess.
+        The dog sitting beside him whimpers.
+        Tychus: Well, I have .. people in need. Hoping you can help.
+    Carrier: What are you looking for? I specialize in fresh foods but
+    The man looks startled.
+    Tychus: Real food? Nova, wouldn't turn that down. And medicine?
+    Carrier: Meds are, uh, in short supply. Trauma Team has anything serious under intense guard.
+    Tychus: Fair, food will do to start. Can you do three lettuce and two tomato in three days?
+    -> Count on it; this will be a milkwalk.
+        << addRequest sif "3:lettuce;2:tomato" 3>>
+        Tychus: My people will appreciate it.
+    -> Can't now. Sorry Tychus.
+        Tychus: Damnit we need supplies. Come back when you reconsider.
+    <<jump Arrival>>
+<<endif>>
 
-<< if completedRequests("eli") == 3 and completedRequests("rose") == 3 >>
-    Tychus: Maybe. I'm Tychus and this is Sif.
-    Sif: *bark*bark*
-    Tychus: No work now, but maybe in a few weeks...
-    Narrator: Maybe in a few weeks once the team finishes adding the rest of the content that got cut to make jam deadlines.
-<< else >>
-    ???: Come back when you're more experienced, choom.
+Tychus: Hey soldier.
+-> Inquire about work.
+    <<jump SifGetWork>>
+-> Just Chat.
+    <<jump SifChill>>
+-> Check in with a different client.
+    <<unloadLeft>>
+    <<jump Arrival>>
+===
+
+title: SifGetWork
+---
+<< if pendingRequest("sif") >>
+    Tychus: We're counting on you Carrier. Don't let us down.
+    << jump SifChatter >>
 << endif >>
 
-Carrier: Preem.
+Carrier: Hey Tychus. How're the wards doing; need anything?
 
-<<jump Arrival>>
+<<if workAvailable("sif")>>
+    <<if completedRequests("sif") == 1>>
+        Tychus: Glad you're here! We actually could use something.
+        Tychus: We've mostly made our way through your last delivery and they love it.
+        Tychus: We all scraped something together and want to put another order in if you've got time; can you get meat as well?
+        Carrier: I can do some fish. Cod or Tilapia is probably available soon.
+        Tychus: Great, how about ten cucumbers and three Tilapia? No rush on this one.
+        -> Sounds good.
+            << addRequest sif "10:cucumber;3:tilapia" 1000 >>
+        -> Hm, not right now; I'll be back when I can fit than it.
+            Tychus: Sounds good. I know I said "no rush" but soon is better.
+        <<jump Arrival>>
+    <<elseif completedRequests("sif") == 2>>
+        Tychus: Just who I was hoping to see. Damned right we do.
+        Carrier: Nova, lay it out.
+        Tychus: Okay, so a bit larger an order than usual. Tension's building and we want to get a bit in reserves.
+        Tychus: Thinking something like four cucumber, four eggplant, two tomatoes and three cod?
+        Carrier: Works for me. Against my better judgement but usual rate applies. Whatever you're watching hasn't impacted my supply lines yet.
+        Tychus: That's a relief, keep your eyes open. Think you can swing that in six days?
+        Carrier: No milkwalk but I'll make it work.
+        << addRequest sif "4:cucumber;4:eggplant;2:tomatoes;3:cod" 6>>
+        << jump Arrival >>
+    <<else>>
+        << if completedRequests("sif") == 3>>
+            Tychus: Negative, we're still hunkered down and rationing. Stay sharp out there.
+        << else >>
+            Tychus: Thankfully not. Still good on our side.
+        << endif >>
+        << jump SifChatter >>
+    <<endif>>
+<<else>>
+    Tychus: As good as can be expected. Don't need anything right now.
+    << jump SifChatter >>
+<<endif>>
+
+===
+
+title: SifChill
+---
+// if we're here we will have completed at least one sif order
+// $sif_level represents how much of the social conversation we've had
+<< if $sif_level < 1 >>
+    -> Those people you're helping...
+        << set $sif_branch_11 = true >>
+        Carrier: They your old military pals?
+        Tychus: Some, but not all. I run a safe house, squat really, just outside the Underground.
+        Tychus: Take folks in help 'em deal when the slums are too much. Lots of vets 'cause of who I know but take just about everybody that needs a place.
+    -> That arm...
+        << set $sif_branch_12 = true >>
+        Carrier: Too young for the corp wars. Where'd you serve - Cyborg wars? Private security?
+        Tychus looks uncomfortable. Sif growls.
+        Tychus: No, no. Don't want to talk about that. Old ghosts and all.
+    -> Pet Sif.
+        << set $sif_branch_13 = true >>
+        You reach your hand out gently toward Sif. He smells it, assesse you cautiously, then decides meet muster and forces his head under your hand.
+        Tychus: Looks like you passed. I never was sure what the test was but ol' Sif is rarely wrong.
+        Carrier: Where'd you get her?
+        Tychus: I was doing a recovery operation in the Western Droughtlands. There was an explosion that had leveled an apartment building.
+        Tychus: We didn't expect any survivors but had to double check. Found this pup circling one spot and barking. Led us right to that family.
+        Tychus: They didn't know who she was and after we pulled them out she just kinda followed us back to camp. Pretty soon we were feeding her and she's been with me since.
+    -> I should be going.
+        << jump Arrival >>
+
+    << if $sif_branch_11 and $sif_branch_12 and $sif_branch_13 >>
+        << set $sif_level = 1 >>
+    << endif >>
+
+    << if $sif_level == 1 >>
+        Carrier: I should be going.
+        << jump Arrival >>
+    << endif >>
+
+<< elseif $sif_level == 1 and completedRequests("sif") > 1 >>
+    // must have spoken with him once and completed 2 requests
+    -> Your flamethrower...
+        << set $sif_branch_21 = true >>
+        Carrier: Been wondering. If you lost your arm to flame troops why go that route when you were getting augmented?
+        Tychus: That battle was traumatic no question about it. But when the field med got me stabilized and my XO offerd to cover ripperdoc services instead of hazard pay I jumped at it.
+        Tychus: After all if a flamethrower was enough for some scophead to catch us off guard I figured they must be effective.
+        Carrier: Ever regret it?
+        Tychus: Negative. Maybe not the right call if I wanted to put my merc days behind me but sure as shit was useful until I did.
+        Tychus: So while eddies would've been nice but I think "controlling the fire" was my short-circuited way of dealing with the fear.
+        Tychus: Worked for me at least.
+    -> How long have you been running the camp?
+        << set $sif_branch_22 = true >>
+        Tychus: Maybe a few years at this point.
+        Tychus: I was a Lieutenant in the Free States back in ... well too long ago.
+        << if $sif_branch_21 >>
+        Carrier: Wait, the Free States? I thought you said you were a merc?
+        Tychus: Correct, first one then the other.
+        <<endif>>
+        Carrier: Nova, most Free States folks don't make it this far out.
+        Tychus: With good reason. If you've got money the Free States are pretty nice and if you don't it's a death wish to attempt a trip over the wasteland separating it from Delta City.
+    -> I should be going.
+        << jump Arrival >>
+
+    << if $sif_branch_21 and $sif_branch_22 >>
+        << set $sif_level = 2 >>
+    << endif >>
+
+    << if $sif_level == 2 >>
+        Carrier: I should be going.
+        << jump Arrival >>
+    << endif >>
+
+<< elseif $sif_level == 2 and completedRequests("sif") > 2 >>
+    -> So, Free States and then a merc...
+        << set $sif_branch_31 = true >>
+        Carrier: How did that happen? As far as I know enlisting is a lifelong commitment in the states and they execute deserters.
+        Tychus: Both true. My unit got deployed out here on a ... mission.
+        Tychus: It went extremely poorly. Bad intel, under provisioned, our informant double-crossed us. You name it.
+        He bristles at the memory and Sif leans into him. At this Tychus seems to calm.
+        Carrier: Rough story but pretty standard milkrun-gone-bad?
+        Tychus: That's about the shape of it. Unit had officially been recorded a killed in action when we signed up so for those of us who made it through the ambush and evac it was a chance to start over.
+        Tychus: And being a merc here pays a hell of a lot better than fodder.
+    -> How'd you get out of the merc life?
+        << set $sif_branch_32 = true >>
+        Tychus: I guess I just aged out? Pay is tenure based so if they don't kill you it's eventually too expensive to keep you around.
+        Carrier: Didn't turn captain on start your own squad?
+        Tychus: Nah, I seen enough of mine killed, didn't need any more of that.
+        Carrier: And so then you founded your camp?
+        Tychus: A bit later, yea. Were only two things I know in life: death and misery. Merc life had paid well enough and at the beginning it wasn't a place of healing so much as somewhere to lay low.
+        Tychus: But even old soldiers can mellow over time, especially with help
+        At this he scratches behind Sif's ear and the dog seems to sigh contentedly and roll his head back and forth to make sure Tychus is getting good coverage.
+        Tychus: ...so it changed to what you know about.
+        Tychus: It's been a long road but worthwhile, I think? And there's been plenty of help along it.
+    -> I should be going.
+        << jump Arrival >>
+
+    << if $sif_branch_31 and $sif_branch_32 >>
+        << set $sif_level = 3 >>
+    << endif >>
+
+    << if $sif_level == 3 >>
+        Carrier: I should be going.
+        << jump Arrival >>
+    << endif >>
+
+<< elseif $sif_level == 3 >>
+    Carrier: Hey Sif, Tychus.
+    Sif: *bark*
+    Tychus: Son.
+    Carrier: Anything you need, anything to report?
+    Tychus: We're about to relocate. Guardian and badge raids getting more common so it's either join the revolution and fight or be scare.
+    Carrier: And asking a bunch of folks looking to heal to take up arms again is a big ask?
+    Tychus: More or less. They might do it but it'd kill 'em, even if they lived.
+    Tychus: You remember I said a churn is coming? Pretty much here and we're not going to be in the middle ... this time.
+    Carrier: Know where you're headed?
+    Tychus: Got some ideas. Once we're settled I'll get back in touch, we'll still need you if you're willing.
+    Carrier: Count on it.
+
+    << set $sif_level = 4 >>
+    << jump Arrival >>
+<< else >>
+    You go looking for Tychus and Sif but they don't seem to be around right now. Hopefully they got out before any more losses to the camp.
+    <<jump Arrival>>
+<< endif >>
+
+<< jump SifChill >>
 ===
