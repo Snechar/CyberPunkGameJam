@@ -30,8 +30,137 @@ title: EddyChatter
 << unloadAll >>
 << loadLeft "Bar/Characters/Eddy" >>
 
+<< if !$eddy_all_barks >>
+    << jump EddyMaybeClientBark >>
+<< endif >>
+
 Eddy: What can I do for you Carrier?
-Carrier: Not much, just checking in.
+-> How'd you name the H4DEs? << if !$asked_h4de >>
+    He laughs -- it's a warm and welcoming sound. He's the soul of this place and probably why it's universally accepted neutral territory.
+    Eddy: This place used to be a chess club. I played here as a kid and it was old then.
+    Eddy: It mostly burned down during the First Corp War but I had come into some money and bought it from the family.
+    Eddy: Well. H-4, also called Desprez, in chess is about the worst opening I figured H4DE was a good name for the bar rising from its ashes.
+    Eddy: Over time that became H4-DEs.
+    << set $asked_h4de = true >>
+-> Where's H3X from? << if !$asked_h3x >>
+    Eddy: Sweet thing, ain't she? Never seen an android woh wants to be human so badly.
+    Eddy: Though I have seen humans who want to become androids...
+    Eddy: I hope it works out better for her than for them.
+    << set $asked_h3x = true >>
+-> What do you know of Delta City? << if !$asked_delta >>
+    Eddy: Plenty of factions, gangs, corps. And way to many politicians.
+    Eddy: I wouldn't work about them though, Delta City is big enough for us all!
+    << set $asked_delta = true >>
+-> Those arms...
+    Carrier: Been meaning to ask about that. What's the story?
+    << set $rand_quip = rand(4) >>
+    << if $rand_quip == 0 >>
+        Eddy: Ah, that's a story! Magician on third street. Looking for volunteers and I stepped up!
+    << elseif $rand_quip == 1 >>
+        Eddy: Ah, that's a story! I was letting my classmates practice on my while we were getting ripperdoc certified in the net.
+    << elseif $rand_quip == 2 >>
+        Eddy: Ah, that's a story! It was a dark and stormy night...
+    << elseif $rand_quip == 3 >>
+        Eddy: Ah, that's a story! So we were watching a BD and things got weird...
+    << endif >>
+    Carrier: That's not true .. is it?
+    Eddy: It is if you let it be! No go find some more shit to sell or clients to help.
+-> Does it matter? << if totalCompleted() > 5 >>
+    Eddy: Does what matter Carrier?
+    Carrier: All .. this? The food, the deliveries, what I'm doing.
+    Eddy: Listen up, choom.
+    << if completedRequests("eli") >= 2 >>
+    Eddy: Eli? That kid crawled his way out of the gutter and found something to live for again.
+    Eddy: You're a lifeline for them and they're the best chance we've had in 20 years for any real change around here.
+    << endif >>
+    << if completedRequests("rose") >>
+    Eddy: Caitlyn? Cold hearted corporate cleaner?
+    Eddy: You're probably one of the last things that help connect her to her extremely human past.
+    << endif >>
+    << if completedRequests("sif") >= 2>>
+    Eddy: Tychus? Sif? Do you have any idea what'd happen to those folks he's helping -- and that you're helping by proxy?
+    Eddy: Half would end up cyberpsychos in some boostergang or low tier merc squad. The other? Chipheads zoned out on BDs until they rotted in place.
+    << endif >>
+    Eddy: And you started this for a reason, remember?
+    Carrier: Yea...
+    Eddy: When you came here your story was hiding family from medical debt until you could clear it.
+    You start to speak. Eddy has been good and it's probably right he gets the full story.
+    Eddy: Nah, cut it -- I don't need to know more. Probably for the better.
+    Eddy: Point is: you got your reasons as well. And from behind this bar, at least, it looks like you're making progress.
+    Carrier: ...
+    Eddy: Thought so. So get your head out of your ass and accept that things take time. My pops always said "the wheel of progress turn mighty slow" but they do turn.
+    Carrier: ...thanks Eddy.
+    Eddy: Sure thing, now get back to work. You're close, I can feel it.
+<<jmup EddyChatter>>
 
 << jump Arrival >>
+===
+
+title: EddyMaybeClientBark
+---
+
+Eddy: Welcome back in! How'd the job go?
+
+<< set $had_bark = false >>
+
+<< if totalCompleted() > 3 >>
+<< if lastClient() == "rose" and !$eddy_rose_bark >>
+    << set $had_bark = true >>
+    << set $eddy_rose_bark = true >>
+    Carrier: Well enough, client was Caitlyn.
+    << loadRight "Bar/Characters/Rose" >>
+    He both perks up and looks nervous at this.
+    Eddy: Ah. I'm glad she, uh, managed to connect with you.
+    Carrier: Been meaning to ask, how'd you decide to send her my way?
+    Eddy: She can be very convincing when the need arrises.
+    -> Huh.
+    -> I'll bet.
+    Carrier: So I'm fairly certain she's a cleaner. And I'm pretty sure she knows I know.
+    Carrier: So why am I still alive?
+    He seems caught off guard at the question. After a moment he relaxes and then chortles.
+    Eddy: Look Carrier, do you throw everybody you meet over your shoulder and take them to a client? No.
+    Eddy: Just because she .. may be a cleaner doesn't mean everybody who meets her disappears.
+    << unloadRight >>
+<< endif >>
+
+<< if lastClient() == "eli" and !$eddy_eli_bark and $eli_branch_21 >>
+    << set $eddy_eli_bark = true >>
+    << set $had_bark = true >>
+    Carrier: Was good. For that Eli kid. Idealistic isn't he?
+    Eddy: To say the least. He had a hard life--even by Delta City standards--so it took something special to pull him back from the edge.
+    Eddy: You heard his story?
+    -> More or less.
+        Eddy: Yea. It's not a good one.
+    -> Not really.
+        Eddy: Ah. Well it's his to tell so I won't go too deep. More or less he had a pretty dramatic fall from a comfortable life in the beavs.
+        Eddy: Bunch of debt, took out some questionable loans to cover things, family offed by repayment squad. Unique mostly in the rapidity of the changes.
+        Eddy: At the end of it all he was hiding out in the slums and wasting away in BDs.
+    Carrier: So that Mohr character - he legit?
+    Eddy: Bit of a mystery. I keep my ear to the gorund and all I got is that he exists.
+    Eddy: Nothing suggests he's running a game or has turned on his people but demagogues often have demons.
+    Carrier: Time will tell, then?
+    Eddy: Sure will. For Eli's sake I hope it works out.
+<< endif >>
+<< if lastClient() == "sif" and !$eddy_sif_bark >>
+    << set $eddy_sif_bark = true >>
+    << set $had_bark = true >>
+    Carrier: No complaints. Tychus is ... intense.
+    Eddy: Most folks are these days.
+    Carrier: ...
+    Carrier: ... Nothing to add? No color commentary on him?
+    Eddy: Well he's a pretty open book. Just chat him up enough and if he likes you... or if Sif does I guess it'll come out.
+    Eddy: What I will say is that he's a good man. Few have done the things he has and come out the other side not broken by the process.
+    Eddy: And Tychus, he's not only not borken he's trying to help heal. Though I wouldn't be surprised if those are related.
+<< endif >>
+<< endif >>
+
+<< if !$had_bark >>
+Carrier: Same old same old. Client happy, got paid, walked away without new scars. That's all that matters in the end.
+<< endif >>
+
+<< if $eddy_rose_bark and $eddy_eli_bark and $eddy_sif_bark >>
+    << set $eddy_all_barks = true >>
+<< endif >>
+
+<< jump EddyChatter >>
 ===

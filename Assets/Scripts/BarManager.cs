@@ -1,8 +1,6 @@
- using TMPro;
-using Unity.VisualScripting;
+using System;
+using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Yarn.Unity;
 
@@ -17,11 +15,10 @@ public class BarManager : MonoBehaviour {
     public Image rightChar;
     public FadeLayer curtain;
 
-    private void SetupRefs() {
-        // todo: setup stubs here
-    }
+    private System.Random random;
 
     private void Awake() {
+        random = new System.Random((int)(DateTime.Now.Ticks / TimeSpan.TicksPerSecond));
         driver = Driver.GetInstance();
 
         if (dlgRunner == null) {
@@ -50,6 +47,9 @@ public class BarManager : MonoBehaviour {
         dlgRunner.AddCommandHandler<string, float>("crossfadeBGTo", audioManager.CrossfadeTo);
         dlgRunner.AddCommandHandler<string>("switchScene", SwitchScene);
 
+        // returns a number randomly from [0, n)
+        dlgRunner.AddFunction<int, int>("rand", (int n) => random.Next(0, n));
+
         // adds a pending request for a user
         dlgRunner.AddCommandHandler<string, string, int>("addRequest", requestManager.AddRequest);
 
@@ -67,6 +67,12 @@ public class BarManager : MonoBehaviour {
 
         // how many deliveries have been completed for a client
         dlgRunner.AddFunction<string, int>("completedRequests", requestManager.CountCompletedRequests);
+
+        // how many deliveries have been done  for all clients
+        dlgRunner.AddFunction<int>("totalCompleted", requestManager.CountCompletedRequests);
+
+        // find out who your last delivery was to
+        dlgRunner.AddFunction<string>("lastClient", requestManager.GetLastClient);
 
         // check to see if we should have work available for a client
         dlgRunner.AddFunction<string, bool>("workAvailable", requestManager.WorkAvailable);

@@ -106,14 +106,25 @@ public class RequestManager : MonoBehaviour {
         return 0;
     }
 
+    public int CountCompletedRequests() {
+        var count = 0;
+        foreach (var v in completedRequests.Values) {
+            count += v;
+        }
+        return count;
+    }
+
     public bool WorkAvailable(string client) {
         client = client.ToLower();
         if (requestBook.ContainsKey(client)) {
             return false;
         }
         // can't get work immediately after filling a request
-        // return !client.Equals(lastFilled);
-        return true; // currently only have one client <_<
+        return !client.Equals(lastFilled);
+    }
+
+    public string GetLastClient() {
+        return lastFilled == null ? "" : lastFilled;
     }
 }
 
