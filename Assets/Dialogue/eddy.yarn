@@ -43,9 +43,11 @@ Eddy: What can I do for you Carrier?
     Eddy: Over time that became H4-DEs.
     << set $asked_h4de = true >>
 -> Where's H3X from? << if !$asked_h3x >>
-    Eddy: Sweet thing, ain't she? Never seen an android woh wants to be human so badly.
+    Eddy: Sweet thing, ain't she? Never seen an android who wants to be human so badly.
     Eddy: Though I have seen humans who want to become androids...
     Eddy: I hope it works out better for her than for them.
+    Eddy: Anyway. Can't say where she's from, top of the line model. Stumbled in here a while back looking for work. Didn't ask too many questions.
+    Eddy: Personality makes me think Free State of Texas but I've never heard of no TexTech so....
     << set $asked_h3x = true >>
 -> What do you know of Delta City? << if !$asked_delta >>
     Eddy: Plenty of factions, gangs, corps. And way to many politicians.

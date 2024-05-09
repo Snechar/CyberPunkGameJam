@@ -3,8 +3,63 @@ title: H3xChatter
 << unloadAll >>
 << loadRight "Bar/Characters/H3x" >>
 
-H3X: Looks like somebody's got drinking money. What can I get you?
-Carrier: Maybe later, thanks.
 
-<< jump Arrival >>
+<< if !$has_met_hex >>
+    H3X: Howdy! I'm H3X, the Gynoid Waitstaff from TexTech.
+    Carrier: Pleasure. I'm the new courier.
+    H3X: Ah, "Meals on Wheels" as I like to think of you. Eddy said you'd be around.
+    H3X: First drink's on the house. What's your poison, handsome?
+        -> Just water, thanks.
+            H3X: Cools my servos, too.
+        -> Strongest you got, chilled glass, neat.
+            H3X: I like a stiff one, too, from time to time.
+            Carrier: I didn't know androids drank?
+            H3X: Newest model. I'm not your average robot, sugar.
+            << set $android_drinks = true >>
+    << set $visit_count = 1 >>
+    << set $has_met_hex = true >>
+    << set $hex_comment_eli = false >>
+    << set $hex_comment_rose = false >>
+    << set $hex_comment_sif = false >>
+<< else >>
+    << set $visit_count = $visit_count + 1 >>
+<< endif >>
+
+-> When did you start? << if !$asked_start >>
+    << set $asked_start = true >>
+    Carrier: I've been gone a while. You're new since my last visit.
+    H3X: Yup. Rolled in maybe a month back. Eddy's sweet, said he needed a bartender and set me right up.
+-> Tell me about yourself H3X. << if $visit_count > 1 and !$asked_self >>
+    << set $asked_self = true >>
+    H3X: I just a simple droid trying to make my way through the universe. That's about it.
+    << if $android_drinks >>
+    Carrier: Really now? Seems like there's more my thirsty friend.
+    << else >>
+    Carrier: Really now? That's a pretty superficial scan if you ask me.
+    << endif >>
+    H3X: You got me. But I'm not the sort to spill it all after one drink. Try sticking around a spell, sugar.
+-> What do you think about that kid? << if !$hex_comment_eli and completedRequests("eli") >= 2>>
+    H3X: Eli? Cute, a little young for my tastes.
+    H3X: Eli? Cute, a little young for my tastes... maybe? 
+    H3X: Eli? Cute, a little young for my tastes... maybe? I'll need to think on that one.
+    H3X: But I like him, he's earnest. Believes things with his whole being like that little revolution.
+    Carrier: It gives him hope I guess.
+    H3X: I guess? It's so .. illogical .. though? I find that fascinating.
+    -> Being illogical?
+    -> Belief?
+    H3X: Well yes! That's not something I really know how to do.
+    She leans over conspiratorially and whispers to you.
+    H3X: I try it sometimes. I'll hold onto something so firmly and treat it as though it could be true despite evidence to the contrary.
+    H3X: Hasn't worked yet though. Can never shake the effect of objective observations.
+    She draws back, clearly a little dejected. Then brightens a bit and carries on in her sharp Texan twang.
+    H3X: I'll get it someday though. I'm nothing if not persistent.
+    Carrier: Isn't that ... actually nevermind.
+    << set $hex_comment_eli = true >>
+-> You ever talk to Caitlyn? << !$hex_comment_rose and completedRequests("rose") >= 2 >>
+    H3X: 
+-> I should get back to it.
+    H3X: Sure thing. Don't be a stranger, honey!
+    << jump Arrival >>
+
+<< jump H3xChatter >>
 ===
