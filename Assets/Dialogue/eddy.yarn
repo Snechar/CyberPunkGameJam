@@ -16,8 +16,8 @@ Eddy: Ah, that's damned sad.
 Carrier: What's a tiger?
 Eddy: Don't worry about it. Not like it matters much any more.
 
-<< fillRequest eddy >>
 Eddy perks back up as he stores your ilicit vegetation in a locked refrigeration unit. He turns back waving away any more questions.
+<< fillRequest eddy >>
 
 Eddy: Maybe I'll tell you over drinks. For now get back out there, I think I saw some new clients about.
 
@@ -34,6 +34,12 @@ title: EddyChatter
     << jump EddyMaybeClientBark >>
 << endif >>
 
+<< jump EddyChatterMenu >>
+
+===
+
+title: EddyChatterMenu
+---
 Eddy: What can I do for you Carrier?
 -> How'd you name the H4DEs? << if !$asked_h4de >>
     He laughs -- it's a warm and welcoming sound. He's the soul of this place and probably why it's universally accepted neutral territory.
@@ -164,5 +170,5 @@ Carrier: Same old same old. Client happy, got paid, walked away without new scar
     << set $eddy_all_barks = true >>
 << endif >>
 
-<< jump EddyChatter >>
+<< jump EddyChatterMenu >>
 ===

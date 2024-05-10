@@ -102,13 +102,13 @@ public class BarManager : MonoBehaviour {
 
     bool justEnabled = false;
     private void OnEnable() {
-        Debug.Log("BarManager.OnEnable");
+        // Debug.Log("BarManager.OnEnable");
         justEnabled = true;
     }
 
     private void Update() {
         if (justEnabled) {
-            Debug.Log("BarManager.Update -> StartDialogue");
+            //Debug.Log("BarManager.Update -> StartDialogue");
             dlgRunner.StartDialogue("H4DEs");
             justEnabled = false;
         }
@@ -124,12 +124,12 @@ public class BarManager : MonoBehaviour {
     }
 
     private void Test() {
-        Debug.Log("BarManager.Test");
+        // Debug.Log("BarManager.Test");
         GameObject chrName = GameObject.Find("Dialogue System/Canvas/Line View/Character Name");
-        Debug.Log("chrName: " + chrName);
+        // Debug.Log("chrName: " + chrName);
 
         TextMeshPro tmp = chrName.GetComponent<TextMeshPro>();
-        Debug.Log("tmp: " + tmp);
+        // Debug.Log("tmp: " + tmp);
 
         for (int i = 0; i < chrName.GetComponentCount(); i++) {
             Debug.Log($"{i}: " + chrName.GetComponentAtIndex(i));

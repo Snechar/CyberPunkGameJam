@@ -8,7 +8,7 @@ title: H3xChatter
     H3X: Howdy! I'm H3X, the Gynoid Waitstaff from TexTech.
     Carrier: Pleasure. I'm the new courier.
     H3X: Ah, "Meals on Wheels" as I like to think of you. Eddy said you'd be around.
-    H3X: First drink's on the house. What's your poison, handsome?
+    H3X: First drink on the house. What's your poison, handsome?
         -> Just water, thanks.
             H3X: Cools my servos, too.
         -> Strongest you got, chilled glass, neat.
@@ -28,7 +28,7 @@ title: H3xChatter
 -> When did you start? << if !$asked_start >>
     << set $asked_start = true >>
     Carrier: I've been gone a while. You're new since my last visit.
-    H3X: Yup. Rolled in maybe a month back. Eddy's sweet, said he needed a bartender and set me right up.
+    H3X: Yup. Rolled in maybe a month back. Eddy's sweet, said he needed some help and set me right up.
 -> Tell me about yourself H3X. << if $visit_count > 1 and !$hex_about_one >>
     << set $hex_about_one = true >>
     H3X: I just a simple droid trying to make my way through the universe. That's about it.

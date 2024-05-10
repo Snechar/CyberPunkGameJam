@@ -48,10 +48,10 @@ Eddy: Oh, Carrier, glad you're back! looking for new clients?
    Carrier: You know I couldn't turn you down even if I wanted to. What do you need?
    Eddy: A couple of tomatoes? Been a while since we had a real Bloody Mary around here.
 Carrier: Sure thing.
+<<addRequest eddy "2:tom" 1000>>
 Eddy: Nova. Oh by they way, got some new seeds for you. Grow a bit.
 
-<<addRequest eddy "2:tom" 1000>>
-<<dumpRequestBook>>
+// <<dumpRequestBook>>
 
 <<set $isFirstStart = false>>
 <<set $hasStartedBefore = true>>
