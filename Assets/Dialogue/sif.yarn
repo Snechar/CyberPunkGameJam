@@ -162,7 +162,7 @@ title: SifChill
         << set $sif_branch_11 = true >>
         Carrier: They your old military pals?
         Tychus: Some, but not all. I run a safe house, squat really, just outside the Underground.
-        Tychus: Take folks in help 'em deal when the slums are too much. Lots of vets 'cause of who I know but take just about everybody that needs a place.
+        Tychus: Take folks in help 'em deal when life gets to be too much. Lots of vets 'cause of who I know but take just about anybody that needs a place.
     -> That arm...
         << set $sif_branch_12 = true >>
         Carrier: Too young for the corp wars. Where'd you serve - Cyborg wars? Private security?
