@@ -55,14 +55,14 @@ Eddy: What can I do for you Carrier?
     << set $asked_delta = true >>
 -> Those arms...
     Carrier: Been meaning to ask about that. What's the story?
-    << set $rand_quip = rand(4) >>
-    << if $rand_quip == 0 >>
+    << set $rand_quip = dice(4) >>
+    << if $rand_quip == 1 >>
         Eddy: Ah, that's a story! Magician on third street. Looking for volunteers and I stepped up!
-    << elseif $rand_quip == 1 >>
-        Eddy: Ah, that's a story! I was letting my classmates practice on my while we were getting ripperdoc certified in the net.
     << elseif $rand_quip == 2 >>
-        Eddy: Ah, that's a story! It was a dark and stormy night...
+        Eddy: Ah, that's a story! I was letting my classmates practice on my while we were getting ripperdoc certified in the net.
     << elseif $rand_quip == 3 >>
+        Eddy: Ah, that's a story! It was a dark and stormy night...
+    << elseif $rand_quip == 4 >>
         Eddy: Ah, that's a story! So we were watching a BD and things got weird...
     << endif >>
     Carrier: That's not true .. is it?
@@ -75,7 +75,7 @@ Eddy: What can I do for you Carrier?
     Eddy: Eli? That kid crawled his way out of the gutter and found something to live for again.
     Eddy: You're a lifeline for them and they're the best chance we've had in 20 years for any real change around here.
     << endif >>
-    << if completedRequests("rose") >>
+    << if completedRequests("rose") >= 2 >>
     Eddy: Caitlyn? Cold hearted corporate cleaner?
     Eddy: You're probably one of the last things that help connect her to her extremely human past.
     << endif >>

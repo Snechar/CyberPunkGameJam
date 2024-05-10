@@ -79,11 +79,10 @@ title: SifChatter
         << jump Arrival >>
     << endif >>
     Tychus: A new courier? What happened to the old guy?
-    -> No clue.
-        Carrier: It's a job with a short tenure.
-        Tychus: Another casualty I guess.
-        The dog sitting beside him whimpers.
-        Tychus: Well, I have .. people in need. Hoping you can help.
+    Carrier: No clue, it's a job with a short tenure.
+    Tychus: Another casualty I guess.
+    The dog sitting beside him whimpers.
+    Tychus: Well, I have .. people in need. Hoping you can help.
     Carrier: What are you looking for? I specialize in fresh foods but
     The man looks startled.
     Tychus: Real food? Nova, wouldn't turn that down. And medicine?
