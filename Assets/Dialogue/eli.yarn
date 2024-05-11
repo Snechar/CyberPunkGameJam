@@ -170,7 +170,7 @@ title: EliChill
     -> No, really, tell me about yourself.
         << set $eli_branch_21 = true >>
         Eli: Well, I suppose you deserve to know something - my name is Elijah Kildridge.
-        Eli: Perhaps it means nothing to you, but, to me, it's the only thing that I own anymore. Bourgeoise took the rest from me when I couldn't pay off my debts.
+        Eli: Perhaps it means nothing to you, but, to me, it's the only thing that I own anymore. Bourgeoisie took the rest from me when I couldn't pay off my debts.
         Eli: Then again, could I? There was no work to be found! And what work could be found had more turnover than a bakery!
         -> Sorry to hear that; I know what it's like to be without work.
             Eli: Thank you, that means a lot coming from you, comrade.

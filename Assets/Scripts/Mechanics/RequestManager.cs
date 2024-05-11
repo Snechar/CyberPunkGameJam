@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class RequestManager : MonoBehaviour {
@@ -11,6 +9,10 @@ public class RequestManager : MonoBehaviour {
     public RequestManager() {
         requestBook = new Dictionary<string, Request>();
         completedRequests = new Dictionary<string, int>();
+    }
+
+    public IEnumerable<Request> Orders() {
+        return requestBook.Values;
     }
 
     public void DumpRequestBook() {
@@ -25,10 +27,14 @@ public class RequestManager : MonoBehaviour {
         Debug.Log(str + "}");
     }
 
+    public int Count() {
+        return requestBook.Count;
+    }
+
     // Adds a request to the queue, returns false if the request was not possible to understand
     public void AddRequest(string client, string request, int days) {
-        var curCycle = 0; // TODO: get global cycle number
-        var newRequest = new Request(curCycle + days);
+        var curCycle = Driver.GetInstance().CurrentCycleNumber();
+        var newRequest = new Request(client, days, curCycle + days);
         var elements = request.Split(';');
         if (elements.Length < 1) {
             Debug.Log($"Failed to process request {request}");
@@ -53,6 +59,7 @@ public class RequestManager : MonoBehaviour {
         }
         requestBook.Add(client.ToLower(), newRequest);
         DumpRequestBook();
+        Driver.GetInstance()?.SyncOrders(this);
     }
 
     public bool CanFill(string client) {
@@ -64,9 +71,7 @@ public class RequestManager : MonoBehaviour {
     }
 
     public bool HasAnyDelivery() {
-        Debug.Log("HasAnyDelivery()");
         foreach (var req in requestBook.Values) {
-            Debug.Log("Examining request: " + req);
             if (req.CanFill(InventoryManagerSingleton.Instance)) {
                 return true;
             }
@@ -94,16 +99,23 @@ public class RequestManager : MonoBehaviour {
         } else {
             Debug.Log("No pending request for client");
         }
+        Driver.GetInstance()?.SyncOrders(this);
     }
 
     public int CountCompletedRequests(string client) {
         client = client.ToLower();
         if (completedRequests.ContainsKey(client)) {
-            Debug.Log($"completedRequests({client}): " + completedRequests[client]);
             return completedRequests[client];
         }
-        Debug.Log($"completedRequests({client}): " + 0);
         return 0;
+    }
+
+    public int CountCompletedRequests() {
+        var count = 0;
+        foreach (var v in completedRequests.Values) {
+            count += v;
+        }
+        return count;
     }
 
     public bool WorkAvailable(string client) {
@@ -112,18 +124,46 @@ public class RequestManager : MonoBehaviour {
             return false;
         }
         // can't get work immediately after filling a request
-        // return !client.Equals(lastFilled);
-        return true; // currently only have one client <_<
+        return !client.Equals(lastFilled);
+    }
+
+    public string GetLastClient() {
+        return lastFilled == null ? "" : lastFilled;
     }
 }
 
-class Request {
+public class Request {
+    public string client { get; }
     public Dictionary<ProduceName, int> order;
+    // how many days did we have at the beginning of this
+    public int totalCycles;
+    // what is the day that we need this by?
     public int neededByCycle;
 
-    public Request(int tgtCycle) {
+    public Request(string forClient, int totalCycles, int tgtCycle) {
+        this.client = forClient;
         order = new Dictionary<ProduceName, int>();
+        this.totalCycles = totalCycles;
         neededByCycle = tgtCycle;
+    }
+
+    public override bool Equals(object obj) {
+        if (obj is Request) {
+            return ((Request)obj)?.client?.Equals(client) ?? false;
+        }
+        return false;
+    }
+
+    public override string ToString() {
+        return $"Request({client} by {neededByCycle})";
+    }
+
+    public override int GetHashCode() {
+        return client.GetHashCode();
+    }
+
+    public int RemainingCycles() {
+        return neededByCycle - (Driver.GetInstance()?.CurrentCycleNumber() ?? 0);
     }
 
     public void AddItem(ProduceName produce, int count) {

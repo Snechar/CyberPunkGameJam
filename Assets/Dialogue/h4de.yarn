@@ -48,10 +48,10 @@ Eddy: Oh, Carrier, glad you're back! looking for new clients?
    Carrier: You know I couldn't turn you down even if I wanted to. What do you need?
    Eddy: A couple of tomatoes? Been a while since we had a real Bloody Mary around here.
 Carrier: Sure thing.
+<<addRequest eddy "2:tom" 1000>>
 Eddy: Nova. Oh by they way, got some new seeds for you. Grow a bit.
 
-<<addRequest eddy "2:tom" 1000>>
-<<dumpRequestBook>>
+// <<dumpRequestBook>>
 
 <<set $isFirstStart = false>>
 <<set $hasStartedBefore = true>>
@@ -84,7 +84,7 @@ title: Arrival
     -> Chat with your clients.
         -> Eli
             <<jump EliChatter>>
-        -> Rose
+        -> Caitlyn
             <<jump RoseChatter>>
         -> Tychus & Sif
             <<jump SifChatter>>
@@ -112,14 +112,14 @@ You've got some goods to deliver
 << elseif canFill("eli") and canFill("rose") and canFill("sif") >>
 -> Go See Eli.
     << jump EliDelivery >>
--> Go see Rose.
+-> Go see Caitlyn.
     << jump RoseDelivery >>
 -> Go see Tychus & Sif
     << jump SifDelivery >>
 << elseif canFill("eli") and canFill("rose") >>
 -> Go See Eli.
     << jump EliDelivery >>
--> Go see Rose.
+-> Go see Caitlyn.
     << jump RoseDelivery >>
 << elseif canFill("eli") and canFill("sif") >>
 -> Go See Eli.
@@ -127,7 +127,7 @@ You've got some goods to deliver
 -> Go see Tychus & Sif
     << jump SifDelivery >>
 << elseif canFill("rose") and canFill("sif") >>
--> Go see Rose.
+-> Go see Caitlyn.
     << jump RoseDelivery >>
 -> Go see Tychus & Sif
     << jump SifDelivery >>
@@ -135,7 +135,7 @@ You've got some goods to deliver
 -> Go See Eli.
     << jump EliDelivery >>
 << elseif canFill("rose") >>
--> Go see Rose.
+-> Go see Caitlyn.
     << jump RoseDelivery >>
 << elseif canFill("sif") >>
 -> Go see Tychus & Sif
@@ -152,14 +152,14 @@ title: FindWork
 << if workAvailable("eli") and workAvailable("rose") and workAvailable("sif") >>
 -> Eli .
     << jump EliDelivery >>
--> Go see Rose.
+-> Go see Caitlyn.
     << jump RoseDelivery >>
 -> Go see Tychus & Sif
     << jump SifDelivery >>
 << elseif workAvailable("eli") and workAvailable("rose") >>
 -> Go See Eli.
     << jump EliDelivery >>
--> Go see Rose.
+-> Go see Caitlyn.
     << jump RoseDelivery >>
 << elseif workAvailable("eli") and workAvailable("sif") >>
 -> Go See Eli.
@@ -167,7 +167,7 @@ title: FindWork
 -> Go see Tychus & Sif
     << jump SifDelivery >>
 << elseif workAvailable("rose") and workAvailable("sif") >>
--> Go see Rose.
+-> Go see Caitlyn.
     << jump RoseDelivery >>
 -> Go see Tychus & Sif
     << jump SifDelivery >>
@@ -175,7 +175,7 @@ title: FindWork
 -> Go See Eli.
     << jump EliDelivery >>
 << elseif workAvailable("rose") >>
--> Go see Rose.
+-> Go see Caitlyn.
     << jump RoseDelivery >>
 << elseif workAvailable("sif") >>
 -> Go see Tychus & Sif

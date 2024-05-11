@@ -30,5 +30,6 @@ public class CycleManagerSingleton : MonoBehaviour {
     public void NextCycle() {
         Singleton_Pot.NextCycle();
         currentCycle++;
+        Driver.GetInstance()?.Tick();
     }
 }

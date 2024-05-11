@@ -3,8 +3,135 @@ title: H3xChatter
 << unloadAll >>
 << loadRight "Bar/Characters/H3x" >>
 
-H3X: Looks like somebody's got drinking money. What can I get you?
-Carrier: Maybe later, thanks.
 
-<< jump Arrival >>
+<< if !$has_met_hex >>
+    H3X: Howdy! I'm H3X, the Gynoid Waitstaff from TexTech.
+    Carrier: Pleasure. I'm the new courier.
+    H3X: Ah, "Meals on Wheels" as I like to think of you. Eddy said you'd be around.
+    H3X: First drink on the house. What's your poison, handsome?
+        -> Just water, thanks.
+            H3X: Cools my servos, too.
+        -> Strongest you got, chilled glass, neat.
+            H3X: I like a stiff one, too, from time to time.
+            Carrier: I didn't know androids drank?
+            H3X: Newest model. I'm not your average robot, sugar.
+            << set $android_drinks = true >>
+    << set $hex_visit_count = 1 >>
+    << set $has_met_hex = true >>
+    << set $hex_comment_eli = false >>
+    << set $hex_comment_rose = false >>
+    << set $hex_comment_sif = false >>
+<< else >>
+    << set $hex_visit_count = $hex_visit_count + 1 >>
+<< endif >>
+
+-> When did you start? << if !$asked_start >>
+    << set $asked_start = true >>
+    Carrier: I've been gone a while. You're new since my last visit.
+    H3X: Yup. Rolled in maybe a month back. Eddy's sweet, said he needed some help and set me right up.
+-> Tell me about yourself H3X. << if $visit_count > 1 and !$hex_about_one >>
+    << set $hex_about_one = true >>
+    H3X: I just a simple droid trying to make my way through the universe. That's about it.
+    << if $android_drinks >>
+    Carrier: Really now? Seems like there's more my thirsty friend.
+    << else >>
+    Carrier: Really now? That's a pretty superficial scan if you ask me.
+    << endif >>
+    H3X: You got me. But I'm not the sort to spill it all after one drink. Try sticking around a spell, sugar.
+-> Let's hear more about you << if $hex_about_one and $hex_visit_count > 4 and !$hex_about_two >>
+    << set $hex_about_two = true >>
+    H3X: Didn't we already do this?
+    -> Yea, but I want more!
+        Carrier: Tell me hopes, your dreams, your vision for the future!
+        H3X: I'm a robot, darling. I don't have those things.
+        Carrier: I don't believe that for a second.
+    -> Sure, nothing more to add?
+    For a moment H3X contemplates something.
+    H3X: Well... I haven't told anyone this. Don't know how they'd react if they knew the android waitress was dreaming. But after seeing all the tasty things you're bringing through I just want to try it.
+    Carrier: The food?
+    H3X: Yes! I want to taste it. See if it .. makes me feel anything. Makes me feel like a flesh and blood human. Not a machine. It's a stupid dream.
+    -> I don't think so.
+        Carrier: I'd call this a "yearning." It's extremely human for what it's worth.
+        H3X: You're sweet Carrier, you know that?
+        Carrier: Has it always been like this? Were you always aiming for a human experience?
+        H3X: No. I was an experimental unit at TexTech and while the foundational personality has been consistent the specifics varied a lot.
+        H3X: It got to be too much so I .. left. That was many years back though.
+        Carrier: Thanks.
+        H3X: Sure thing, doll.
+    -> Maybe, but thanks for telling me.
+        H3X: No problem, sugar.
+        Carrier: It's nice getting to know you H3X. I'm glad you're around.
+        H3X: Me too. Much better than my last gig...
+-> What do you think about that kid? << if !$hex_comment_eli and completedRequests("eli") >= 2>>
+    << set $hex_comment_eli = true >>
+    H3X: Eli? Cute, a little young for my tastes.
+    H3X: Eli? Cute, a little young for my tastes... maybe? 
+    H3X: Eli? Cute, a little young for my tastes... maybe? I'll need to think on that one.
+    H3X: But I like him, he's earnest. Believes in things with his whole being like that little revolution and his comrades.
+    Carrier: It gives him hope I guess.
+    H3X: I guess? It's so .. illogical .. though? I find that fascinating.
+    -> Being illogical?
+    -> Belief?
+    H3X: Well yes! That's not something I really know how to do.
+    She leans over conspiratorially and whispers to you.
+    H3X: I try it sometimes. I'll hold onto something so firmly and treat it as though it could be true despite evidence to the contrary.
+    H3X: Hasn't worked yet though. Can never shake the effect of objective observations.
+    She draws back, clearly a little dejected. Then brightens a bit and carries on in her sharp Texan twang.
+    H3X: I'll get it someday though. I'm nothing if not persistent.
+    Carrier: Isn't that ... actually nevermind.
+-> You ever talk to Caitlyn? << if !$hex_comment_rose and completedRequests("rose") >= 2 >>
+    << set $hex_comment_rose = true >>
+    H3X: Oh, that sexy scary thing?
+    H3X: Oh, that sexy scary thing? I tried once, she told me to "state my business or leave."
+    Carrier: Sounds like her.
+    H3X: Honey, I just wanted to take her order not interrogate her.
+    H3X: She's hard all over; closest thing to a machine here 'sides me. Fun to watch though so I catch her staring off into the distance sometimes.
+    H3X: Almost wistfully?
+    << if $rose_branch_21 >>
+        Carrier: From what she's said to me that's not too surprising.
+        H3X: Oh yea? Whatcha know?
+        You laugh, nervously, and make a motion as if your throat is getting cut.
+        Carrier: Not sure I should say much.
+        H3X: Ohh! Handsome and smart! Good match, Carrier.
+    << else >>
+        Carrier: That's surprising! I wonder if she'll open up if somebody keeps poking.
+        H3X: You may be right but I'll leave that to you. I want to keep all my appendages, repairs are expensive!
+    << endif >>
+    Carrier: Hah. Take care H3X.
+ -> Tychus seems like a good man << if !$hex_comment_sif and completedRequests("sif") >= 2 and $sif_branch_11 >>
+    << set $hex_comment_sif = true >>
+    H3X: Tall, strong, dark tumultuous past. And with a gentle side if you've ever watched him with Sif?
+    H3X: Hard not to like that man.
+    Carrier: You heard about the camp he runs?
+    H3X: I haven't, tell me more.
+    Carrier: Takes in folks living rough; gives them food, protection, environment to try get better. I think he runs it with some of his old army or merc crew.
+    H3X: That's sweet.
+    H3X: That's sweet. ...
+    She's uncharacteristically quiet.
+    << set $common_end = true >>
+    -> It's admirable...
+        << set $common_end = false >>
+        You barrel on oblivious to her subdued demeanor.
+        Carrier: ...but it seems like kind of a losing battle. There's just so much to do and he's only one man.
+        H3X: There is honor in that though? I think that would be the human assesment?
+        Carrier: Possibly. There's an old human saying about tilting at windmills
+    -> How you doing H3X?
+        Carrier: H3X?
+    -> ...
+    << if $common_end >>
+        You didn't know an android could sigh so convincingly but she is.
+        H3X: I'm .. fine. It's just something about the task of helping to fix broken people is poetic.
+        Carrier: I didn't know you like poetry.
+        H3X: Full of surprises aren't I, honey?
+        H3X: I'm an android so I know--on a very literal level--what it's like to be broken and still trying to function. It's one of the human experiences I think is most relatable.
+        H3X: I should talk to him, I bet he'd have some wisdom to share.
+        Carrier: Do that. I think he'd welcome the challenge.
+        H3X: What's that, handsome, you think I'm hard to handle?
+        She grins clearly back to her old self. Whatever memories were accidentally dredged up have been appropritaly recompartmentalized.
+    << endif >>
+-> I should get back to it.
+    H3X: Sounds good. Don't be a stranger, honey!
+    << jump Arrival >>
+
+<< jump H3xChatter >>
 ===

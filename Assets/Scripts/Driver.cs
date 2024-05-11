@@ -13,6 +13,7 @@ public class Driver : MonoBehaviour {
 
     public AudioManager audioManager;
     public Camera mainCamera;
+    public OrderManager orderManager;
 
     private bool requestedBar = false;
     private Scene barScene;
@@ -36,6 +37,7 @@ public class Driver : MonoBehaviour {
 
     public GameObject cycleDisplay;
     public TMP_Text cycleDisplayText;
+    public GameObject orderDisplay;
 
     public static Driver GetInstance() {
         return Driver.instance;
@@ -56,7 +58,9 @@ public class Driver : MonoBehaviour {
     }
 
     void Update() {
-        cycleDisplay.SetActive(curScene == JamScenes.BAR || curScene == JamScenes.TYCOON);
+        var hudActive = curScene == JamScenes.BAR || curScene == JamScenes.TYCOON;
+        cycleDisplay.SetActive(hudActive);
+        orderDisplay.SetActive(hudActive);
         if (cycleDisplay.activeSelf) {
             cycleDisplayText.text = "Day: " + CurrentCycleNumber();
         }
@@ -101,8 +105,16 @@ public class Driver : MonoBehaviour {
         variableStore = storeage;
     }
 
+    public void SyncOrders(RequestManager reqMgr) {
+        orderManager?.SyncOrders(reqMgr);
+    }
+
+    public void Tick() {
+        orderManager?.Tick();
+    }
+
     public void SceneLoaded(Scene scene, LoadSceneMode mode) {
-        Debug.Log($"SceneLoaded: {scene.name}");
+        // Debug.Log($"SceneLoaded: {scene.name}");
         switch (scene.name) {
             case BAR_NAME:
                 barRoot = barScene.GetRootGameObjects()[0];
@@ -154,16 +166,16 @@ public class Driver : MonoBehaviour {
         var dlgRunner = barRoot.GetComponentInChildren<DialogueRunner>();
         var txt = GameObject.Find("StartDlg/NodeField").GetComponent<TMP_InputField>();
         var nodeName = txt.text.Trim();
-        Debug.Log(nodeName);
+        // Debug.Log(nodeName);
         if (nodeName.Trim().Length == 0) {
             nodeName = "Begin";
         }
-        Debug.Log($"Starting dialog at node {nodeName}");
+        // Debug.Log($"Starting dialog at node {nodeName}");
         dlgRunner.StartDialogue(nodeName);
     }
 
     public void SwitchScenes(JamScenes toScene) {
-        Debug.Log("SwitchScenes -> " + toScene);
+        // Debug.Log("SwitchScenes -> " + toScene);
         if (curScene == toScene) {
             return;
         }
