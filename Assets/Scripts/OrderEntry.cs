@@ -1,25 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class OrderEntry : MonoBehaviour {
+    public OrderManager orderManager;
     public TMP_Text orderLabel;
     public RectTransform progressRemain;
-
-    private void Awake() {
+    public Request req {
+        get; set;
     }
 
-    // Start is called before the first frame update
-    void Start() {
-    }
-
-    // Update is called once per frame
-    void Update() {
-    }
-
-    private Request req;
     public void SetRequest(Request req) {
         this.req = req;
         UpdateProgress();
@@ -29,12 +18,7 @@ public class OrderEntry : MonoBehaviour {
         var endCycle = req.neededByCycle;
         orderLabel.text = req.client;
 
-        Debug.Log("req: " + req);
-        Debug.Log("  neededByCycle: " + req.neededByCycle);
-        Debug.Log("  totalCycles: " + req.totalCycles);
-
         var cyclesLeft = endCycle - Driver.GetInstance().CurrentCycleNumber();
-        Debug.Log("  remainingCycles: " + cyclesLeft);
 
         if (cyclesLeft < 0) {
             orderLabel.color = Color.red;
@@ -47,5 +31,11 @@ public class OrderEntry : MonoBehaviour {
             scale.x = ((float)cyclesLeft) / req.totalCycles;
             progressRemain.localScale = scale;
         }
+    }
+    public void EntryMouseEnter() {
+        orderManager?.EntryMouseEnter(this);
+    }
+    public void EntryMouseExit() {
+        orderManager?.EntryMouseExit(this);
     }
 }

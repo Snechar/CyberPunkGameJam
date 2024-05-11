@@ -116,7 +116,6 @@ Eddy: Welcome back in! How'd the job go?
     << set $had_bark = true >>
     << set $eddy_rose_bark = true >>
     Carrier: Well enough, client was Caitlyn.
-    << loadRight "Bar/Characters/Rose" >>
     He both perks up and looks nervous at this.
     Eddy: Ah. I'm glad she, uh, managed to connect with you.
     Carrier: Been meaning to ask, how'd you decide to send her my way?
@@ -128,7 +127,6 @@ Eddy: Welcome back in! How'd the job go?
     He seems caught off guard at the question. After a moment he relaxes and then chortles.
     Eddy: Look Carrier, do you throw everybody you meet over your shoulder and take them to a client? No.
     Eddy: Just because she .. may be a cleaner doesn't mean everybody who meets her disappears.
-    << unloadRight >>
 << endif >>
 
 << if lastClient() == "eli" and !$eddy_eli_bark and $eli_branch_21 >>

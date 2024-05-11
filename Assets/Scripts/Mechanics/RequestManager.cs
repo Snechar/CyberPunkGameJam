@@ -71,9 +71,7 @@ public class RequestManager : MonoBehaviour {
     }
 
     public bool HasAnyDelivery() {
-        Debug.Log("HasAnyDelivery()");
         foreach (var req in requestBook.Values) {
-            Debug.Log("Examining request: " + req);
             if (req.CanFill(InventoryManagerSingleton.Instance)) {
                 return true;
             }
@@ -107,10 +105,8 @@ public class RequestManager : MonoBehaviour {
     public int CountCompletedRequests(string client) {
         client = client.ToLower();
         if (completedRequests.ContainsKey(client)) {
-            Debug.Log($"completedRequests({client}): " + completedRequests[client]);
             return completedRequests[client];
         }
-        Debug.Log($"completedRequests({client}): " + 0);
         return 0;
     }
 
