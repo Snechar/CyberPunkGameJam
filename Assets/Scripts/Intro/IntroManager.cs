@@ -1,10 +1,52 @@
+using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Intro : MonoBehaviour {
     public List<IIntroElement> scriptElements;
 
-    public GameObject continueBtn;
+    [SerializeField] private GameObject continueBtn;
+    [SerializeField] private GameObject bgObj;
+    [SerializeField] private GameObject titleObj;
+    [SerializeField] private GameObject teamNameObj;
+    [SerializeField] private GameObject presentsObj;
+    [SerializeField] private GameObject jamObj;
+
+    private AudioManager audioManager;
+
+    [SerializeField] private int initialFramePointer = 0;
+    private int fp;
+
+    private List<IntroStep> script;
+
+    private void Awake() {
+        audioManager = Driver.GetInstance()?.GetAudioManager();
+        if (audioManager != null) {
+            audioManager.SetBGVolume(0f);
+            audioManager.Play(JamTrack.NIGHT_CARRIER);
+            audioManager.SetBGVolume(0.15f, 4);
+        }
+        fp = initialFramePointer;
+
+        script = getScript();
+
+        var seq = DOTween.Sequence();
+
+        seq.Append(bgObj.GetComponent<Image>().DOFade(1, 4));
+        var id = GameObject.Find("Parent/Canvas/Script/Dialogue").GetComponent<IntroDlg>();
+        seq.Append(id.FadeIn(4));
+
+    }
+
+    private List<IntroStep> getScript() {
+        var scr = new List<IntroStep> {
+            IntroStep.FadeIn(bgObj.GetComponent<Image>(), 3),
+        };
+        return scr;
+    }
+
+    /*
 
     private void Awake() {
         scriptElements = new List<IIntroElement>();
@@ -82,4 +124,5 @@ public class Intro : MonoBehaviour {
         driver.GetAudioManager().SetBGVolume(0, 1);
         driver.SwitchScenes(JamScenes.BAR);
     }
+    */
 }

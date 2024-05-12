@@ -654,6 +654,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5bf3075e9ecb4334a93b30b52205fa23, type: 3}
   - {fileID: 8300000, guid: 0ccaf175dea68c846a4a297723661213, type: 3}
   - {fileID: 8300000, guid: 2486e3087c24c5042b8832f0166835bf, type: 3}
+  - {fileID: 8300000, guid: a40b096f8501afc45a8d513003a40195, type: 3}
+  - {fileID: 8300000, guid: d1626391f6c066646be006c8dc784492, type: 3}
 --- !u!82 &236787183
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3006,7 +3008,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_BackGroundColor: {r: 0.1882353, g: 0.20392157, b: 0.42745098, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

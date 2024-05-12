@@ -1,14 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
+using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
+using System;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class IntroDlg : MonoBehaviour, IIntroElement {
     public int DelayPostShowMS = 1500;
     public bool WaitForContinue = false;
     public bool ClearPrevious = false;
+    public bool StartFadedOut = false;
+
+    private Image bgImg;
+    private TMP_Text text;
+    private Color defaultColor;
 
     private bool hasPlayed = false;
+
+    void Awake() {
+        bgImg = GetComponent<Image>();
+        text = GetComponentInChildren<TMP_Text>();
+        defaultColor = text.color;
+        if (StartFadedOut) {
+            var x = bgImg.color;
+            x.a = 0;
+            bgImg.color = x;
+            x = text.color;
+            x.a = 0;
+            text.color = x;
+        }
+    }
 
     public void Play() {
         gameObject.SetActive(true);
@@ -27,6 +49,33 @@ public class IntroDlg : MonoBehaviour, IIntroElement {
         return ClearPrevious;
     }
 
+    public TweenerCore<float, float, FloatOptions> Fade(bool fadeIn, float duration) {
+        float stop = fadeIn ? 1 : 0;
+        var tween = DOTween.To(
+            () => bgImg.color.a,
+            (float newA) => {
+                var curColorBG = bgImg.color;
+                curColorBG.a = newA;
+                bgImg.color = curColorBG;
+                var curColorText = text.color;
+                curColorText.a = newA;
+                text.color = curColorText;
+            },
+            stop,
+            duration
+        );
+        tween.SetEase(Ease.InQuart);
+
+        return tween;
+    }
+
+    public TweenerCore<float, float, FloatOptions> FadeIn(float duration) {
+        return Fade(true, duration);
+    }
+
+    public TweenerCore<float, float, FloatOptions> FadeOut(float duration) {
+        return Fade(false, duration);
+    }
 }
 
 public interface IIntroElement {

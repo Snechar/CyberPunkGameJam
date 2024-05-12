@@ -1,6 +1,5 @@
 title: H4DEs
 ---
-<<dumpVariableStore>>
 <<reset>>
 <<loadBG "Bar/BarBGOfficial">>
 
@@ -27,10 +26,18 @@ title: H4DEs
     << set $sif_level = 0 >>
     << set $sif_score = 0 >>
 
+    << set $has_triggered_end = false >>
+
     <<loadLeft "Bar/Characters/Eddy">>
     <<jump FirstStart>>
 <<else>>
     <<fadeIn 1>>
+
+    << if $has_triggered_end and $eli_level == 4 and $rose_level == 4 and $sif_level == 4 >>
+        << set $has_triggered_end = true >>
+        Eddy: Hey choom!
+    << endif >>
+
     <<jump Arrival>>
 <<endif>>
 ===
