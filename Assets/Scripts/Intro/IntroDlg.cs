@@ -50,23 +50,30 @@ public class IntroDlg : MonoBehaviour, IIntroElement {
     }
 
     public TweenerCore<float, float, FloatOptions> Fade(bool fadeIn, float duration) {
+        if (!gameObject.activeSelf) {
+            gameObject.SetActive(true);
+        }
         float stop = fadeIn ? 1 : 0;
+
         var tween = DOTween.To(
             () => bgImg.color.a,
-            (float newA) => {
-                var curColorBG = bgImg.color;
-                curColorBG.a = newA;
-                bgImg.color = curColorBG;
-                var curColorText = text.color;
-                curColorText.a = newA;
-                text.color = curColorText;
-            },
+            (float newA) => SetAlpha(newA),
             stop,
             duration
         );
         tween.SetEase(Ease.InQuart);
 
         return tween;
+    }
+
+    public void SetAlpha(float alpha) {
+        var curColorBG = bgImg.color;
+        curColorBG.a = alpha;
+        bgImg.color = curColorBG;
+        var curColorText = text.color;
+        curColorText.a = alpha;
+        text.color = curColorText;
+
     }
 
     public TweenerCore<float, float, FloatOptions> FadeIn(float duration) {

@@ -1,10 +1,13 @@
 using DG.Tweening;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Intro : MonoBehaviour {
     public List<IIntroElement> scriptElements;
+
+    public List<IntroDlg> dlgBoxes;
 
     [SerializeField] private GameObject continueBtn;
     [SerializeField] private GameObject bgObj;
@@ -15,35 +18,38 @@ public class Intro : MonoBehaviour {
 
     private AudioManager audioManager;
 
-    [SerializeField] private int initialFramePointer = 0;
-    private int fp;
-
-    private List<IntroStep> script;
-
     private void Awake() {
+        dlgBoxes = getDialogues();
+
         audioManager = Driver.GetInstance()?.GetAudioManager();
         if (audioManager != null) {
             audioManager.SetBGVolume(0f);
             audioManager.Play(JamTrack.NIGHT_CARRIER);
             audioManager.SetBGVolume(0.15f, 4);
         }
-        fp = initialFramePointer;
-
-        script = getScript();
 
         var seq = DOTween.Sequence();
 
         seq.Append(bgObj.GetComponent<Image>().DOFade(1, 4));
-        var id = GameObject.Find("Parent/Canvas/Script/Dialogue").GetComponent<IntroDlg>();
-        seq.Append(id.FadeIn(4));
+        seq.Append(dlgBoxes[0].FadeIn(2));
+        seq.AppendInterval(3);
+        seq.Append(dlgBoxes[1].FadeIn(.75f));
+        seq.Append(dlgBoxes[2].FadeIn(.75f));
+        seq.Append(dlgBoxes[3].FadeIn(.75f));
+        seq.AppendInterval(2);
+        seq.Append(dlgBoxes[4].FadeIn(2));
 
     }
 
-    private List<IntroStep> getScript() {
-        var scr = new List<IntroStep> {
-            IntroStep.FadeIn(bgObj.GetComponent<Image>(), 3),
-        };
-        return scr;
+    private List<IntroDlg> getDialogues() {
+        var list = new List<IntroDlg>();
+        var scriptParent = GameObject.Find("Parent/Canvas/Script");
+        list.AddRange(scriptParent.GetComponentsInChildren<IntroDlg>());
+        foreach (Transform childT in scriptParent.transform) {
+            childT.gameObject.SetActive(false);
+        }
+        list.ForEach((IntroDlg dlg) => dlg.SetAlpha(0));
+        return list;
     }
 
     /*
