@@ -14,14 +14,24 @@ public class IntroDlg : MonoBehaviour, IIntroElement {
 
     private Image bgImg;
     private TMP_Text text;
-    private Color defaultColor;
 
     private bool hasPlayed = false;
+
+    public float alpha {
+        get { return bgImg.color.a; }
+        set {
+            var curColorBG = bgImg.color;
+            curColorBG.a = value;
+            bgImg.color = curColorBG;
+            var curColorText = text.color;
+            curColorText.a = value;
+            text.color = curColorText;
+        }
+    }
 
     void Awake() {
         bgImg = GetComponent<Image>();
         text = GetComponentInChildren<TMP_Text>();
-        defaultColor = text.color;
         if (StartFadedOut) {
             var x = bgImg.color;
             x.a = 0;
@@ -57,23 +67,13 @@ public class IntroDlg : MonoBehaviour, IIntroElement {
 
         var tween = DOTween.To(
             () => bgImg.color.a,
-            (float newA) => SetAlpha(newA),
+            (float newA) => alpha = newA,
             stop,
             duration
-        );
+        ); ;
         tween.SetEase(Ease.InQuart);
 
         return tween;
-    }
-
-    public void SetAlpha(float alpha) {
-        var curColorBG = bgImg.color;
-        curColorBG.a = alpha;
-        bgImg.color = curColorBG;
-        var curColorText = text.color;
-        curColorText.a = alpha;
-        text.color = curColorText;
-
     }
 
     public TweenerCore<float, float, FloatOptions> FadeIn(float duration) {

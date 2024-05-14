@@ -17,6 +17,7 @@ public class Intro : MonoBehaviour {
     [SerializeField] private GameObject jamObj;
 
     private AudioManager audioManager;
+    private Sequence tweenSeq;
 
     private void Awake() {
         dlgBoxes = getDialogues();
@@ -28,17 +29,99 @@ public class Intro : MonoBehaviour {
             audioManager.SetBGVolume(0.15f, 4);
         }
 
-        var seq = DOTween.Sequence();
+        DOTween.defaultEaseType = Ease.Linear;
 
+        var seq = DOTween.Sequence();
+        tweenSeq = seq;
+
+        var bgImg = bgObj.GetComponent<Image>();
+        var transparentColor = bgImg.color;
+        transparentColor.a = 0;
+        bgImg.color = transparentColor;
+
+        var clearSpeed = 1.5f;
+
+        #region story setup
         seq.Append(bgObj.GetComponent<Image>().DOFade(1, 4));
         seq.Append(dlgBoxes[0].FadeIn(2));
         seq.AppendInterval(3);
         seq.Append(dlgBoxes[1].FadeIn(.75f));
         seq.Append(dlgBoxes[2].FadeIn(.75f));
         seq.Append(dlgBoxes[3].FadeIn(.75f));
-        seq.AppendInterval(2);
+        seq.AppendInterval(1);
         seq.Append(dlgBoxes[4].FadeIn(2));
 
+        seq.AppendCallback(() => continueBtn.SetActive(true));
+        seq.AppendCallback(() => seq.Pause());
+        seq.Append(dlgBoxes[0].FadeOut(clearSpeed));
+        seq.Join(dlgBoxes[1].FadeOut(clearSpeed));
+        seq.Join(dlgBoxes[2].FadeOut(clearSpeed));
+        seq.Join(dlgBoxes[3].FadeOut(clearSpeed));
+        seq.Join(dlgBoxes[4].FadeOut(clearSpeed));
+
+        seq.Append(dlgBoxes[5].FadeIn(2));
+        seq.AppendInterval(3);
+        seq.Append(dlgBoxes[6].FadeIn(2));
+        seq.AppendInterval(3);
+        seq.Append(dlgBoxes[7].FadeIn(2));
+
+        seq.AppendCallback(() => continueBtn.SetActive(true));
+        seq.AppendCallback(() => seq.Pause());
+        seq.Append(dlgBoxes[5].FadeOut(clearSpeed));
+        seq.Join(dlgBoxes[6].FadeOut(clearSpeed));
+        seq.Join(dlgBoxes[7].FadeOut(clearSpeed));
+
+        seq.Append(dlgBoxes[8].FadeIn(2));
+        seq.AppendInterval(1.5f);
+        seq.Append(dlgBoxes[9].FadeIn(1.25f));
+        seq.AppendInterval(.75f);
+        seq.Append(dlgBoxes[10].FadeIn(1.25f));
+
+        seq.AppendCallback(() => continueBtn.SetActive(true));
+        seq.AppendCallback(() => seq.Pause());
+        seq.Append(dlgBoxes[8].FadeOut(clearSpeed));
+        seq.Join(dlgBoxes[9].FadeOut(clearSpeed));
+        seq.Join(dlgBoxes[10].FadeOut(clearSpeed));
+
+        seq.Append(dlgBoxes[11].FadeIn(2));
+        seq.AppendInterval(2);
+        seq.Append(dlgBoxes[12].FadeIn(2));
+
+        seq.AppendCallback(() => continueBtn.SetActive(true));
+        seq.AppendCallback(() => seq.Pause());
+
+        seq.Append(dlgBoxes[11].FadeOut(clearSpeed));
+        seq.Join(dlgBoxes[12].FadeOut(clearSpeed));
+        #endregion
+
+        var titleImg = titleObj.GetComponent<Image>();
+        var teamNameImg = teamNameObj.GetComponent<TMP_Text>();
+        var presentsImg = presentsObj.GetComponent<TMP_Text>();
+        var jamImg = jamObj.GetComponent<TMP_Text>();
+
+        seq.Append(teamNameImg.DOFade(1, 2));
+        seq.Append(presentsImg.DOFade(1, 1.75f));
+        seq.AppendInterval(1.5f);
+        seq.Append(presentsImg.DOFade(0, 1.75f));
+        seq.Append(jamImg.DOFade(1, 1.75f));
+        seq.AppendInterval(1);
+        seq.Append(jamImg.DOFade(0, 2));
+        seq.Join(teamNameImg.DOFade(0, 2.5f * clearSpeed));
+        seq.Append(titleImg.DOFade(1, 3).SetEase(Ease.InSine));
+        seq.AppendCallback(() => { continueBtn.GetComponentInChildren<TMP_Text>().text = "Start"; });
+        seq.AppendCallback(() => continueBtn.SetActive(true));
+        seq.AppendCallback(() => seq.Pause());
+
+        // seq.AppendCallback(() => Driver.GetInstance().mainCamera.backgroundColor = Color.black);
+        seq.Append(bgObj.GetComponent<Image>().DOFade(0, 4));
+        seq.Append(titleImg.DOFade(0, 2));
+        seq.JoinCallback(() => audioManager.SetBGVolume(0, 4));
+        seq.AppendInterval(2);
+        seq.AppendCallback(() => Driver.GetInstance()?.SwitchScenes(JamScenes.BAR));
+    }
+
+    private List<IntroDlg> getVisibleDialogues() {
+        return dlgBoxes.FindAll((IntroDlg dlg) => dlg.gameObject.activeSelf && dlg.alpha != 0);
     }
 
     private List<IntroDlg> getDialogues() {
@@ -48,9 +131,18 @@ public class Intro : MonoBehaviour {
         foreach (Transform childT in scriptParent.transform) {
             childT.gameObject.SetActive(false);
         }
-        list.ForEach((IntroDlg dlg) => dlg.SetAlpha(0));
+        list.ForEach((IntroDlg dlg) => dlg.alpha = 0);
         return list;
     }
+
+    public void HitContinue() {
+        var mode = continueBtn.GetComponentInChildren<TMP_Text>().text;
+        Debug.Log("Continue mode: " + mode);
+
+        continueBtn.SetActive(false);
+        tweenSeq.Play();
+    }
+
 
     /*
 
