@@ -117,7 +117,7 @@ Carrier: Checking in - got any work?
         Caitlyn: But also some varieties were deadly if not prepared correctly - though, naturally, that was the appeal.
         Carrier: Is this what you learned when you were training to engage with corpos and wageslaves?
         Caitlyn: Ah, no, this is more of a personal interest.
-        Caitlyn: In any event, I have additional requests. four salmons in four days. Make haste.
+        Caitlyn: In any event, I have additional requests. four salmon in four days. Make haste.
         Carrier: Got it.
         << addRequest rose "4:salmon" 4 >>
         <<jump Arrival>>
@@ -153,7 +153,7 @@ title: RoseChill
         << set $rose_branch_11 = true >>
         Caitlyn: Me? I'm just your average office worker. I married well.
         Carrier: Pft, there's no way...
-        Caitlyn: Well, it's as they say: "best not to prod the sleeping lion."
+        Caitlyn: Well, it's as they say: "best not to ping a runner in the deep net."
     -> What do you do for fun?
         << set $rose_branch_12 = true >>
         Caitlyn: Believe it or not, kintsugi.
@@ -191,6 +191,8 @@ title: RoseChill
             Carrier: Has anyone asked you that before?
             Caitlyn: Before? Yes, I suppose...
             She trails off, lost in memory and seems unable to continue.
+        -> Won't force you.
+            Caitlyn: I'm not certain you could if you tried.
     -> Tell me about the world of the rich.
         << set $rose_branch_22 = true >>
         Caitlyn: It's a braindance dressing the slums up as a corpo palace.
@@ -254,10 +256,20 @@ title: RoseChill
     Caitlyn: A person such as yourself would do well there, and there would be room and care for your mother. Think on it, Carrier.
     << set $rose_level = 4 >>
     << jump Arrival >>
-<< else >>
+<< elseif $rose_level == 4 >>
     Caitlyn: Welcome back, Carrier. I shall be leaving shortly - and suggest you do the same.
     Carrier: ...
     <<jump Arrival>>
+<<else >>
+    Caitlyn: Can I help you Carrier?
+    <<if !$rose_choom >>
+    Carrier: Nah, just checking in choom.
+    Caitlyn: Let's not be so familiar.
+    Somehow that was more threatening than you thought possible. Maybe it's best to be more formal.
+    Carrier: Noted.
+    <<else>>
+    Carrier: No, just checking in Caitlyn.
+    <<endif>>
 << endif >>
 
 << jump RoseChill >>

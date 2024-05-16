@@ -32,34 +32,6 @@ title: H4DEs
     <<jump FirstStart>>
 <<else>>
     <<fadeIn 1>>
-
-    << if !$has_triggered_end and $eli_level == 4 and $rose_level == 4 and $sif_level == 4 >>
-        << set $has_triggered_end = true >>
-        Eddy: Hey choom!
-        Carrier: What's up Eddy?
-        Eddy: Churn's here. Did Tychus give you the rundown?
-        Carrier: Not really, just a heads up that I should keep scanning.
-        Eddy: Probably thought you knew. You wondering why your clients are gone?
-        -> Actually yea...
-        -> Figured they'd just moved on...
-            Eddy: All at once?
-        Eddy: So the way it goes is this. Delta City's been winding itself up for years. Sometimes something big'll happen and relieve a bit of that tension.
-        Eddy: But if it don't then the pressure just builds until the whole place is a prox mine -- waiting for anything to move wrong then *boom* things change.
-        Eddy: You don't want to get caught in it. And the best thing you can do when it is here is to lay low.
-        Carrier: And you think that's coming soon?
-        Eddy: I mean there ain't no schedule but I've been here a long time and signs say something is about to go off.
-        Eddy: First hint was when Eli started to get real quiet about the revolution and then paid his tab and said goodbye. Felt permanant.
-        Carrier: Nova. Thanks.
-        Eddy: Sure thing. You're welcome to stay around and hang out with me and H3X but there's probably a dry spell on new work.
-        NARRATOR: That is to say "Thanks for playing, we ran out of content for this jam game."
-        NARRATOR: Team Adhoc is made up of...
-        ART: allstarchicken + SketchingLujan
-        DEVELOPERS: envy + snechar
-        NARRATIVE: swordslinger + darrow_mm + zera
-        MUSIC: Junpei!
-        NARRATOR: Thank you from all of us.
-    << endif >>
-
     <<jump Arrival>>
 <<endif>>
 ===
@@ -90,6 +62,35 @@ Eddy: Nova. Oh by they way, got some new seeds for you. Grow a bit.
 title: Arrival
 ---
 << unloadAll >>
+
+    << if !$has_triggered_end and $eli_level == 4 and $rose_level == 4 and $sif_level == 4 >>
+        << set $has_triggered_end = true >>
+        << loadLeft "Bar/Characters/Eddy" >>
+        Eddy: Hey choom!
+        Carrier: What's up Eddy?
+        Eddy: Churn's here. Did Tychus give you the rundown?
+        Carrier: Not really, just a heads up that I should keep scanning.
+        Eddy: Probably thought you knew. You wondering why your clients are gone?
+        -> Actually yea...
+        -> Figured they'd just moved on...
+            Eddy: All at once?
+        Eddy: So the way it goes is this. Delta City's been winding itself up for years. Sometimes something big'll happen and relieve a bit of that tension.
+        Eddy: But if it don't then the pressure just builds until the whole place is a prox mine -- waiting for anything to move wrong then *boom* things change.
+        Eddy: You don't want to get caught in it. And the best thing you can do when it is here is to lay low.
+        Carrier: And you think that's coming soon?
+        Eddy: I mean there ain't no schedule but I've been here a long time and signs say something is about to go off.
+        Eddy: First hint was when Eli started to get real quiet about the revolution and then paid his tab and said goodbye. Felt permanant.
+        Carrier: Nova. Thanks.
+        Eddy: Sure thing. You're welcome to stay around and hang out with me and H3X but there's probably a dry spell on new work.
+        NARRATOR: That is to say "Thanks for playing, we ran out of content for this jam game."
+        NARRATOR: Team Adhoc is made up of...
+        ART: allstarchicken + SketchingLujan
+        DEVELOPERS: envy + snechar
+        NARRATIVE: swordslinger + darrow_mm + zera
+        MUSIC: Junpei!
+        NARRATOR: Thank you from all of us.
+    << endif >>
+
 << if completedRequests("eddy") == 0 >>
     << if canFill("eddy") >>
         <<jump EddyDelivery>>
@@ -114,7 +115,7 @@ title: Arrival
             <<jump EliChatter>>
         -> Caitlyn
             <<jump RoseChatter>>
-        -> Tychus & Sif
+        -> Tychus & Sif <<if !$sif_gone>>
             <<jump SifChatter>>
     -> Chat With Eddy
         <<jump EddyChatter>>
@@ -171,49 +172,6 @@ You've got some goods to deliver
     On the other hand you don't have anything ready for delivery right now.
     << jump H4DEs >>
 << endif >>
-===
-
-title: FindWork
----
-
-<< if workAvailable("eli") and workAvailable("rose") and workAvailable("sif") >>
--> Eli .
-    << jump EliDelivery >>
--> Go see Caitlyn.
-    << jump RoseDelivery >>
--> Go see Tychus & Sif
-    << jump SifDelivery >>
-<< elseif workAvailable("eli") and workAvailable("rose") >>
--> Go See Eli.
-    << jump EliDelivery >>
--> Go see Caitlyn.
-    << jump RoseDelivery >>
-<< elseif workAvailable("eli") and workAvailable("sif") >>
--> Go See Eli.
-    << jump EliDelivery >>
--> Go see Tychus & Sif
-    << jump SifDelivery >>
-<< elseif workAvailable("rose") and workAvailable("sif") >>
--> Go see Caitlyn.
-    << jump RoseDelivery >>
--> Go see Tychus & Sif
-    << jump SifDelivery >>
-<< elseif workAvailable("eli") >>
--> Go See Eli.
-    << jump EliDelivery >>
-<< elseif workAvailable("rose") >>
--> Go see Caitlyn.
-    << jump RoseDelivery >>
-<< elseif workAvailable("sif") >>
--> Go see Tychus & Sif
-    << jump SifDelivery >>
-<< else >>
-    On the other hand you don't have anything ready for delivery right now.
-    << jump H4DEs >>
-<< endif >>
-
-TODO: how do we even decide who's available for requests.
-<<jump Arrival>>
 ===
 
 title: ToTycoon

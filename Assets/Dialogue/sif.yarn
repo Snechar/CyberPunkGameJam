@@ -27,7 +27,7 @@ title: SifDelivery
 <<elseif completedRequests("sif") == 2>>
     // completing second job
     Tychus: At this point I'm going to assume you're part cybernetic too.
-    He makes a motion and the metallic hand pivots away revealing a close combat flamethrower. Rare, with a somewhat limited fuel supply, but extremely effcitev and usually an unwelcome surprise to discover.
+    He makes a motion and the metallic hand pivots away revealing a close combat flamethrower. Rare, with a somewhat limited fuel supply, but extremely effective and usually an unwelcome surprise to discover.
     -> Preem!
         Carrier: I'd love a flamethrower arm. Could come in ... handy.
         Tychus: This ain't no joke son! In a twist of fate it was chromed up shock troops with flamers that took the thing.
@@ -60,7 +60,7 @@ title: SifDelivery
         Carrier: Well what's my rank.
         Tychus: Same as everyone else. Poor is your rank and your sentance: we're all just casualties eventually.
     -> I've never been to war.
-    Tychus: These streets are the war, kid. They're where the wost suffering takes place. Where hope goes to die.
+    Tychus: These streets are war, kid. They're where the wost suffering takes place. Where hope goes to die.
     Tychus: But I'm trying to bring some back to carve out a place that's not so bad.
     Tychus: And you've made a difference for a lot of people. Thank you.
     Carrier: Sure thing.
@@ -72,6 +72,13 @@ title: SifDelivery
 
 title: SifChatter
 ---
+<<if $sif_level == 4 >>
+    <<set $sif_gone = true >>
+    You go looking for Tychus and Sif but they don't seem to be around right now. Hopefully they got out before any more losses to the camp.
+    If you're lucky you'll catch them after the churn.
+    <<jump Arrival>>
+<<endif>>
+
 << loadLeft "Bar/Characters/SifAlt" >>
 <<if completedRequests("sif") == 0>>
     << if pendingRequest("sif") >>
@@ -130,12 +137,12 @@ Carrier: Hey Tychus. How're the wards doing; need anything?
     <<elseif completedRequests("sif") == 2>>
         Tychus: Just who I was hoping to see. Damned right we do.
         Carrier: Nova, lay it out.
-        Tychus: Okay, so a bit larger an order than usual. Tension's building and we want to get a bit in reserves.
+        Tychus: Okay, so a bit larger an order than usual. Tension's building and we want to build up some reserves.
         Tychus: Thinking something like four cucumber, four eggplant, two tomatoes and three cod?
         Carrier: Works for me. Against my better judgement but usual rate applies. Whatever you're watching hasn't impacted my supply lines yet.
         Tychus: That's a relief, keep your eyes open. Think you can swing that in six days?
         Carrier: No milkwalk but I'll make it work.
-        << addRequest sif "4:cucumber;4:eggplant;2:tomatoes;3:cod" 6>>
+        << addRequest sif "4:cucumber;4:eggplant;2:tom;3:cod" 6>>
         << jump Arrival >>
     <<else>>
         << if completedRequests("sif") == 3>>
@@ -258,7 +265,7 @@ title: SifChill
     Sif: *bark*
     Tychus: Son.
     Carrier: Anything you need, anything to report?
-    Tychus: We're about to relocate. Guardian and badge raids getting more common so it's either join the revolution and fight or be scare.
+    Tychus: We're about to relocate. Guardian and badge raids getting more common so it's either join the revolution and fight or be scarce.
     Carrier: And asking a bunch of folks looking to heal to take up arms again is a big ask?
     Tychus: More or less. They might do it but it'd kill 'em, even if they lived.
     Tychus: You remember I said a churn is coming? Pretty much here and we're not going to be in the middle ... this time.
@@ -268,9 +275,10 @@ title: SifChill
 
     << set $sif_level = 4 >>
     << jump Arrival >>
-<< else >>
-    You go looking for Tychus and Sif but they don't seem to be around right now. Hopefully they got out before any more losses to the camp.
-    <<jump Arrival>>
+<<else >>
+    Carrier: Camp holding up?
+    Tychus: Well enough.
+    <<jump SifChatter>>
 << endif >>
 
 << jump SifChill >>
