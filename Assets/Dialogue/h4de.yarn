@@ -3,7 +3,7 @@ title: H4DEs
 <<reset>>
 <<loadBG "Bar/BarBGOfficial">>
 
-<<volumeBG .1>>
+<< volumeBG .1 >>
 <<crossfadeBGTo "Dead Rain" 2>>
 
 <<if !$hasStartedBefore >>
@@ -106,8 +106,7 @@ title: Arrival
     -> Make deliveries.
         <<jump MakeDelivery>>
     -> Head to the grow house.
-        Carrier: I'm out.
-        Eddy: Nova.
+        <<jump ToTycoon>>
 <<else>>
     What next?
     -> Chat with your clients. <<if !$has_triggered_end >>
@@ -122,7 +121,6 @@ title: Arrival
     -> Chat with H3x
         <<jump H3xChatter>>
     -> Head to the grow house.
-        Carrier: I'm out.
         <<jump ToTycoon>>
 <<endif>>
 ===

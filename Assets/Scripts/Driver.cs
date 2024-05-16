@@ -175,7 +175,7 @@ public class Driver : MonoBehaviour {
     }
 
     public void SwitchScenes(JamScenes toScene) {
-        // Debug.Log("SwitchScenes -> " + toScene);
+        Debug.Log($"SwitchScenes {curScene} -> {toScene} ");
         if (curScene == toScene) {
             return;
         }

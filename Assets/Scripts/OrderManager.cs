@@ -11,7 +11,7 @@ public class OrderManager : MonoBehaviour {
     public TMP_Text orderDetailsText;
     public RectTransform orderDetailsBG;
 
-    private Vector2 originalPos = new Vector2(-100, 0);
+    private Vector2 originalPos = new Vector2(-236, -51);
 
 
     RectTransform rect;
@@ -19,7 +19,7 @@ public class OrderManager : MonoBehaviour {
     private void Awake() {
         clientOrders = new List<Request>();
         rect = GetComponent<RectTransform>();
-        originalPos = orderDetailsBG.position;
+        // originalPos = orderDetailsBG.position;
     }
 
     public void Tick() {
@@ -53,14 +53,18 @@ public class OrderManager : MonoBehaviour {
     }
 
     public void UpdateSizing(int idx, int lineCount) {
-        var newHt = (lineCount - 1) * 20;
+        Debug.Log($"UpdateSizing({idx}, {lineCount})");
+        var newHt = 10 + (lineCount * 20);
         var sd = orderDetailsBG.sizeDelta;
         sd.y = newHt;
         orderDetailsBG.sizeDelta = sd;
 
         var newPos = originalPos;
-        orderDetailsBG.position = newPos;
-        orderDetailsBG.Translate(0, idx * -23, 0);
+        newPos.y -= (idx * 23);
+        Debug.Log($"Previous: {orderDetailsBG.anchoredPosition}");
+        Debug.Log($"newPos: {newPos}");
+        orderDetailsBG.anchoredPosition = newPos;
+        // orderDetailsBG.Translate(0, idx * -23, 0);
     }
 
     public void EntryMouseEnter(OrderEntry entry) {

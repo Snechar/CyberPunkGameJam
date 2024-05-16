@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Fade : MonoBehaviour, IIntroElement {
+public class Fade : MonoBehaviour {
     public bool FadeIn;
     public Image target;
     public float time;

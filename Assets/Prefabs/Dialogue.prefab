@@ -190,6 +190,8 @@ MonoBehaviour:
   DelayPostShowMS: 1500
   WaitForContinue: 0
   ClearPrevious: 0
+  bgImg: {fileID: 6178504568985321981}
+  text: {fileID: 2998284049676610739}
 --- !u!222 &8847341178939550753
 CanvasRenderer:
   m_ObjectHideFlags: 0

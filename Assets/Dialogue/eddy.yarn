@@ -41,12 +41,12 @@ title: EddyChatter
 title: EddyChatterMenu
 ---
 Eddy: What can I do for you Carrier?
--> How'd you name the H4DEs? << if !$asked_h4de >>
+-> How'd you name The H4-DEs? << if !$asked_h4de >>
     He laughs -- it's a warm and welcoming sound. He's the soul of this place and probably why it's universally accepted neutral territory.
     Eddy: This place used to be a chess club. I played here as a kid and it was old then.
     Eddy: It mostly burned down during the First Corp War but I had come into some money and bought it from the family.
-    Eddy: Well. H-4, also called Desprez, in chess is about the worst opening I figured H4DE was a good name for the bar rising from its ashes.
-    Eddy: Over time that became H4-DEs.
+    Eddy: Well. H-4, also called Desprez, in chess is about the worst opening I figured H4-DE in its honor was a good name for the bar rising from a bad start.
+    Eddy: Over time that became "The H4DEs".
     << set $asked_h4de = true >>
 -> Where's H3X from? << if !$asked_h3x >>
     Eddy: Sweet thing, ain't she? Never seen an android who wants to be human so badly.
@@ -99,13 +99,22 @@ Eddy: What can I do for you Carrier?
     Eddy: Thought so. So get your head out of your ass and accept that things take time. My pops always said "the wheel of progress turn mighty slow" but they do turn.
     Carrier: ...thanks Eddy.
     Eddy: Sure thing, now get back to work. You're close, I can feel it.
-<<jmup EddyChatter>>
+-> I should get back at it
+    Eddy: You're doing good work, keep it up.
+    <<jump Arrival>>
 
-<< jump Arrival >>
+<<jump EddyChatter>>
+
 ===
 
 title: EddyMaybeClientBark
 ---
+
+<< if lastClient() == "eddy" and $eddy_eddy_bark>>
+    <<set $eddy_eddy_bark = true>>
+    Eddy: Drink's still waiting. Swing back by when you've got some down time.
+    << jump EddyChatterMenu >>
+<< endif >>
 
 Eddy: Welcome back in! How'd the job go?
 

@@ -188,6 +188,6 @@ public class BarManager : MonoBehaviour {
                 break;
         }
         driver.SwitchScenes(nextScene);
-        dlgRunner.Stop();
+        // dlgRunner.Stop();
     }
 }
