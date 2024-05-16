@@ -17,7 +17,12 @@ public class OrderEntry : MonoBehaviour {
     public void UpdateProgress() {
         var endCycle = req.neededByCycle;
         orderLabel.text = req.client;
-
+        if (orderLabel.text.Equals("sif")) {
+            orderLabel.text = "Tychus";
+        }
+        if (orderLabel.text.Equals("rose")) {
+            orderLabel.text = "Caitlyn";
+        }
         var cyclesLeft = endCycle - Driver.GetInstance().CurrentCycleNumber();
 
         if (cyclesLeft < 0) {

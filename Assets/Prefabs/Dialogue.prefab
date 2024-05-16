@@ -65,7 +65,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 'line 1
+
+    line 2'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 281fadf3ced6ab8498a86fb53f46d28b, type: 2}
   m_sharedMaterial: {fileID: -1790880178654652062, guid: 281fadf3ced6ab8498a86fb53f46d28b, type: 2}
@@ -168,11 +170,11 @@ RectTransform:
   - {fileID: 6189698299976952551}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -235, y: 230}
-  m_SizeDelta: {x: 549.2734, y: 90.0841}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 550, y: 90}
+  m_Pivot: {x: 0, y: 1}
 --- !u!114 &6471797936447149002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,6 +189,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DelayPostShowMS: 1500
   WaitForContinue: 0
+  ClearPrevious: 0
+  bgImg: {fileID: 6178504568985321981}
+  text: {fileID: 2998284049676610739}
 --- !u!222 &8847341178939550753
 CanvasRenderer:
   m_ObjectHideFlags: 0

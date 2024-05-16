@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour {
-    private AudioSource audioSource;
+    public AudioSource audioSource { get; private set; }
 
     public AudioClip[] clips;
 
@@ -85,6 +85,12 @@ public class AudioManager : MonoBehaviour {
                 return JamTrack.THE_COLOR_PURPLE;
             case "neon harvest":
                 return JamTrack.NEON_HARVEST;
+            case "night carrier":
+                return JamTrack.NIGHT_CARRIER;
+            case "the stars are brighter with you":
+                return JamTrack.STARS_ARE_BRIGHTER;
+            case "ember rain":
+                return JamTrack.EMBER_RAIN;
         }
         Debug.Log($"Failed to find track named {str}");
         return null;
@@ -128,4 +134,7 @@ public enum JamTrack {
     REMEMBER_YESTERDAY = 1,
     THE_COLOR_PURPLE = 2,
     NEON_HARVEST = 3,
+    NIGHT_CARRIER = 4,
+    STARS_ARE_BRIGHTER = 5,
+    EMBER_RAIN = 6,
 }

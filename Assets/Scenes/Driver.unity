@@ -158,8 +158,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -79.10217, y: -12.700012}
-  m_SizeDelta: {x: 149.8558, y: 33.903}
+  m_AnchoredPosition: {x: -79, y: -13}
+  m_SizeDelta: {x: 150, y: 34}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &47324386
 MonoBehaviour:
@@ -308,10 +308,10 @@ RectTransform:
   - {fileID: 1863801753}
   m_Father: {fileID: 2079387961}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.84200007, y: 0.86}
-  m_AnchorMax: {x: 0.84200007, y: 0.95416516}
-  m_AnchoredPosition: {x: -79, y: 0}
-  m_SizeDelta: {x: 150, y: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -236, y: -51}
+  m_SizeDelta: {x: 151, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &50798229
 MonoBehaviour:
@@ -519,8 +519,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.001036644, y: -0.000092983}
-  m_SizeDelta: {x: 186.56, y: 46.212}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 187, y: 46.212}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &232897765
 MonoBehaviour:
@@ -654,6 +654,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5bf3075e9ecb4334a93b30b52205fa23, type: 3}
   - {fileID: 8300000, guid: 0ccaf175dea68c846a4a297723661213, type: 3}
   - {fileID: 8300000, guid: 2486e3087c24c5042b8832f0166835bf, type: 3}
+  - {fileID: 8300000, guid: a40b096f8501afc45a8d513003a40195, type: 3}
+  - {fileID: 8300000, guid: d1626391f6c066646be006c8dc784492, type: 3}
 --- !u!82 &236787183
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3006,7 +3008,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -3578,7 +3580,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 1843292415}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1

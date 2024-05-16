@@ -53,8 +53,8 @@ public class Driver : MonoBehaviour {
             startVNButton.GetComponent<Button>();
         }
 
-        // SwitchScenes(JamScenes.INTRO);
-        SwitchScenes(JamScenes.BAR);
+        SwitchScenes(JamScenes.INTRO);
+        // SwitchScenes(JamScenes.BAR);
     }
 
     void Update() {
@@ -175,7 +175,7 @@ public class Driver : MonoBehaviour {
     }
 
     public void SwitchScenes(JamScenes toScene) {
-        // Debug.Log("SwitchScenes -> " + toScene);
+        Debug.Log($"SwitchScenes {curScene} -> {toScene} ");
         if (curScene == toScene) {
             return;
         }

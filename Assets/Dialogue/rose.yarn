@@ -72,10 +72,11 @@ title: RoseChatter
 
     Caitlyn: Either you want something from me, or you believe you have a chance.
     Caitlyn: Which is it - and quick!
-    -> I heard you were looking for a certain type of rare goods.
-    -> Chance? I'm not playing cards. I heard you wanted something.
+    -> You were looking for me actually.
+    -> Chance? I'm not playing cards.
+    Carrier: I heard you wanted something.
     Caitlyn: I see.
-    Caitlyn: I see. You must be the Carrier. Eddy spoke of you.
+    Caitlyn: You must be the Carrier. Eddy spoke of you.
     Carrier: Did he?
     Caitlyn: Eddy has a bit of a reputation in my circle. I came seeking food, not synthetic, and he referred me to you.
     Carrier: He must trust you a lot to give that up...

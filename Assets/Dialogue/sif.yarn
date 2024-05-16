@@ -9,7 +9,7 @@ title: SifDelivery
 <<if completedRequests("sif") == 1>>
     // completing first job
     Tychus: Ah! Thank you. I got something for you.
-    He gently pulls a bit of heart shaped metal from somewhere, it looks like a pin, and places it gently in your hand. Sif barks approval.
+    He gently pulls a bit of heart shaped metal from somewhere, it looks like a pin, and places it in your hand. Sif barks approval.
     Tychus: You've done a service for us and I'm certain you've made plenty of sacrifices as well.
     -> Appreciate it, what is it?
         Tychus: That's a Purple Heart. Started in the US and carried through into the Free States. Some merc groups adopted the practice in lieu of risk comp.
@@ -19,7 +19,7 @@ title: SifDelivery
     -> A purple heart? I couldn't!
         Tychus: Eh, I have my "reminder" of my service right here!
         He motions toward his cybernetic arm.
-        Tychus: Besides, while it don't look like you were hurt on this run but I recognize when folks made sacrifices. You'll wear it well.
+        Tychus: Besides, while it don't look like you were hurt on this run I recognize when folks made sacrifices. You'll wear it well.
     -> Where's that pin been? No thanks.
         Carrier: Keep it, I only take eddies.
         Tychus: Oh... well I didn't take you for the wise ass type. Fine.
@@ -169,7 +169,7 @@ title: SifChill
         Tychus: No, no. Don't want to talk about that. Old ghosts and all.
     -> Pet Sif.
         << set $sif_branch_13 = true >>
-        You reach your hand out gently toward Sif. He smells it, assesse you cautiously, then decides meet muster and forces his head under your hand.
+        You reach your hand out gently toward Sif. He smells it, assesses you cautiously, then decides meet muster and forces his head under your hand.
         Tychus: Looks like you passed. I never was sure what the test was but ol' Sif is rarely wrong.
         Carrier: Where'd you get her?
         Tychus: I was doing a recovery operation in the Western Droughtlands. There was an explosion that had leveled an apartment building.
