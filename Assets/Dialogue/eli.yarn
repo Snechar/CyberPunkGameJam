@@ -93,7 +93,8 @@ Carrier: Lookin' for work. Any chance the noble cause has need of my services?
         // TODO: add wait before event
         Eli: We have an upcoming event and anticipate the need for substantial reserves afterward.
         Eli: How's ten units of cod and five of tilapia? Deadline'd be...twenty-three days.
-        -> Quite a demanding order there, choom - gonna have to pass for now.
+        -> Quite a demanding order there, choom.
+            Carrier: Gonna have to pass for now.
             Eli: Understandable, friend. I suppose we can put this on hold for now, though if you happen to change your mind do let me know!
         -> Okay, I'll see what I can do.
             Eli: Nova! Thanks, choom!
@@ -177,7 +178,6 @@ title: EliChill
         -> Sounds like you didn't work hard enough.
             Eli: Corpo bootlicker! You try working two full jobs and still losing ground to exorbitant rates!
             Eli: The system is designed to keep us poor and too tired to fight. Don't be blinded by any success: it is temporary.
-        
         Eli: I was on the streets for a year and a half. Still would be if not for Mohr.
         Eli: He gave me purpose, a reason to get through the day. Not everyone has that.
     -> You've mentioned a revolution...
@@ -223,7 +223,7 @@ title: EliChill
     -> So, tell me about Mohr - he sounds pretty important to you.
         << set $eli_branch_31 = true >>
         Eli: He is our leader. He has been head of the vanguard and leading the charge toward a glorious future. He saved me from a life of purposeless destitution and I will be forever grateful for that.
-        As he spoke Eli's demeanor took on a feel of deference and deep respect. Whoever this Mohr character is, you hope he's working in good faith...and with great guards. 
+        As he spoke Eli's demeanor took on a feel of deference and deep respect. Whoever this Mohr character is, you hope he's working in good faith...and with great guards.
         Unfortunate but he doesn't sound like the kind of man the corpos are going to let stick around.
     -> So, about Temples & Templars...
         << set $eli_branch_32 = true >>

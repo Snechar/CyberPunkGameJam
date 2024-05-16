@@ -72,7 +72,7 @@ Eddy: What can I do for you Carrier?
         Eddy: Ah, that's a story! So we were watching a BD and things got weird...
     << endif >>
     Carrier: That's not true .. is it?
-    Eddy: It is if you let it be! No go find some more shit to sell or clients to help.
+    Eddy: It is if you let it be! Now go find some more shit to sell or clients to help.
 -> Does it matter? << if totalCompleted() > 5 >>
     Eddy: Does what matter Carrier?
     Carrier: All .. this? The food, the deliveries, what I'm doing.
@@ -96,85 +96,92 @@ Eddy: What can I do for you Carrier?
     Eddy: Nah, cut it -- I don't need to know more. Probably for the better.
     Eddy: Point is: you got your reasons as well. And from behind this bar, at least, it looks like you're making progress.
     Carrier: ...
-    Eddy: Thought so. So get your head out of your ass and accept that things take time. My pops always said "the wheel of progress turn mighty slow" but they do turn.
+    Eddy: Thought so. So get your head out of your ass and accept that things take time. My pops always said "the wheels of progress turn mighty slow" but they do turn.
     Carrier: ...thanks Eddy.
     Eddy: Sure thing, now get back to work. You're close, I can feel it.
 -> I should get back at it
     Eddy: You're doing good work, keep it up.
     <<jump Arrival>>
 
-<<jump EddyChatter>>
+<<jump EddyChatterMenu>>
 
 ===
 
 title: EddyMaybeClientBark
 ---
 
-<< if lastClient() == "eddy" and $eddy_eddy_bark>>
+<< if $eddy_rose_bark and $eddy_eli_bark and $eddy_sif_bark >>
+    << set $eddy_all_barks = true >>
+    <<jump EddyChatterMenu >>
+<< endif >>
+
+<< if lastClient() == "eddy" and !$eddy_eddy_bark>>
     <<set $eddy_eddy_bark = true>>
     Eddy: Drink's still waiting. Swing back by when you've got some down time.
     << jump EddyChatterMenu >>
 << endif >>
 
 Eddy: Welcome back in! How'd the job go?
+Carrier: Well enough. I was wondering about my client though.
+Eddy: Dangerous territory choom. But go head, I'll tell you what I can.
 
 << set $had_bark = false >>
 
 << if totalCompleted() > 3 >>
-<< if lastClient() == "rose" and !$eddy_rose_bark >>
-    << set $had_bark = true >>
-    << set $eddy_rose_bark = true >>
-    Carrier: Well enough, client was Caitlyn.
-    He both perks up and looks nervous at this.
-    Eddy: Ah. I'm glad she, uh, managed to connect with you.
-    Carrier: Been meaning to ask, how'd you decide to send her my way?
-    Eddy: She can be very convincing when the need arrises.
-    -> Huh.
-    -> I'll bet.
-    Carrier: So I'm fairly certain she's a cleaner. And I'm pretty sure she knows I know.
-    Carrier: So why am I still alive?
-    He seems caught off guard at the question. After a moment he relaxes and then chortles.
-    Eddy: Look Carrier, do you throw everybody you meet over your shoulder and take them to a client? No.
-    Eddy: Just because she .. may be a cleaner doesn't mean everybody who meets her disappears.
-<< endif >>
+    << if completedRequests("rose") >= 2 and !$eddy_rose_bark >>
+        << set $had_bark = true >>
+        << set $eddy_rose_bark = true >>
+        Carrier: Okay, so about Caitlyn...
+        He both perks up and looks nervous at this.
+        Eddy: Ah. I'm glad she, uh, managed to connect with you.
+        Carrier: Been meaning to ask, how'd you decide to send her my way?
+        Eddy: She can be very convincing when the need arrises.
+        -> Huh.
+        -> I'll bet.
+        Carrier: So I'm fairly certain she's a cleaner. And I'm pretty sure she knows I know.
+        Carrier: So why am I still alive?
+        He seems caught off guard at the question. After a moment he relaxes and then chortles.
+        Eddy: Look Carrier, do you throw everybody you meet over your shoulder and take them to a client? No.
+        Eddy: Just because she .. may be a cleaner doesn't mean everybody who meets her disappears.
+        <<jump EddyChatterMenu>>
+    << endif >>
 
-<< if lastClient() == "eli" and !$eddy_eli_bark and $eli_branch_21 >>
-    << set $eddy_eli_bark = true >>
-    << set $had_bark = true >>
-    Carrier: Was good. For that Eli kid. Idealistic isn't he?
-    Eddy: To say the least. He had a hard life--even by Delta City standards--so it took something special to pull him back from the edge.
-    Eddy: You heard his story?
-    -> More or less.
-        Eddy: Yea. It's not a good one.
-    -> Not really.
-        Eddy: Ah. Well it's his to tell so I won't go too deep. More or less he had a pretty dramatic fall from a comfortable life in the beavs.
-        Eddy: Bunch of debt, took out some questionable loans to cover things, family offed by repayment squad. Unique mostly in the rapidity of the changes.
-        Eddy: At the end of it all he was hiding out in the slums and wasting away in BDs.
-    Carrier: So that Mohr character - he legit?
-    Eddy: Bit of a mystery. I keep my ear to the gorund and all I got is that he exists.
-    Eddy: Nothing suggests he's running a game or has turned on his people but demagogues often have demons.
-    Carrier: Time will tell, then?
-    Eddy: Sure will. For Eli's sake I hope it works out.
-<< endif >>
-<< if lastClient() == "sif" and !$eddy_sif_bark >>
-    << set $eddy_sif_bark = true >>
-    << set $had_bark = true >>
-    Carrier: No complaints. Tychus is ... intense.
-    Eddy: Most folks are these days.
-    Carrier: ...
-    Carrier: ... Nothing to add? No color commentary on him?
-    Eddy: Well he's a pretty open book. Just chat him up enough and if he likes you... or if Sif does I guess it'll come out.
-    Eddy: What I will say is that he's a good man. Few have done the things he has and come out the other side not broken by the process.
-    Eddy: And Tychus, he's not only not borken he's trying to help heal. Though I wouldn't be surprised if those are related.
-<< endif >>
+    << if completedRequests("eli") >= 2 and !$eddy_eli_bark and $eli_branch_21 >>
+        << set $eddy_eli_bark = true >>
+        << set $had_bark = true >>
+        Carrier: That Eli kid. Idealistic isn't he?
+        Eddy: To say the least. He had a hard life--even by Delta City standards--so it took something special to pull him back from the edge.
+        Eddy: You heard his story?
+        -> More or less.
+            Eddy: Yea. It's not a good one.
+        -> Not really.
+            Eddy: Ah. Well it's his to tell so I won't go too deep. More or less he had a pretty dramatic fall from a comfortable life in the beavs.
+            Eddy: Bunch of debt, took out some questionable loans to cover things, family offed by repayment squad. Unique mostly in the rapidity of the changes.
+            Eddy: At the end of it all he was hiding out in the slums and wasting away in BDs.
+        Carrier: So that Mohr character - he legit?
+        Eddy: Bit of a mystery. I keep my ear to the gorund and all I got is that he exists.
+        Eddy: Nothing suggests he's running a game or has turned on his people but demagogues often have demons.
+        Carrier: Time will tell, then?
+        Eddy: Sure will. For Eli's sake I hope it works out.
+        <<jump EddyChatterMenu>>
+    << endif >>
+
+    << if completedRequests("sif") >= 2 and !$eddy_sif_bark >>
+        << set $eddy_sif_bark = true >>
+        << set $had_bark = true >>
+        Carrier: Tychus is ... intense. What's up with that?
+        Eddy: Most folks are these days.
+        Carrier: ...
+        Carrier: ... Nothing to add? No color commentary on him?
+        Eddy: Well he's a pretty open book. Just chat him up enough and if he likes you... or if Sif does I guess it'll come out.
+        Eddy: What I will say is that he's a good man. Few have done the things he has and come out the other side not broken by the process.
+        Eddy: And Tychus, he's not only not borken he's trying to help heal. Though I wouldn't be surprised if those are related.
+        <<jump EddyChatterMenu>>
+    << endif >>
 << endif >>
 
 << if !$had_bark >>
 Carrier: Same old same old. Client happy, got paid, walked away without new scars. That's all that matters in the end.
-<< endif >>
-
-<< if $eddy_rose_bark and $eddy_eli_bark and $eddy_sif_bark >>
-    << set $eddy_all_barks = true >>
 << endif >>
 
 << jump EddyChatterMenu >>

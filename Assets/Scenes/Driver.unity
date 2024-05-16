@@ -310,8 +310,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -236, y: -51}
-  m_SizeDelta: {x: 151, y: 50}
+  m_AnchoredPosition: {x: -243.07965, y: -51}
+  m_SizeDelta: {x: 165.1593, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &50798229
 MonoBehaviour:
@@ -3429,7 +3429,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: '10 x tomato
 
-    4 x tilapia'
+    20 x cucumber'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 281fadf3ced6ab8498a86fb53f46d28b, type: 2}
   m_sharedMaterial: {fileID: -1790880178654652062, guid: 281fadf3ced6ab8498a86fb53f46d28b, type: 2}

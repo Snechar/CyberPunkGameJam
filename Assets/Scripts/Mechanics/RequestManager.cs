@@ -125,6 +125,7 @@ public class RequestManager : MonoBehaviour {
         }
         // can't get work immediately after filling a request
         return !client.Equals(lastFilled);
+        // return true;
     }
 
     public string GetLastClient() {
